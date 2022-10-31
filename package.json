@@ -1,7 +1,7 @@
 {
   "name": "hasher-apis",
   "version": "0.0.2",
-  "description": "APIs to access and search remote git repositories",
+  "description": "Simple and very flexible implementation API functions to hash content or get SHA hashes of text",
   "main": "index.js",
   "exports": {
     "require": "./index.js",
@@ -11,7 +11,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec --recursive"
   },
   "repository": {
     "type": "git",
