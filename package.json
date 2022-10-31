@@ -1,0 +1,33 @@
+{
+  "name": "hasher-apis",
+  "version": "0.0.2",
+  "description": "APIs to access and search remote git repositories",
+  "main": "index.js",
+  "exports": {
+    "require": "./index.js",
+    "import": "./index.mjs"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ganeshkbhat/apis-hasher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ganeshkbhat/apis-hasher/issues"
+  },
+  "homepage": "https://github.com/ganeshkbhat/apis-hashers#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "sinon": "^14.0.0",
+    "unimported": "^1.22.0"
+  },
+  "author": "Ganesh B",
+  "license": "MIT"
+}
