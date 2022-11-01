@@ -21,10 +21,18 @@
     "url": "https://github.com/ganeshkbhat/apis-hasher/issues"
   },
   "homepage": "https://github.com/ganeshkbhat/apis-hashers#readme",
-  "dependencies": {},
   "devDependencies": {
+    "@types/node": "^18.11.3",
     "chai": "^4.3.6",
+    "fssys": "^1.0.1",
+    "get-imported": "^0.0.5",
+    "hasher-apis": "^0.0.1",
+    "hpp": "^0.2.3",
     "mocha": "^10.0.0",
+    "nsp": "^3.2.1",
+    "nsp-api": "^1.0.3",
+    "root-dirs": "^0.0.2",
+    "safe-regex": "^2.1.1",
     "sinon": "^14.0.0",
     "unimported": "^1.22.0"
   },
