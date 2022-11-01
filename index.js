@@ -15,7 +15,6 @@
 
 'use strict';
 
-
 /**
  *
  *
@@ -23,10 +22,10 @@
  * @param {*} digest
  * @return {*} 
  */
- function _fileContentSHAHash(algorithm = "sha256", data, digest, options = { logger: console.log }) {
+ function _createSHAHash(algorithm = "sha256", data, digest, options = { logger: console.log }) {
     const crypto = require('crypto');
     var hash = crypto.createHash(algorithm).update(JSON.stringify(data)).digest(digest);
-    options.logger("[require-urls]: filelock.js._fileContentSHAHash: Hash created is ", hash);
+    options.logger("[require-urls]: filelock.js._createSHAHash: Hash created is ", hash);
     return hash;
 }
 
@@ -75,6 +74,13 @@ function _fileContentHash(data, algorithm = "aes-256-ctr", keyAlgorithm = "sha25
     };
 }
 
+/**
+ *
+ *
+ * @param {*} remotePath
+ * @param {*} options
+ */
+function _verifySHAHash(remotePath, options) { }
 
 /**
  *
@@ -82,12 +88,12 @@ function _fileContentHash(data, algorithm = "aes-256-ctr", keyAlgorithm = "sha25
  * @param {*} remotePath
  * @param {*} options
  */
-function _verifyFilelockFile(remotePath, options) { }
+function _verifyFileContentHash(remotePath, options) { }
 
-/**
- *
- *
- * @param {*} remotePath
- * @param {*} options
- */
-function _verifyFilelock(remotePath, options) { }
+
+module.exports._createSHAHash = _createSHAHash;
+module.exports._fileContentHash = _fileContentHash;
+module.exports._fileContentDeHash = _fileContentDeHash;
+module.exports._verifySHAHash = _verifySHAHash;
+module.exports._verifyFileContentHash = _verifyFileContentHash;
+module.exports.default = _createSHAHash;
