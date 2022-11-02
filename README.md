@@ -1,5 +1,9 @@
 # hasher-apis
 
+
+#### INDEVELOPMENT - DO NOT INSTALL
+
+
 # APIs hasher
 
 ###
