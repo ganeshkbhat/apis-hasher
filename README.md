@@ -39,27 +39,33 @@ hasher.createSHA(algorithm = "sha256", data="texter data", digest="base64", opti
 ```
 
 
-`_createSHAHash` : Usage : `_createSHAHash(algorithm, data, digest, options)`
+<!-- `_createSHAHash` : Usage : `_createSHAHash(algorithm, data, digest, options)` -->
 
 `createSHA` : Usage : `createSHA(algorithm, data, digest, options)`
 
 
-`_fileContentHash` : Usage : `_fileContentHash(data, algorithm, keyAlgorithm, salt, digest, options)`
+<!-- `_fileContentHash` : Usage : `_fileContentHash(data, algorithm, keyAlgorithm, salt, digest, options)` -->
 
 `hashContent` : Usage : `hashContent(data, algorithm, keyAlgorithm, salt, digest, options)`
 
 
-`_fileContentDeHash` : Usage: `_fileContentDeHash(hashdata, algorithm, keyAlgorithm , salt, digest, options)`
+<!-- `_fileContentDeHash` : Usage: `_fileContentDeHash(hashdata, algorithm, keyAlgorithm , salt, digest, options)` -->
 
 `dehashContent` : Usage: `dehashContent(hashdata, algorithm, keyAlgorithm , salt, digest, options)`
 
 
-`_verifySHAHash` : Usage: `_verifySHAHash(algorithm, data, digest, hashToCheck, options)`
+<!-- `_verifySHAHash` : Usage: `_verifySHAHash(algorithm, data, digest, hashToCheck, options)` -->
 
 `verifySHA` : Usage: `verifySHA(algorithm, data, digest, hashToCheck, options)`
 
 
-<!-- `_verifyFileContentHash` : Usage: `_verifyFileContentHash(remotePath, options)` -->
+`hashFile` : Usage : `hashFile(remotePath, algorithm, keyAlgorithm, salt, digest, options)`
+
+
+`dehashFile` : Usage: `dehashFile(remotePath, algorithm, keyAlgorithm, salt, digest, options)`
+
+
+`verifyFileHash` : Usage: `verifyFileHash(remotePath, algorithm, digest, hashToCheck, options)`
 
 
 
