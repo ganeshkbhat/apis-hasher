@@ -6,7 +6,7 @@
  * Install: npm i hasher-apis --save
  * Github: https://github.com/ganeshkbhat/apis-hasher
  * npmjs Link: https://www.npmjs.com/package/hasher-apis
- * File: demos/hasher._createSHAHash.js
+ * File: demos/hasher.hasher._fileContentHashCipherError.js
  * File Description: 
  * 
 */
@@ -15,10 +15,9 @@
 
 'use strict';
 
-
-const path = require("path");
+const crypto = require("crypto");
 const _filelock = require("../index.js");
+const salt = "foobar";
 
-let fileHash = _filelock._createSHAHash("sha256", "filelock.json", "base64");
-
-console.log("[hasher-apis] demos/hasher-apis._createSHAHash.js: filelock - ", fileHash);
+let reshash = _filelock._fileContentHash("My personal data to hash", "aes-256-ctrs", "sha256", salt, "base64", { logger: console.log });
+console.log("[hasher-apis] demos/hasher._fileContentHash.js: filelock - ", reshash);

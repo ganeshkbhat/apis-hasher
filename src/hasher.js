@@ -18,12 +18,16 @@
 /**
  *
  *
+ * @param {string} [algorithm="sha256"] Algorythm Options: sha1, sha256, sha512
  * @param {*} data
  * @param {*} digest
+ * @param {*} [options={ logger: console.log }]
  * @return {*} 
  */
- function _createSHAHash(algorithm = "sha256", data, digest, options = { logger: console.log }) {
+function _createSHAHash(algorithm = "sha256", data, digest, options = { logger: console.log }) {
     const crypto = require('crypto');
+    const hashesList = crypto.getHashes();
+    if (!hashesList.includes(algorithm)) throw new Error("[_createSHAHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList))
     var hash = crypto.createHash(algorithm).update(JSON.stringify(data)).digest(digest);
     options.logger("[require-urls]: filelock.js._createSHAHash: Hash created is ", hash);
     return hash;
@@ -41,6 +45,12 @@
  */
 function _fileContentDeHash(hashdata, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
+    
+    const hashesList = crypto.getHashes();
+    const ciphersList = crypto.getCiphers();
+    if (!hashesList.includes(keyAlgorithm)) throw new Error("[_fileContentDeHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList));
+    if (!ciphersList.includes(algorithm)) throw new Error("[_fileContentDeHash] Ciphers Algorithm not in list of included ciphers " + JSON.stringify(ciphersList));
+    
     const key = crypto.createHash(keyAlgorithm).update(JSON.stringify(salt)).digest(digest);
     const key_in_bytes = Buffer.from(key, digest);
 
@@ -61,6 +71,12 @@ function _fileContentDeHash(hashdata, algorithm = "aes-256-ctr", keyAlgorithm = 
  */
 function _fileContentHash(data, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
+
+    const hashesList = crypto.getHashes();
+    const ciphersList = crypto.getCiphers();
+    if (!hashesList.includes(keyAlgorithm)) throw new Error("[_fileContentHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList));
+    if (!ciphersList.includes(algorithm)) throw new Error("[_fileContentHash] Ciphers Algorithm not in list of included ciphers " + JSON.stringify(ciphersList));
+
     const iv = crypto.randomBytes(16);
     const key = crypto.createHash(keyAlgorithm).update(JSON.stringify(salt)).digest(digest);
     const key_in_bytes = Buffer.from(key, digest);
@@ -89,6 +105,13 @@ function _verifySHAHash(remotePath, options) { }
  * @param {*} options
  */
 function _verifyFileContentHash(remotePath, options) { }
+
+
+module.exports.createSHA = _createSHAHash;
+module.exports.verifySHA = _verifySHAHash;
+module.exports.hashFile = _fileContentHash;
+module.exports.dehashFile = _fileContentDeHash;
+module.exports.verifyFileHash = _verifyFileContentHash;
 
 
 module.exports._createSHAHash = _createSHAHash;

@@ -17,9 +17,9 @@
 
 'use strict';
 
-import { default as hasher, _createSHAHash, _fileContentHash, _fileContentDeHash, _verifySHAHash, _verifyFileContentHash } from './index.js';
+import { default as hasher, createSHA, verifySHA, hashFile, dehashFile, verifyFileHash, _createSHAHash, _fileContentHash, _fileContentDeHash, _verifySHAHash, _verifyFileContentHash } from './index.js';
 // process.env.NODE_OPTIONS = '--experimental-modules --loader ./custom-loader.mjs';
 
 export default hasher;
 
-export { _createSHAHash, _fileContentHash, _fileContentDeHash, _verifySHAHash, _verifyFileContentHash };
+export { createSHA, verifySHA, hashFile, dehashFile, verifyFileHash, _createSHAHash, _fileContentHash, _fileContentDeHash, _verifySHAHash, _verifyFileContentHash };
