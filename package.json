@@ -1,6 +1,6 @@
 {
   "name": "hasher-apis",
-  "version": "0.0.12",
+  "version": "0.0.11",
   "description": "Simple and very flexible implementation API functions to hash content or get SHA hashes of text",
   "main": "index.js",
   "exports": {
