@@ -111,17 +111,17 @@ function _verifySHAHash(algorithm = "sha256", data, digest, hashToCheck, options
 /**
  *
  *
- * @param {*} remotePath
+ * @param {*} data
  * @param {string} [algorithm="sha256"]
  * @param {*} digest
  * @param {*} hashToCheck
  * @param {*} [options={ logger: console.log }]
  * @return {*} 
  */
-function _verifyFileContentHash(remotePath, algorithm = "sha256", digest, hashToCheck, options = { logger: console.log }) {
+function _verifyFileContentHash(data, algorithm = "sha256", digest, hashToCheck, options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
-    let data = fs.readFileSync(remotePath, options.encoding ? options.encoding : "utf-8").toString();
-    return _verifySHAHash(algorithm, data, digest, hashToCheck, options);
+    let hashdata = _fileContentHash(data, algorithm, keyAlgorithm, salt, digest, options);
+    return _verifySHAHash(algorithm, _createSHAHash(hashdata), digest, _createSHAHash(hashToCheck), options);
 }
 
 /**
@@ -135,10 +135,10 @@ function _verifyFileContentHash(remotePath, algorithm = "sha256", digest, hashTo
  * @param {*} [options={ logger: console.log }]
  * @return {*} 
  */
-function _fileHash(remotePath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
-    let data = fs.readFileSync(remotePath, options.encoding ? options.encoding : "utf-8").toString();
+function _fileHash(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
+    let data = fs.readFileSync(remotePath, {encoding: options.encoding ? options.encoding : "utf-8", flag: "r"});
     let hashdata = _fileContentHash(data, algorithm, keyAlgorithm, salt, digest, options);
-    fs.writeFileSync(remotePath, data);
+    fs.writeFileSync(remoteDestPath, JSON.stringify(hashdata), {encoding: options.encoding ? options.encoding : "utf-8", flag: "w"});
     return hashdata;
 }
 
@@ -153,11 +153,42 @@ function _fileHash(remotePath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256
  * @param {*} [options={ logger: console.log }]
  * @return {*} 
  */
-function _fileDeHash(remotePath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
-    let hashdata = fs.readFileSync(remotePath, options.encoding ? options.encoding : "utf-8").toString();
-    let data = _fileContentDeHash(hashdata, algorithm, keyAlgorithm, salt, digest, options);
-    fs.writeFileSync(remotePath, data);
-    return hashdata;
+function _fileDeHash(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
+    let hashdata = fs.readFileSync(remotePath, {encoding: options.encoding ? options.encoding : "utf-8", flag: "r"});
+    let data = _fileContentDeHash(JSON.parse(hashdata), algorithm, keyAlgorithm, salt, digest, options);
+    fs.writeFileSync(remoteDestPath, data);
+    return data;
+}
+
+function _encryptFile(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
+    
+}
+
+function _decryptFile(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
+    
+}
+
+function _verifyFile(remotePath, algorithm = "sha256", digest, checksum, options = { logger: console.log }) {
+    if (!hashToCheck) throw new Error("Hash to Check not provided");
+    let hashdata = fs.readFileSync(remotePath, {encoding: options.encoding ? options.encoding : "utf-8", flag: "r"});
+    return _verifySHAHash(algorithm, _createSHAHash(hashdata), digest, checksum, options);
+}
+
+
+
+/**
+ *
+ *
+ * @param {*} data
+ * @param {string} [algorithm="sha256"]
+ * @param {*} digest
+ * @param {*} hashToCheck
+ * @param {*} [options={ logger: console.log }]
+ * @return {*} 
+ */
+function _verifyHashedFile(remotePath, algorithm = "sha256", digest, hashToCheck, options = { logger: console.log }) {
+    if (!hashToCheck) throw new Error("Hash to Check not provided");
+    return _verifyFile(remotePath, algorithm = "sha256", digest, _createSHAHash(hashToCheck), options);
 }
 
 
@@ -167,8 +198,12 @@ module.exports.dehashContent = _fileContentDeHash;
 module.exports.verifySHA = _verifySHAHash;
 module.exports.hashFile = _fileHash;
 module.exports.dehashFile = _fileDeHash;
-module.exports.verifyFileHash = _verifyFileContentHash;
+module.exports.verifyFileContent = _verifyFileContentHash;
+module.exports.verifyHashedFile = _verifyHashedFile;
 
+// module.exports.encryptFile = _fileHash;
+// module.exports.decryptFile = _fileDeHash;
+module.exports.verifyFile = _verifyFile;
 
 module.exports._createSHAHash = _createSHAHash;
 module.exports._fileContentHash = _fileContentHash;

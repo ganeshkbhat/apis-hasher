@@ -59,10 +59,10 @@ hasher.createSHA(algorithm = "sha256", data="texter data", digest="base64", opti
 `verifySHA` : Usage: `verifySHA(algorithm, data, digest, hashToCheck, options)`
 
 
-`hashFile` : Usage : `hashFile(remotePath, algorithm, keyAlgorithm, salt, digest, options)`
+`hashFile` : Usage : `hashFile(remotePath, remoteDestPath, algorithm, keyAlgorithm, salt, digest, options)`
 
 
-`dehashFile` : Usage: `dehashFile(remotePath, algorithm, keyAlgorithm, salt, digest, options)`
+`dehashFile` : Usage: `dehashFile(remotePath, remoteDestPath, algorithm, keyAlgorithm, salt, digest, options)`
 
 
 `verifyFileHash` : Usage: `verifyFileHash(remotePath, algorithm, digest, hashToCheck, options)`
