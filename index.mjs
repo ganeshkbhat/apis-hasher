@@ -17,8 +17,25 @@
 
 'use strict';
 
-import { default as hasher, createSHA, verifySHA, hashContent, dehashContent, verifyHashedFile, verifyFile, hashFile, dehashFile, encrypt, decrypt, getCiphers, getHashes, _createSHAHash, _fileContentHash, _fileContentDeHash, _verifySHAHash, _verifyFileContentHash } from './index.js';
+import {
+    default as hasher,
+    createSHA, hashContent, dehashContent, hashFile, dehashFile,
+    verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
+    encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
+
+    _createSHAHash, _fileContentHash, _fileContentDeHash, _fileHash, _fileDeHash,
+    _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
+    _encryptFile, _decryptFile, _createSign, _createSignVerify
+} from './index.js';
 // process.env.NODE_OPTIONS = '--experimental-modules --loader ./custom-loader.mjs';
 
 export default hasher;
-export { createSHA, verifySHA, hashContent, dehashContent, verifyHashedFile, verifyFile, hashFile, dehashFile, encrypt, decrypt, getCiphers, getHashes, _createSHAHash, _fileContentHash, _fileContentDeHash, _verifySHAHash, _verifyFileContentHash };
+export {
+    createSHA, hashContent, dehashContent, hashFile, dehashFile,
+    verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
+    encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
+
+    _createSHAHash, _fileContentHash, _fileContentDeHash, _fileHash, _fileDeHash,
+    _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
+    _encryptFile, _decryptFile, _createSign, _createSignVerify
+};
