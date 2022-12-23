@@ -160,20 +160,69 @@ function _fileDeHash(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyA
     return data;
 }
 
+/**
+ *
+ *
+ * @param {*} remotePath
+ * @param {*} remoteDestPath
+ * @param {string} [algorithm="aes-256-ctr"]
+ * @param {string} [keyAlgorithm="sha256"]
+ * @param {*} salt
+ * @param {string} [digest="base64"]
+ * @param {*} [options={ logger: console.log }]
+ */
 function _encryptFile(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
     
 }
 
+/**
+ *
+ *
+ * @param {*} remotePath
+ * @param {*} remoteDestPath
+ * @param {string} [algorithm="aes-256-ctr"]
+ * @param {string} [keyAlgorithm="sha256"]
+ * @param {*} salt
+ * @param {string} [digest="base64"]
+ * @param {*} [options={ logger: console.log }]
+ */
 function _decryptFile(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
     
 }
 
+/**
+ *
+ *
+ * @param {*} remotePath
+ * @param {string} [algorithm="sha256"]
+ * @param {*} digest
+ * @param {*} checksum
+ * @param {*} [options={ logger: console.log }]
+ * @return {*} 
+ */
 function _verifyFile(remotePath, algorithm = "sha256", digest, checksum, options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
     let hashdata = fs.readFileSync(remotePath, {encoding: options.encoding ? options.encoding : "utf-8", flag: "r"});
     return _verifySHAHash(algorithm, _createSHAHash(hashdata), digest, checksum, options);
 }
 
+/**
+ *
+ *
+ * @return {*} 
+ */
+function getCiphers() {
+    return require('crypto').getCiphers();
+}
+
+/**
+ *
+ *
+ * @return {*} 
+ */
+function getHashes() {
+    return require('crypto').getHashes();
+}
 
 
 /**
@@ -201,9 +250,13 @@ module.exports.dehashFile = _fileDeHash;
 module.exports.verifyFileContent = _verifyFileContentHash;
 module.exports.verifyHashedFile = _verifyHashedFile;
 
+
 module.exports.encrypt = _encryptFile;
 module.exports.decrypt = _decryptFile;
 module.exports.verifyFile = _verifyFile;
+module.exports.getCiphers = getCiphers;
+module.exports.getHashes = getHashes;
+
 
 module.exports._createSHAHash = _createSHAHash;
 module.exports._fileContentHash = _fileContentHash;
