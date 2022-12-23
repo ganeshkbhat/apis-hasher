@@ -15,7 +15,7 @@
 
 'use strict';
 
-const { createSHA, verifySHA, hashContent, dehashContent, verifyFileHash, hashFile, dehashFile, _createSHAHash, _fileContentHash, _fileContentDeHash, _verifySHAHash, _verifyFileContentHash } = require("./src/hasher.js");
+const { createSHA, verifySHA, hashContent, dehashContent, verifyHashedFile, verifyFile, hashFile, dehashFile, encrypt, decrypt, _createSHAHash, _fileContentHash, _fileContentDeHash, _verifySHAHash, _verifyFileContentHash } = require("./src/hasher.js");
 
 module.exports.createSHA = createSHA;
 module.exports.hashContent = hashContent;
@@ -23,7 +23,11 @@ module.exports.dehashContent = dehashContent;
 module.exports.verifySHA = verifySHA;
 module.exports.hashFile = hashFile;
 module.exports.dehashFile = dehashFile;
-module.exports.verifyFileHash = verifyFileHash;
+module.exports.verifyHashedFile = verifyHashedFile;
+module.exports.verifyFile = verifyFile;
+
+module.exports.encrypt = encrypt;
+module.exports.decrypt = decrypt;
 
 module.exports._createSHAHash = _createSHAHash;
 module.exports._fileContentHash = _fileContentHash;

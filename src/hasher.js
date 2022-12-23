@@ -201,8 +201,8 @@ module.exports.dehashFile = _fileDeHash;
 module.exports.verifyFileContent = _verifyFileContentHash;
 module.exports.verifyHashedFile = _verifyHashedFile;
 
-// module.exports.encryptFile = _fileHash;
-// module.exports.decryptFile = _fileDeHash;
+module.exports.encrypt = _encryptFile;
+module.exports.decrypt = _decryptFile;
 module.exports.verifyFile = _verifyFile;
 
 module.exports._createSHAHash = _createSHAHash;
