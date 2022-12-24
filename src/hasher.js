@@ -20,13 +20,13 @@ const fs = require('fs');
 /**
  *
  *
- * @param {string} [algorithm="sha256"] Algorythm Options: sha1, sha256, sha512
  * @param {*} data
- * @param {*} digest
- * @param {*} [options={ logger: console.log }]
+ * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _createSHAHash(algorithm = "sha256", data, digest, options = { logger: console.log }) {
+function _createSHAHash(data, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
     const hashesList = crypto.getHashes();
     if (!hashesList.includes(algorithm)) throw new Error("[_createSHAHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList))
@@ -35,17 +35,19 @@ function _createSHAHash(algorithm = "sha256", data, digest, options = { logger: 
     return hash;
 }
 
+
 /**
  *
  *
- * @param { string } hashdata
- * @param { string } [algorithm=["aes-256-ctr", "sha256"]]
- * @param { string } salt
- * @param { string } [digest=['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
- * @param {*} [options={ logger: console.log }]
+ * @param {*} hashdata
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileContentDeHash(hashdata, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
+function _fileContentDeHash(hashdata, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
 
     const hashesList = crypto.getHashes();
@@ -61,17 +63,20 @@ function _fileContentDeHash(hashdata, algorithm = "aes-256-ctr", keyAlgorithm = 
     return decrpyted.toString();
 }
 
+
 /**
  *
- *
- * @param {*} data
- * @param {*} digest ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']
- * @param {*} [options={ logger: console.log }]
- * 
  * reference: https://attacomsian.com/blog/nodejs-encrypt-decrypt-data
  * 
+ * @param {*} data
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
+ * @return {*} 
  */
-function _fileContentHash(data, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
+function _fileContentHash(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
 
     const hashesList = crypto.getHashes();
@@ -96,115 +101,170 @@ function _fileContentHash(data, algorithm = "aes-256-ctr", keyAlgorithm = "sha25
 /**
  *
  *
- * @param {string} [algorithm="sha256"]
  * @param {*} data
- * @param {*} digest
  * @param {*} hashToCheck
- * @param {*} [options={ logger: console.log }]
+ * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifySHAHash(algorithm = "sha256", data, digest, hashToCheck, options = { logger: console.log }) {
+function _verifySHAHash(data, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
-    if (hashToCheck === _createSHAHash(algorithm, data, digest, options)) return true;
+    if (hashToCheck === _createSHAHash(data, algorithm, digest, options)) return true;
 }
+
 
 /**
  *
  *
  * @param {*} data
- * @param {string} [algorithm="sha256"]
- * @param {*} digest
  * @param {*} hashToCheck
- * @param {*} [options={ logger: console.log }]
+ * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifyFileContentHash(data, algorithm = "sha256", digest, hashToCheck, options = { logger: console.log }) {
+function _verifyFileContentHash(data, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
-    let hashdata = _fileContentHash(data, algorithm, keyAlgorithm, salt, digest, options);
-    return _verifySHAHash(algorithm, _createSHAHash(hashdata), digest, _createSHAHash(hashToCheck), options);
+    let hashdata = _fileContentHash(data, salt, algorithm, keyAlgorithm, digest, options);
+    return _verifySHAHash(_createSHAHash(hashdata), _createSHAHash(hashToCheck), algorithm, digest, options);
 }
 
+
 /**
- * Hash
+ *
  *
  * @param {*} remotePath
- * @param {string} [algorithm="aes-256-ctr"]
- * @param {string} [keyAlgorithm="sha256"]
+ * @param {*} remoteDestPath
  * @param {*} salt
- * @param {string} [digest="base64"]
- * @param {*} [options={ logger: console.log }]
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileHash(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
+function _fileHash(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let data = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
-    let hashdata = _fileContentHash(data, algorithm, keyAlgorithm, salt, digest, options);
+    let hashdata = _fileContentHash(data, salt, algorithm, keyAlgorithm, digest, options);
     fs.writeFileSync(remoteDestPath, JSON.stringify(hashdata), { encoding: options.encoding ? options.encoding : "utf-8", flag: "w" });
     return hashdata;
 }
 
+
 /**
- * DeHash a hashed file
+ *
  *
  * @param {*} remotePath
- * @param {string} [algorithm="aes-256-ctr"]
- * @param {string} [keyAlgorithm="sha256"]
+ * @param {*} remoteDestPath
  * @param {*} salt
- * @param {string} [digest="base64"]
- * @param {*} [options={ logger: console.log }]
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileDeHash(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
+function _fileDeHash(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
-    let data = _fileContentDeHash(JSON.parse(hashdata), algorithm, keyAlgorithm, salt, digest, options);
+    let data = _fileContentDeHash(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
     fs.writeFileSync(remoteDestPath, data);
     return data;
 }
 
-/**
- *
- *
- * @param {*} remotePath
- * @param {*} remoteDestPath
- * @param {string} [algorithm="aes-256-ctr"]
- * @param {string} [keyAlgorithm="sha256"]
- * @param {*} salt
- * @param {string} [digest="base64"]
- * @param {*} [options={ logger: console.log }]
- */
-function _encryptFile(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
-
-}
 
 /**
  *
  *
  * @param {*} remotePath
  * @param {*} remoteDestPath
- * @param {string} [algorithm="aes-256-ctr"]
- * @param {string} [keyAlgorithm="sha256"]
  * @param {*} salt
- * @param {string} [digest="base64"]
- * @param {*} [options={ logger: console.log }]
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [default: "base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { modulusLength: 2048 }]
+ * 
+ * Reference file - Better the function: _encryptFile, _decryptFile
+ * https://www.sohamkamani.com/nodejs/rsa-encryption/
+ * 
  */
-function _decryptFile(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", salt, digest = "base64", options = { logger: console.log }) {
+function _encryptFile(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "rsa", digest = "base64", keyOptions = { modulusLength: 2048 }, options = { modulusLength: 2048 }) {
+    const crypto = require('crypto');
+    let data = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
 
+    algorithm = algorithm || "aes-256-ctr";
+    keyAlgorithm = keyAlgorithm || "rsa";
+    digest = digest || "hex";
+    keyOptions = keyOptions || { modulusLength: 2048 };
+    options = options || { modulusLength: 2048 };
+
+    const { privateKey, publicKey } = _genKeyPair(keyAlgorithm, keyOptions);
+    let encrypted = crypto.publicEncrypt({
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+        oaepHash: algorithm,
+    },
+        Buffer.from(data)
+    ).toString(digest);
+
+    fs.writeFileSync(remoteDestPath, encrypted);
+    return {
+        privateKey: privateKey,
+        publicKey: publicKey,
+        encrypted: encrypted
+    }
 }
+
 
 /**
  *
  *
  * @param {*} remotePath
- * @param {string} [algorithm="sha256"]
- * @param {*} digest
+ * @param {*} remoteDestPath
+ * @param {*} privateKey
+ * @param {string} [algorithm="sha256"] [default: "sha256"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [default: "base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { modulusLength: 2048 }] 
+ */
+function _decryptFile(remotePath, remoteDestPath, privateKey, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", options = { modulusLength: 2048 }) {
+    const crypto = require('crypto');
+    let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
+
+    algorithm = algorithm || "sha256";
+    keyAlgorithm = keyAlgorithm || "rsa";
+    digest = digest || "hex";
+    options = options || { modulusLength: 2048 };
+
+    let decrypted = crypto.privateDecrypt({
+        key: privateKey,
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+        oaepHash: algorithm,
+    },
+        Buffer.from(hashdata, digest)
+    );
+
+    fs.writeFileSync(remoteDestPath, decrypted);
+    return {
+        decrypted: decrypted.toString("utf-8")
+    }
+}
+
+
+/**
+ *
+ *
+ * @param {*} remotePath
  * @param {*} checksum
- * @param {*} [options={ logger: console.log }]
+ * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [default: "base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifyFile(remotePath, algorithm = "sha256", digest, checksum, options = { logger: console.log }) {
+function _verifyFile(remotePath, checksum, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
     let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
-    return _verifySHAHash(algorithm, _createSHAHash(hashdata), digest, checksum, options);
+    return _verifySHAHash(_createSHAHash(hashdata), checksum, algorithm, digest, options);
 }
+
 
 /**
  *
@@ -214,6 +274,7 @@ function _verifyFile(remotePath, algorithm = "sha256", digest, checksum, options
 function getCiphers() {
     return require('crypto').getCiphers();
 }
+
 
 /**
  *
@@ -228,24 +289,24 @@ function getHashes() {
 /**
  *
  *
- * @param {*} data
- * @param {string} [algorithm="sha256"]
- * @param {*} digest
+ * @param {*} remotePath
  * @param {*} hashToCheck
- * @param {*} [options={ logger: console.log }]
+ * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifyHashedFile(remotePath, algorithm = "sha256", digest, hashToCheck, options = { logger: console.log }) {
+function _verifyHashedFile(remotePath, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
-    return _verifyFile(remotePath, algorithm = "sha256", digest, _createSHAHash(hashToCheck), options);
+    return _verifyFile(remotePath, _createSHAHash(hashToCheck), algorithm, digest, options);
 }
+
 
 /**
  *
  *
- * @param {string} [keyGenType="rsa"]
- * // 'rsa', 'rsa-pss', 'dsa', 'ec', 'ed25519', 'ed448', 'x25519', 'x448', or 'dh'
- * @param {*} [options={ modulusLength: 2048 }]
+ * @param {string} [keyGenType="rsa"] [default: "rsa"] [options: 'rsa', 'rsa-pss', 'dsa', 'ec', 'ed25519', 'ed448', 'x25519', 'x448', or 'dh']
+ * @param {*} [options={ modulusLength: 2048 }] [default: { modulusLength: 2048 }] 
  * @return {*} 
  */
 function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
@@ -254,30 +315,33 @@ function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
     return { privateKey, publicKey }
 }
 
+
 /**
  *
  *
  * @param {*} data
- * @param {string} [algorithm="SHA256"]
- * @param {string} [base="hex"]
- * @param {string} [keyGenType="ec"]
- * @param {string} [options={ namedCurve: 'secret' }]
- * @return {*} { privateKey, publicKey, signature }
+ * @param {*} algorithm [default: "SHA256"] [options: use function getHashes]
+ * @param {*} base [default: "hex"] [options: ]
+ * @param {*} keyGenType [default: "rsa"] [options: 'rsa', 'rsa-pss', 'dsa', 'ec', 'ed25519', 'ed448', 'x25519', 'x448', or 'dh']
+ * @param {*} keyOptions [default: For createSign & publicEncrypt: { modulusLength: 2048 }]
+ * @param {*} options [default: For createSign: { modulusLength: 2048 }, For publicEncrypt: { padding: crypto.constants.RSA_PKCS1_PSS_PADDING}]
+ * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
+ * @return {*} 
  */
-function _createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType = "createSign") {
+function _createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType) {
     const crypto = require('crypto');
 
     algorithm = algorithm || "SHA256";
-    keyGenType = keyGenType || "rsa";
     base = base || "hex";
+    keyGenType = keyGenType || "rsa";
     keyOptions = keyOptions || { modulusLength: 2048 };
     options = options || { modulusLength: 2048 };
+
     const { privateKey, publicKey } = _genKeyPair(keyGenType, keyOptions);
 
     let signature;
     switch (encryptType) {
         case "createSign":
-            options = options || { modulusLength: 2048 };
             let sign = crypto.createSign(algorithm, options);
             sign.write(data);
             sign.end();
@@ -301,34 +365,34 @@ function _createSign(data, algorithm, base, keyGenType, keyOptions, options, enc
  *
  *
  * @param {*} data
- * @param {string} [algorithm="SHA256"]
- * @param {string} [base="hex"]
+ * @param {*} signature
  * @param {*} publicKey
+ * @param {*} algorithm [default: "SHA256"] [options: use function getHashes]
+ * @param {*} base [default: "hex"] [options: ]
+ * @param {*} options [default: For createSign: { modulusLength: 2048 }, For publicEncrypt: { padding: crypto.constants.RSA_PKCS1_PSS_PADDING }]
+ * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
  * @return {*} 
  */
-function _createSignVerify(data, algorithm, base, signature, publicKey, options, encryptType = "createSign") {
+function _createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType) {
     const crypto = require('crypto');
 
     algorithm = algorithm || "SHA256";
-    options = options || {};
     base = base || "hex";
+    options = options || {};
+    encryptType = encryptType || "createSign";
 
     switch (encryptType) {
         case "createSign":
-            let verify = crypto.createVerify(algorithm, options || { modulusLength: 2048 });
+            let verify = crypto.createVerify(algorithm, { modulusLength: 2048, ...options });
             verify.write(data);
             verify.end();
             return verify.verify(publicKey, signature, base);
         case "publicEncrypt":
-            options = options || {
-                key: publicKey,
-                padding: crypto.constants.RSA_PKCS1_PSS_PADDING
-            }
             return crypto.verify(
                 algorithm,
                 Buffer.from(data),
-                { key: publicKey, ...options },
-                Buffer.from(signature, base) 
+                { key: publicKey, padding: crypto.constants.RSA_PKCS1_PSS_PADDING, ...options },
+                Buffer.from(signature, base)
             )
     }
 }

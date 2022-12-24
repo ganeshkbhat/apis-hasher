@@ -22,7 +22,7 @@ const salt = "foobar";
 let dehash = _filelock._fileContentDeHash({
     iv: 'eEahOe0F0Rujig/yBTHFWQ==',
     content: '6pRvpFZZutKXhavJVItvOk+8DeHETwPD'
-}, "aes-256-ctrs", "sha256", salt, "base64", { logger: console.log });
+}, salt, "aes-256-ctrs", "sha256", "base64", { logger: console.log });
 
 console.log("[hasher-apis] demos/hasher-apis._fileContentDeHash.js: filelock - ", dehash);
 

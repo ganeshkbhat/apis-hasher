@@ -19,6 +19,6 @@
 const path = require("path");
 const _filelock = require("../index.js");
 
-let fileHash = _filelock._createSHAHash("sha256", "filelock.json", "base64");
+let fileHash = _filelock._createSHAHash("filelock.json", "sha256", "base64");
 
 console.log("[hasher-apis] demos/hasher-apis._createSHAHash.js: filelock - ", fileHash);

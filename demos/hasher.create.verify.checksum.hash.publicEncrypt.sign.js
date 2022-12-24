@@ -41,7 +41,7 @@ const crypto = require('crypto');
 let { privateKey, publicKey, signature } = _filelock.createSign("This is a test", "sha256", "hex", "rsa", { modulusLength: 2048 }, {
     padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
 }, "publicEncrypt");
-let rsignverify2 = _filelock.createSignVerify("This is a test", "sha256", "hex", signature, publicKey, {
+let rsignverify2 = _filelock.createSignVerify("This is a test", signature, publicKey, "sha256", "hex", {
     padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
 }, "publicEncrypt");
 console.log(rsignverify2, signature);

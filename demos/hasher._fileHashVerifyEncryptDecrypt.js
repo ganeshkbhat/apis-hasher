@@ -22,11 +22,11 @@ const p3 = "./programming.hash.rehash.txt";
 
 
 // // Hash P3 File to P3
-// let h3 = _filelock.hashFile(p3, p3, "aes-256-ctr", "sha256", salt, "base64", { logger: console.log });
-// console.log("[hasher._fileHash]: File hashed");
-// console.log(h3);
+let h3 = _filelock.encrypt(p3, p3, "sha256", "rsa", "base64", { modulusLength: 2048 }, { modulusLength: 2048 });
+console.log("[hasher._fileHash]: File hashed");
+console.log(h3);
 
 // // DeHash P3 File hashed content to P3
-// let r3 = _filelock.dehashFile(p3, p3, "aes-256-ctr", "sha256", salt, "base64", { logger: console.log });
-// console.log("[hasher._fileHash]: File dehashed");
-// console.log(r3);
+let r3 = _filelock.decrypt(p3, p3, h3.privateKey, "sha256", "rsa", "base64", { modulusLength: 2048 });
+console.log("[hasher._fileHash]: File dehashed");
+console.log(r3);
