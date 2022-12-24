@@ -38,34 +38,6 @@ function _createSHAHash(data, algorithm = "sha256", digest = "base64", options =
 
 /**
  *
- *
- * @param {*} hashdata
- * @param {*} salt
- * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
- * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
- * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
- * @param {*} options [default: { logger: console.log }] [options: logger function]
- * @return {*} 
- */
-function _fileContentDeHash(hashdata, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
-    const crypto = require('crypto');
-
-    const hashesList = crypto.getHashes();
-    const ciphersList = crypto.getCiphers();
-    if (!hashesList.includes(keyAlgorithm)) throw new Error("[_fileContentDeHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList));
-    if (!ciphersList.includes(algorithm)) throw new Error("[_fileContentDeHash] Ciphers Algorithm not in list of included ciphers " + JSON.stringify(ciphersList));
-
-    const key = crypto.createHash(keyAlgorithm).update(JSON.stringify(salt)).digest(digest);
-    const key_in_bytes = Buffer.from(key, digest);
-
-    const decipher = crypto.createDecipheriv(algorithm, key_in_bytes, Buffer.from(hashdata.iv, digest));
-    const decrpyted = Buffer.concat([decipher.update(Buffer.from(hashdata.content, digest)), decipher.final()]);
-    return decrpyted.toString();
-}
-
-
-/**
- *
  * reference: https://attacomsian.com/blog/nodejs-encrypt-decrypt-data
  * 
  * @param {*} data
@@ -95,6 +67,34 @@ function _fileContentHash(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = 
         iv: iv.toString(digest),
         content: encrypted.toString(digest)
     };
+}
+
+
+/**
+ *
+ *
+ * @param {*} hashdata
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
+ * @return {*} 
+ */
+function _fileContentDeHash(hashdata, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+    const crypto = require('crypto');
+
+    const hashesList = crypto.getHashes();
+    const ciphersList = crypto.getCiphers();
+    if (!hashesList.includes(keyAlgorithm)) throw new Error("[_fileContentDeHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList));
+    if (!ciphersList.includes(algorithm)) throw new Error("[_fileContentDeHash] Ciphers Algorithm not in list of included ciphers " + JSON.stringify(ciphersList));
+
+    const key = crypto.createHash(keyAlgorithm).update(JSON.stringify(salt)).digest(digest);
+    const key_in_bytes = Buffer.from(key, digest);
+
+    const decipher = crypto.createDecipheriv(algorithm, key_in_bytes, Buffer.from(hashdata.iv, digest));
+    const decrpyted = Buffer.concat([decipher.update(Buffer.from(hashdata.content, digest)), decipher.final()]);
+    return decrpyted.toString();
 }
 
 
@@ -176,11 +176,11 @@ function _fileDeHash(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr"
  *
  * @param {*} remotePath
  * @param {*} remoteDestPath
- * @param {*} salt
  * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] options: use function getCiphers]
  * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
  * @param {string} [digest="base64"] [default: "base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
  * @param {*} options [default: { modulusLength: 2048 }]
+ * @return {*} 
  * 
  * Reference file - Better the function: _encryptFile, _decryptFile
  * https://www.sohamkamani.com/nodejs/rsa-encryption/
@@ -220,10 +220,13 @@ function _encryptFile(remotePath, remoteDestPath, algorithm = "aes-256-ctr", key
  * @param {*} remotePath
  * @param {*} remoteDestPath
  * @param {*} privateKey
- * @param {string} [algorithm="sha256"] [default: "sha256"] [options: use function getCiphers]
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] options: use function getCiphers]
  * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
  * @param {string} [digest="base64"] [default: "base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
- * @param {*} options [default: { modulusLength: 2048 }] 
+ * @param {*} options [default: { modulusLength: 2048 }]
+ * @return {*} 
+ * @param {*} [options={ modulusLength: 2048 }]
+ * @return {*} 
  */
 function _decryptFile(remotePath, remoteDestPath, privateKey, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", options = { modulusLength: 2048 }) {
     const crypto = require('crypto');
