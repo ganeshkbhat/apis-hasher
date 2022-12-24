@@ -24,5 +24,10 @@ let dehash = _filelock._fileContentDeHash({
     content: '6pRvpFZZutKXhavJVItvOk+8DeHETwPD'
 }, salt, "aes-256-ctr", "sha256s", "base64", { logger: console.log });
 
+// let dehash = _filelock._fileContentDeHash({
+//     iv: 'eEahOe0F0Rujig/yBTHFWQ==',
+//     content: '6pRvpFZZutKXhavJVItvOk+8DeHETwPD'
+// }, salt);
+
 console.log("[hasher-apis] demos/hasher-apis._fileContentDeHash.js: filelock - ", dehash);
 

@@ -38,6 +38,10 @@ const crypto = require('crypto');
 
 
 let { privateKey, publicKey, signature } = _filelock.createSign("This is a test", "sha256", "hex", "rsa", { modulusLength: 2048 }, {}, "createSign");
+// let { privateKey, publicKey, signature } = _filelock.createSign("This is a test");
+
 let rsignverify1 = _filelock.createSignVerify("This is a test", signature, publicKey, "sha256", "hex", {}, "createSign");
+// let rsignverify1 = _filelock.createSignVerify("This is a test", signature, publicKey);
+
 console.log(rsignverify1, signature);
 

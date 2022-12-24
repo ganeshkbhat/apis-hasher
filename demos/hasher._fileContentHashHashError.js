@@ -20,4 +20,5 @@ const _filelock = require("../index.js");
 const salt = "foobar";
 
 let reshash = _filelock._fileContentHash("My personal data to hash", salt, "aes-256-ctr", "sha256s", "base64", { logger: console.log });
+// let reshash = _filelock._fileContentHash("My personal data to hash", salt);
 console.log("[hasher-apis] demos/hasher._fileContentHash.js: filelock - ", reshash);

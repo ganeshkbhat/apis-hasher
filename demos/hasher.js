@@ -9,6 +9,8 @@ let {
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
     _encryptFile, _decryptFile, _createSign, _createSignVerify
  } = require("../index.js");
+
+
 console.log(createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
