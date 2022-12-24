@@ -348,6 +348,7 @@ module.exports.verifyFile = _verifyFile;
 
 module.exports.encrypt = _encryptFile;
 module.exports.decrypt = _decryptFile;
+module.exports._genKeyPair = _genKeyPair;
 
 module.exports.getCiphers = getCiphers;
 module.exports.getHashes = getHashes;
