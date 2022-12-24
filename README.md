@@ -65,7 +65,32 @@ hasher.createSHA(algorithm = "sha256", data="texter data", digest="base64", opti
 `dehashFile` : Usage: `dehashFile(remotePath, remoteDestPath, algorithm, keyAlgorithm, salt, digest, options)`
 
 
-`verifyFileHash` : Usage: `verifyFileHash(remotePath, algorithm, digest, hashToCheck, options)`
+<!-- `verifyFileHash` : Usage: `verifyFileHash(remotePath, algorithm, digest, hashToCheck, options)` -->
+
+<!-- 
+
+New Version: v0.0.13 features
+
+verifySHA, 
+_verifySHAHash, 
+verifyFileContent, 
+_verifyFileContentHash, 
+verifyHashedFile, 
+_verifyHashedFile,
+verifyFile,
+_verifyFile,
+encrypt, 
+_encryptFile, 
+decrypt, 
+_decryptFile, 
+createSign, 
+_createSign, 
+createSignVerify, 
+_createSignVerify
+getCiphers, 
+getHashes, 
+
+-->
 
 
 

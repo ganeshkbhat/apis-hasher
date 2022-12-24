@@ -240,6 +240,19 @@ function _verifyHashedFile(remotePath, algorithm = "sha256", digest, hashToCheck
     return _verifyFile(remotePath, algorithm = "sha256", digest, _createSHAHash(hashToCheck), options);
 }
 
+/**
+ *
+ *
+ * @param {string} [keyGenType="rsa"]
+ * // 'rsa', 'rsa-pss', 'dsa', 'ec', 'ed25519', 'ed448', 'x25519', 'x448', or 'dh'
+ * @param {*} [options={ modulusLength: 2048 }]
+ * @return {*} 
+ */
+function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
+    const crypto = require('crypto');
+    const { privateKey, publicKey } = crypto.generateKeyPairSync(keyGenType, options);
+    return { privateKey, publicKey }
+}
 
 /**
  *
@@ -247,17 +260,40 @@ function _verifyHashedFile(remotePath, algorithm = "sha256", digest, hashToCheck
  * @param {*} data
  * @param {string} [algorithm="SHA256"]
  * @param {string} [base="hex"]
- * @param {string} [generatorType="ec"]
+ * @param {string} [keyGenType="ec"]
  * @param {string} [options={ namedCurve: 'secret' }]
  * @return {*} { privateKey, publicKey, signature }
  */
-function _createSign(data, algorithm = "SHA256", base = "hex", generatorType = "ec", options = { namedCurve: 'secret' }) {
+function _createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType = "createSign") {
     const crypto = require('crypto');
-    const { privateKey, publicKey } = crypto.generateKeyPairSync(generatorType, options);
-    let sign = crypto.createSign(algorithm, options);
-    sign.write(data);
-    sign.end();
-    return { privateKey: privateKey, publicKey: publicKey, signature: sign.sign(privateKey, base) };
+
+    algorithm = algorithm || "SHA256";
+    keyGenType = keyGenType || "rsa";
+    base = base || "hex";
+    keyOptions = keyOptions || { modulusLength: 2048 };
+    options = options || { modulusLength: 2048 };
+    const { privateKey, publicKey } = _genKeyPair(keyGenType, keyOptions);
+
+    let signature;
+    switch (encryptType) {
+        case "createSign":
+            options = options || { modulusLength: 2048 };
+            let sign = crypto.createSign(algorithm, options);
+            sign.write(data);
+            sign.end();
+            signature = sign.sign(privateKey, base);
+            break;
+        case "publicEncrypt":
+            options = {
+                key: privateKey,
+                padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+                ...options
+            };
+            signature = crypto.sign(algorithm, Buffer.from(data), options).toString(base);
+            break;
+    }
+
+    return { privateKey: privateKey, publicKey: publicKey, signature: signature };
 }
 
 
@@ -270,12 +306,31 @@ function _createSign(data, algorithm = "SHA256", base = "hex", generatorType = "
  * @param {*} publicKey
  * @return {*} 
  */
-function _createSignVerify(data, algorithm = "SHA256", base = "hex", publicKey) {
+function _createSignVerify(data, algorithm, base, signature, publicKey, options, encryptType = "createSign") {
     const crypto = require('crypto');
-    const verify = crypto.createVerify(algorithm);
-    verify.write(data);
-    verify.end();
-    return verify.verify(publicKey, signature, base);
+
+    algorithm = algorithm || "SHA256";
+    options = options || {};
+    base = base || "hex";
+
+    switch (encryptType) {
+        case "createSign":
+            let verify = crypto.createVerify(algorithm, options || { modulusLength: 2048 });
+            verify.write(data);
+            verify.end();
+            return verify.verify(publicKey, signature, base);
+        case "publicEncrypt":
+            options = options || {
+                key: publicKey,
+                padding: crypto.constants.RSA_PKCS1_PSS_PADDING
+            }
+            return crypto.verify(
+                algorithm,
+                Buffer.from(data),
+                { key: publicKey, ...options },
+                Buffer.from(signature, base) 
+            )
+    }
 }
 
 
