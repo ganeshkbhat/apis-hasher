@@ -35,6 +35,8 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 ```
 
 ### `createSHA`
+Create an SHA Hash using a data
+
 
 Usage: `createSHA(data, algorithm , digest, options)`
 
@@ -59,6 +61,8 @@ Usage: `createSHA(data)`
 ```
 
 ### `hashContent`
+Create an encrytion using a content using salt and algorithms
+
 
 Usage: `hashContent(data, salt, algorithm, keyAlgorithm, digest, options)`
 
@@ -87,6 +91,8 @@ Usage: `hashContent(data, salt)`
 ```
 
 ### `dehashContent`
+Create an decryption of encrypted data using salt and algorithms
+
 
 Usage: `dehashContent(hashdata, salt, algorithm, keyAlgorithm, digest, options)`
 
@@ -115,6 +121,8 @@ Usage: `dehashContent(hashdata, salt)`
 ```
 
 ### `hashFile`
+Create an encrytion of a file using salt and algorithms
+
 
 Usage: `hashFile(remotePath, remoteDestPath, salt, algorithm, keyAlgorithm, digest, options)`
 
@@ -144,6 +152,8 @@ Usage: `hashFile(remotePath, remoteDestPath, salt)`
 ```
 
 ### `dehashFile`
+Create an decryption of encrypted file using salt and algorithms
+
 
 Usage: `dehashFile(remotePath, remoteDestPath, salt, algorithm, keyAlgorithm, digest, options)`
 
@@ -173,6 +183,8 @@ Usage: `dehashFile(remotePath, remoteDestPath, salt)`
 ```
 
 ### `verifySHA`
+Verify an data using hash provided
+
 
 Usage: `verifySHA(data, hashToCheck, algorithm, digest, options)`
 
@@ -199,6 +211,8 @@ Usage: `verifySHA(data, hashToCheck)`
 ```
 
 ### `verifyFileContent`
+Verify a content data using hash provided
+
 
 Usage: `verifyFileContent(data, hashToCheck, algorithm, digest, options)`
 
@@ -224,6 +238,8 @@ Usage: `verifyFileContent(data, hashToCheck)`
 ```
 
 ### `verifyHashedFile`
+Verify a file data using hash provided
+
 
 Usage: `verifyHashedFile(remotePath, hashToCheck, algorithm, digest, options)`
 
@@ -249,6 +265,8 @@ Usage: `verifyHashedFile(remotePath, hashToCheck)`
 ```
 
 ### `verifyFile`
+Verify a file data using checksum provided - market standards
+
 
 Usage: `verifyFile(remotePath, checksum, algorithm, digest, options)`
 
@@ -274,6 +292,8 @@ Usage: `verifyFile(remotePath, checksum)`
 ```
 
 ### `encrypt`
+Encrypt a file
+
 
 Usage: `encrypt(remotePath, remoteDestPath, algorithm, keyAlgorithm, digest, keyOptions, options)`
 
@@ -302,6 +322,8 @@ Usage: `encrypt(remotePath, remoteDestPath)`
 ```
 
 ### `decrypt`
+Decrypt a file
+
 
 Usage: `decrypt(remotePath, remoteDestPath, privateKey, algorithm, keyAlgorithm, digest, options)`
 
@@ -333,6 +355,8 @@ Usage: `decrypt(remotePath, remoteDestPath, privateKey)`
 ```
 
 ### `_genKeyPair`
+Create a Key Pair - public and private using key generator type and options for key generation
+
 
 Usage: `_genKeyPair(keyGenType, options)`
 
@@ -353,6 +377,8 @@ Usage: `_genKeyPair()`
 ```
 
 ### `getCiphers`
+Get list of Ciphers supported by Node Crypto Module
+
 
 Usage: `getCiphers()`
 
@@ -365,6 +391,8 @@ Usage: `getCiphers()`
 ```
 
 ### `getHashes`
+Get list of Hashes supported by Node Crypto Module
+
 
 Usage: `getHashes()`
 
@@ -377,6 +405,8 @@ Usage: `getHashes()`
 ```
 
 ### `createSign`
+Sign a Data
+
 
 Usage: `createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType)`
 
@@ -408,6 +438,8 @@ Usage: `createSign(data)`
 ```
 
 ### `createSignVerify`
+Verify a Signed Data
+
 
 Usage: `createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType)`
 
@@ -435,9 +467,11 @@ Usage: `createSignVerify(data, signature, publicKey)`
  */
 ```
 
+
 ### Contributions
 
 Contributions, Feature Improvements, Bugs, and Issues are invited. [raising an issue](https://github.com/ganeshkbhat/apis-hasher/issues)
+
 
 # License
 
