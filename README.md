@@ -1,4 +1,7 @@
 # hasher-apis
+Simple and very flexible implementation API functions to hash content or get SHA hashes of text
+
+
 
 # APIs hasher
 
