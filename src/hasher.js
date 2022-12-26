@@ -31,7 +31,6 @@ function _createSHAHash(data, algorithm = "sha256", digest = "base64", options =
     const hashesList = crypto.getHashes();
     if (!hashesList.includes(algorithm)) throw new Error("[_createSHAHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList))
     var hash = crypto.createHash(algorithm).update(JSON.stringify(data)).digest(digest);
-    // options.logger("[require-urls]: filelock.js._createSHAHash: Hash created is ", hash);
     return hash;
 }
 
