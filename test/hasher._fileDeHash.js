@@ -48,11 +48,11 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
         });
 
         it('[Test A] Test for 2', function (done) {
-            let txt = fs.readFileSync(p3).toString("utf-8");
+            let txt = fs.readFileSync(p1).toString("utf-8");
 
             // Hash P1 File to P3
             let h2 = _filelock.hashFile(p1, p3, salt, "aes-256-ctr", "sha256", "base64", { logger: console.log });
-            let h3r = fs.readFileSync(p3);
+            let h3r = fs.readFileSync(p3).toString("utf-8");
             expect(h2.iv).to.equal(JSON.parse(h3r).iv);
             expect(h2.content).to.equal(JSON.parse(h3r).content);
 
