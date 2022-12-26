@@ -1,5 +1,5 @@
 # hasher-apis
-Simple and very flexible implementation API functions to hash content or get SHA hashes of text
+Simple and flexible implementation Crypto Module functions to hash/ encrypt/ decrypt content and get SHA or other algorithm hashes of text or any data
 
 
 
