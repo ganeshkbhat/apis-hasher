@@ -186,21 +186,22 @@ function _fileDeHash(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr"
  * https://www.sohamkamani.com/nodejs/rsa-encryption/
  * 
  */
-function _encryptFile(remotePath, remoteDestPath, algorithm = "aes-256-ctr", keyAlgorithm = "rsa", digest = "base64", keyOptions = { modulusLength: 2048 }, options = { modulusLength: 2048 }) {
+function _encryptFile(remotePath, remoteDestPath, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", keyOptions = { modulusLength: 2048 }, options = { modulusLength: 2048 }) {
     const crypto = require('crypto');
     let data = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
 
-    algorithm = algorithm || "aes-256-ctr";
+    algorithm = algorithm || "sha256";
     keyAlgorithm = keyAlgorithm || "rsa";
-    digest = digest || "hex";
+    digest = digest || "base64";
     keyOptions = keyOptions || { modulusLength: 2048 };
     options = options || { modulusLength: 2048 };
 
     const { privateKey, publicKey } = _genKeyPair(keyAlgorithm, keyOptions);
+
     let encrypted = crypto.publicEncrypt({
         key: publicKey,
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
-        oaepHash: algorithm,
+        oaepHash: algorithm
     },
         Buffer.from(data)
     ).toString(digest);
@@ -234,13 +235,13 @@ function _decryptFile(remotePath, remoteDestPath, privateKey, algorithm = "sha25
 
     algorithm = algorithm || "sha256";
     keyAlgorithm = keyAlgorithm || "rsa";
-    digest = digest || "hex";
+    digest = digest || "base64";
     options = options || { modulusLength: 2048 };
 
     let decrypted = crypto.privateDecrypt({
         key: privateKey,
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
-        oaepHash: algorithm,
+        oaepHash: algorithm
     },
         Buffer.from(hashdata, digest)
     );
@@ -334,11 +335,12 @@ function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
 function _createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType) {
     const crypto = require('crypto');
 
-    algorithm = algorithm || "SHA256";
+    algorithm = algorithm || "sha256";
     base = base || "hex";
     keyGenType = keyGenType || "rsa";
     keyOptions = keyOptions || { modulusLength: 2048 };
     options = options || { modulusLength: 2048 };
+    encryptType = encryptType || "createSign";
 
     const { privateKey, publicKey } = _genKeyPair(keyGenType, keyOptions);
 
@@ -379,9 +381,9 @@ function _createSign(data, algorithm, base, keyGenType, keyOptions, options, enc
 function _createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType) {
     const crypto = require('crypto');
 
-    algorithm = algorithm || "SHA256";
+    algorithm = algorithm || "sha256";
     base = base || "hex";
-    options = options || {};
+    options = options || { modulusLength: 2048 };
     encryptType = encryptType || "createSign";
 
     switch (encryptType) {

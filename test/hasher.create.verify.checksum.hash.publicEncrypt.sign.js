@@ -6,7 +6,7 @@
  * Install: npm i hasher-apis --save
  * Github: https://github.com/ganeshkbhat/apis-hasher
  * npmjs Link: https://www.npmjs.com/package/hasher-apis
- * File: demos/hasher._createSHAHash.js
+ * File: demos/hasher.getHashes.js
  * File Description: 
  * 
 */
@@ -15,23 +15,27 @@
 
 'use strict';
 
+const expect = require('chai').expect;
 const path = require("path");
 const _filelock = require("../index.js");
-const expect = require('chai').expect;
+const salt = "foobar";
+const crypto = require('crypto');
 
 describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function () {
 
     describe('test-.js::hasher-apis: [Test A] Test Suite for hasher-apis in main repo directory', function () {
         
         it('[Test A] Test for ', function (done) {
-            let fileHash = _filelock._createSHAHash("filelock.json", "sha256", "base64");
-            expect(fileHash).to.equal("hyBYClAC4C0Jw96vS3lQ+1yzw4wD4cUzQKWhgtBwgnc=");
-            done();
-        });
 
-        it('[Test A] Test for ', function (done) {
-            let fileHash = _filelock._createSHAHash("filelocktext.json");
-            expect("Qe2j8DSBCmrSFKAcBmU8HX/KGX8RO4HqUX/wv9SjMco=").to.equal(fileHash);
+            let { privateKey, publicKey, signature } = _filelock.createSign("This is a test", "sha256", "hex", "rsa", { modulusLength: 2048 }, {
+                padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+            }, "publicEncrypt");
+
+            let rsignverify2 = _filelock.createSignVerify("This is a test", signature, publicKey, "sha256", "hex", {
+                padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+            }, "publicEncrypt");
+
+            expect(rsignverify2).to.equal(true);
             done();
         });
 
@@ -39,4 +43,6 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
 
 
 });
+
+
 

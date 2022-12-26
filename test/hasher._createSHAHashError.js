@@ -6,7 +6,7 @@
  * Install: npm i hasher-apis --save
  * Github: https://github.com/ganeshkbhat/apis-hasher
  * npmjs Link: https://www.npmjs.com/package/hasher-apis
- * File: demos/hasher._createSHAHash.js
+ * File: demos/hasher.hasher._createSHAHashError.js
  * File Description: 
  * 
 */
@@ -21,17 +21,22 @@ const expect = require('chai').expect;
 
 describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function () {
 
+
     describe('test-.js::hasher-apis: [Test A] Test Suite for hasher-apis in main repo directory', function () {
         
         it('[Test A] Test for ', function (done) {
-            let fileHash = _filelock._createSHAHash("filelock.json", "sha256", "base64");
-            expect(fileHash).to.equal("hyBYClAC4C0Jw96vS3lQ+1yzw4wD4cUzQKWhgtBwgnc=");
-            done();
+            try {
+                let r = _filelock._createSHAHash("filelock.json", "sha2563", "base64")
+            } catch(e) {
+                expect(!!e).to.equal(true);
+                done();
+            }
+            
         });
 
         it('[Test A] Test for ', function (done) {
-            let fileHash = _filelock._createSHAHash("filelocktext.json");
-            expect("Qe2j8DSBCmrSFKAcBmU8HX/KGX8RO4HqUX/wv9SjMco=").to.equal(fileHash);
+
+            expect(_filelock._createSHAHash("filelock.json")).to.equal("hyBYClAC4C0Jw96vS3lQ+1yzw4wD4cUzQKWhgtBwgnc=");
             done();
         });
 
@@ -39,4 +44,3 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
 
 
 });
-
