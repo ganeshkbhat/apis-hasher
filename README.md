@@ -35,7 +35,7 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 ```
 
 ### `createSHA`
-Create an Hash with algroithms like SHA using a data
+Create an Hash with algorithms like SHA using a data
 
 
 Usage: `createSHA(data, algorithm , digest, options)`
