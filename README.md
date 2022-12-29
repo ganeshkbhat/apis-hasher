@@ -2,6 +2,8 @@
 Simple and flexible implementation Crypto Module functions to hash/ encrypt/ decrypt content and get SHA or other algorithm hashes of text or any data
 
 
+Find the demos in the [demos folder](./demos)
+
 # APIs hasher
 
 ###
@@ -35,9 +37,6 @@ hasher._createSHAHash(data="texter data", algorithm = "sha256", digest="base64",
 hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", options = { logger: console.log })
 
 ```
-
-
-You can find demos in the [Demos Folder](./demos/)
 
 
 ### `createSHA`
