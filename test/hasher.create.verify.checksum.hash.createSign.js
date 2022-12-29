@@ -26,7 +26,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
 
     describe('test-.js::hasher-apis: [Test A] Test Suite for hasher-apis in main repo directory', function () {
 
-        it('[Test A] Test for 1', function (done) {
+        it('[Test A] Test for 1 using createSign and createSignVerify using createSign method', function (done) {
 
             let { privateKey, publicKey, signature } = _filelock.createSign("This is a test", "sha256", "hex", "rsa", { modulusLength: 2048 }, {}, "createSign");
 
@@ -36,7 +36,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             done();
         });
 
-        it('[Test A] Test for 2', function (done) {
+        it('[Test A] Test for 2 using createSign and createSignVerify using createSign method using defaults', function (done) {
 
             let { privateKey, publicKey, signature } = _filelock.createSign("This is a test");
             

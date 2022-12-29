@@ -30,7 +30,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
 
     describe('test-.js::hasher-apis: [Test A] Test Suite for hasher-apis in main repo directory', function () {
 
-        it('[Test A] Test for 1', function (done) {
+        it('[Test A] Test for 1 for hashFile and dehashFile - different file paths', function (done) {
             let txt = fs.readFileSync(p1).toString("utf-8");
 
             // Hash P1 File to P2
@@ -47,7 +47,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             done();
         });
 
-        it('[Test A] Test for 2', function (done) {
+        it('[Test A] Test for 2 for hashFile and dehashFile - different file paths', function (done) {
             let txt = fs.readFileSync(p1).toString("utf-8");
 
             // Hash P1 File to P3
@@ -65,7 +65,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             done();
         });
 
-        it('[Test A] Test for 3', function (done) {
+        it('[Test A] Test for 3 for hashFile and dehashFile using defaults', function (done) {
             let txt = fs.readFileSync(p1).toString("utf-8");
 
             // Hash P1 File to P2
@@ -83,7 +83,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             done();
         });
 
-        it('[Test A] Test for 4', function (done) {
+        it('[Test A] Test for 4 for hashFile and dehashFile using defaults', function (done) {
             let txt = fs.readFileSync(p1).toString("utf-8");
 
             // Hash P1 File to P3
@@ -101,7 +101,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             done();
         });
 
-        it('[Test A] Test for 5', function (done) {
+        it('[Test A] Test for 5 for hashFile using defaults', function (done) {
             let txt = fs.readFileSync(p1).toString("utf-8");
 
             // Hash P1 File to P3

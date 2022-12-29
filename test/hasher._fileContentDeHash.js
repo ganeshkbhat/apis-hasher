@@ -24,7 +24,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
 
     describe('test-.js::hasher-apis: [Test A] Test Suite for hasher-apis in main repo directory', function () {
         
-        it('[Test A] Test for ', function (done) {
+        it('[Test A] Test for _fileContentDeHash', function (done) {
 
             let dehash = _filelock._fileContentDeHash({
                 iv: 'eEahOe0F0Rujig/yBTHFWQ==',
@@ -35,7 +35,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             done();
         });
 
-        it('[Test A] Test for ', function (done) {
+        it('[Test A] Test for _fileContentDeHash using a _fileContentHash : _fileContentDeHash combination', function (done) {
             let hash = _filelock._fileContentHash("My personal data to hash", salt, "aes-256-ctr", "sha256", "base64", { logger: console.log });
 
             let dehash = _filelock._fileContentDeHash(hash, salt, "aes-256-ctr", "sha256", "base64", { logger: console.log });

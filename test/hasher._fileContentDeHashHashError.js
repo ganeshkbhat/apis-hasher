@@ -23,7 +23,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
 
     describe('test-.js::hasher-apis: [Test A] Test Suite for hasher-apis in main repo directory', function () {
 
-        it('[Test A] Test for ', function (done) {
+        it('[Test A] Test for _fileContentHash with Hash value error in _fileContentDeHash', function (done) {
             try {
                 let dehash = _filelock._fileContentDeHash({
                     iv: 'eEahOe0F0Rujig/yBTHFWQ==',
@@ -35,7 +35,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             }
         });
 
-        it('[Test A] Test for ', function (done) {
+        it('[Test A] Test for _fileContentHash and _fileContentDeHash combination with Hash algorithm value error in _fileContentHash', function (done) {
             try {
                 let hash = _filelock._fileContentHash("My personal data to hash", salt, "aes-256-ctr", "sha256s", "base64", { logger: console.log });
             let dehash = _filelock._fileContentDeHash(hash, salt, "aes-256-ctr", "sha256", "base64", { logger: console.log });
@@ -45,7 +45,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             }
         });
 
-        it('[Test A] Test for ', function (done) {
+        it('[Test A] Test for _fileContentHash and _fileContentDeHash combination with Hash value error in _fileContentDeHash', function (done) {
             try {
                 let hash = _filelock._fileContentHash("My personal data to hash", salt, "aes-256-ctr", "sha256", "base64", { logger: console.log });
             let dehash = _filelock._fileContentDeHash(hash, salt, "aes-256-ctr", "sha256s", "base64", { logger: console.log });

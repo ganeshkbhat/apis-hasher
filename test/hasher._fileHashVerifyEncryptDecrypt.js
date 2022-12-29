@@ -28,7 +28,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
 
     describe('test-.js::hasher-apis: [Test A] Test Suite for hasher-apis in main repo directory', function () {
 
-        it('[Test A] Test for ', function (done) {
+        it('[Test A] Test for 1 encrypt-decrypt', function (done) {
 
             let txt = fs.readFileSync(p3).toString("utf-8");
 
@@ -47,7 +47,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             done();
         });
 
-        it('[Test A] Test for ', function (done) {
+        it('[Test A] Test for 2 encrypt-decrypt using defaults', function (done) {
 
             let txt = fs.readFileSync(p3).toString("utf-8");
 

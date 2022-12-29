@@ -23,7 +23,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
 
     describe('test-.js::hasher-apis: [Test A] Test Suite for hasher-apis in main repo directory', function () {
         
-        it('[Test A] Test for ', function (done) {
+        it('[Test A] Test for getCiphers', function (done) {
             
             let r = _filelock.getCiphers();
             expect(r.includes("aes-128-cbc")).to.equal(true);

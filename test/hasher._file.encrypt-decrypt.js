@@ -30,7 +30,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
 
     describe('test-.js::hasher-apis: [Test A] Test Suite for hasher-apis in main repo directory', function () {
 
-        it('[Test A] Test for ', function (done) {
+        it('[Test A] Test for encrypt', function (done) {
             let fileText = fs.readFileSync(p3, { encoding: "utf-8", flag: "r" });
 
             // Hash P3 File to P3
@@ -46,7 +46,7 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             done();
         });
 
-        it('[Test A] Test for ', function (done) {
+        it('[Test A] Test for encrypt with defaults', function (done) {
             let fileText = fs.readFileSync(p3);
 
             // Hash P3 File to P3
