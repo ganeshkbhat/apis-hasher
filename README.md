@@ -38,7 +38,7 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 ```
 
 
-You can file demos in the [Demos Folder](./demos/)
+You can find demos in the [Demos Folder](./demos/)
 
 
 ### `createSHA`

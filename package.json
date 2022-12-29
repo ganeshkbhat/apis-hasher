@@ -32,7 +32,15 @@
     "unimported": "^1.22.0"
   },
   "keywords": [
-    "nodejs","hashing","crypto","encryption","algorithms","hash","encrypt","decrypt","decryption",
+    "nodejs",
+    "hashing",
+    "crypto",
+    "encryption",
+    "algorithms",
+    "hash",
+    "encrypt",
+    "decrypt",
+    "decryption",
     "security",
     "crypto",
     "Hash",
