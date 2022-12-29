@@ -2,7 +2,6 @@
 Simple and flexible implementation Crypto Module functions to hash/ encrypt/ decrypt content and get SHA or other algorithm hashes of text or any data
 
 
-
 # APIs hasher
 
 ###
