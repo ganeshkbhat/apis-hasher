@@ -20,7 +20,8 @@ const {
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
     
-    _createSHAHash, _fileContentHash, _fileContentDeHash, _fileHash, _fileDeHash, 
+    _createSHAHash, _fileContentHash, _fileContentDeHash, 
+    _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
     _encryptFile, _decryptFile, _createSign, _createSignVerify
 } = require("./src/hasher.js");
@@ -33,6 +34,10 @@ module.exports.dehashContent = _fileContentDeHash;
 
 module.exports.hashFile = _fileHash;
 module.exports.dehashFile = _fileDeHash;
+
+module.exports.fileHashFromContent = _fileHashFromContent;
+module.exports.fileDeHashContent = _fileDeHashContent;
+module.exports.fileDeHashLoadContent = _fileDeHashLoadContent;
 
 module.exports.verifySHA = _verifySHAHash;
 module.exports.verifyFileContent = _verifyFileContentHash;
@@ -57,6 +62,10 @@ module.exports._fileContentDeHash = _fileContentDeHash;
 
 module.exports._fileHash = _fileHash;
 module.exports._fileDeHash = _fileDeHash;
+
+module.exports._fileHashFromContent = _fileHashFromContent;
+module.exports._fileDeHashContent = _fileDeHashContent;
+module.exports._fileDeHashLoadContent = _fileDeHashLoadContent;
 
 module.exports._verifySHAHash = _verifySHAHash;
 module.exports._verifyFileContentHash = _verifyFileContentHash;

@@ -19,11 +19,13 @@
 
 import {
     default as hasher,
-    createSHA, hashContent, dehashContent, hashFile, dehashFile,
+    createSHA, hashContent, dehashContent, 
+    hashFile, dehashFile, fileHashFromContent, fileDeHashLoadContent, fileDeHashContent,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
 
-    _createSHAHash, _fileContentHash, _fileContentDeHash, _fileHash, _fileDeHash,
+    _createSHAHash, _fileContentHash, _fileContentDeHash, 
+    _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
     _encryptFile, _decryptFile, _createSign, _createSignVerify
 } from './index.js';
@@ -31,11 +33,13 @@ import {
 
 export default hasher;
 export {
-    createSHA, hashContent, dehashContent, hashFile, dehashFile,
+    createSHA, hashContent, dehashContent, 
+    hashFile, dehashFile, fileHashFromContent, fileDeHashLoadContent, fileDeHashContent,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
 
-    _createSHAHash, _fileContentHash, _fileContentDeHash, _fileHash, _fileDeHash,
+    _createSHAHash, _fileContentHash, _fileContentDeHash, 
+    _fileHash, _fileDeHash,  _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
     _encryptFile, _decryptFile, _createSign, _createSignVerify
 };

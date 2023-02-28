@@ -171,6 +171,66 @@ function _fileDeHash(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr"
 
 
 /**
+ * _fileHashFromContent
+ * file uses _fileContentHash function
+ *
+ * @param {*} remoteDestPath
+ * @param {*} data
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
+ * @return {*} 
+ */
+function _fileHashFromContent(remoteDestPath, data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+    // let data = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
+    let hashdata = _fileContentHash(data, salt, algorithm, keyAlgorithm, digest, options);
+    fs.writeFileSync(remoteDestPath, JSON.stringify(hashdata), { encoding: options.encoding ? options.encoding : "utf-8", flag: "w" });
+    return hashdata;
+}
+
+/**
+ * fileDeHashContent
+ * file uses _fileContentDeHash
+ *
+ * @param {*} remoteDestPath
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
+ * @return {*} 
+ */
+function _fileDeHashContent(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+    let hashdata = fs.readFileSync(remoteDestPath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
+    let data = _fileContentDeHash(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
+    fs.writeFileSync(remoteDestPath, data);
+    return data;
+}
+
+
+/**
+ * fileDeHashLoadContent
+ * file uses _fileContentDeHash
+ *
+ * @param {*} remoteDestPath
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
+ * @return {*} 
+ */
+function _fileDeHashLoadContent(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+    let hashdata = fs.readFileSync(remoteDestPath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
+    let data = _fileContentDeHash(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
+    // fs.writeFileSync(remoteDestPath, data);
+    return data;
+}
+
+
+/**
  *
  *
  * @param {*} remotePath
@@ -431,6 +491,10 @@ module.exports._fileContentDeHash = _fileContentDeHash;
 
 module.exports._fileHash = _fileHash;
 module.exports._fileDeHash = _fileDeHash;
+
+module.exports._fileHashFromContent = _fileHashFromContent;
+module.exports._fileDeHashContent = _fileDeHashContent;
+module.exports._fileDeHashLoadContent = _fileDeHashLoadContent;
 
 module.exports._verifySHAHash = _verifySHAHash;
 module.exports._verifyFileContentHash = _verifyFileContentHash;

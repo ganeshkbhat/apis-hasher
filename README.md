@@ -187,6 +187,78 @@ Usage: `dehashFile(remotePath, remoteDestPath, salt)`
  */
 ```
 
+### `fileHashFromContent`
+Create an encrytion of a file using salt and algorithms
+
+
+Usage: `fileHashFromContent(remotePath, content, salt, algorithm, keyAlgorithm, digest, options)`
+
+Usage: `fileHashFromContent(remotePath, content, salt)`
+
+```
+/**
+ * fileHashFromContent
+ * file uses _fileContentHash function
+ *
+ * @param {*} remoteDestPath
+ * @param {*} data
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
+ * @return {*} 
+ */
+```
+
+### `fileDeHashContent`
+Create an encrytion of a file using salt and algorithms
+
+
+Usage: `fileDeHashContent(remoteDestPath, salt, algorithm, keyAlgorithm, digest, options)`
+
+Usage: `fileDeHashContent(remoteDestPath, salt)`
+
+```
+
+/**
+ * fileDeHashContent
+ * file uses _fileContentDeHash
+ *
+ * @param {*} remoteDestPath
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
+ * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
+ * @return {*} 
+ */
+```
+
+### `fileDeHashLoadContent`
+Create an encrytion of a file using salt and algorithms
+
+
+Usage: `fileDeHashLoadContent(remoteDestPath, salt, algorithm, keyAlgorithm, digest, options)`
+
+Usage: `fileDeHashLoadContent(remoteDestPath, salt)`
+
+```
+
+/**
+ * fileDeHashLoadContent
+ * file uses _fileContentDeHash
+ *
+ * @param {*} remoteDestPath
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"]
+ * @param {string} [keyAlgorithm="sha256"]
+ * @param {string} [digest="base64"]
+ * @param {*} [options={ logger: console.log }]
+ * @return {*} 
+ */
+```
+
 ### `verifySHA`
 Verify an data using hash provided
 
