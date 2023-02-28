@@ -17,6 +17,7 @@
 
 const fs = require('fs');
 
+
 /**
  *
  *
@@ -391,7 +392,7 @@ function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
  * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
  * @return {*} 
  */
-function _createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType) {
+function _createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType, padding) {
     const crypto = require('crypto');
 
     algorithm = algorithm || "sha256";

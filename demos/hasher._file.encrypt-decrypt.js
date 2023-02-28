@@ -25,7 +25,7 @@ const p3 = "./programming.hash.rehash.txt";
 let { privateKey, publicKey, encrypted } = _filelock.encrypt(p3, p3, "sha256", "rsa", "base64", { modulusLength: 2048 }, { modulusLength: 2048 });
 // let { privateKey, publicKey, encrypted } = _filelock.encrypt(p3, p3);
 console.log("[hasher._fileHash]: File hashed");
-console.log(encrypted);
+console.log(encrypted, JSON.stringify(privateKey), publicKey);
 
 
 // DeHash P3 File hashed content to P3
