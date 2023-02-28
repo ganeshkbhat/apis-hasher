@@ -476,14 +476,18 @@ module.exports.verifyFile = _verifyFile;
 
 module.exports.encrypt = _encryptFile;
 module.exports.decrypt = _decryptFile;
+
 module.exports._genKeyPair = _genKeyPair;
+module.exports.genKeyPair = _genKeyPair;
 
 module.exports.getCiphers = getCiphers;
 module.exports.getHashes = getHashes;
 
+module.exports._getCiphers = getCiphers;
+module.exports._getHashes = getHashes;
+
 module.exports.createSign = _createSign;
 module.exports.createSignVerify = _createSignVerify;
-
 
 module.exports._createSHAHash = _createSHAHash;
 module.exports._fileContentHash = _fileContentHash;

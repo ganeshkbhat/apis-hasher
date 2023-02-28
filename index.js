@@ -19,11 +19,13 @@ const {
     createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
+    genKeyPair, 
     
     _createSHAHash, _fileContentHash, _fileContentDeHash, 
     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-    _encryptFile, _decryptFile, _createSign, _createSignVerify
+    _encryptFile, _decryptFile, _createSign, _createSignVerify, _getCiphers, _getHashes,
+    _genKeyPair
 } = require("./src/hasher.js");
 
 
@@ -44,17 +46,20 @@ module.exports.verifyFileContent = _verifyFileContentHash;
 module.exports.verifyHashedFile = _verifyHashedFile;
 module.exports.verifyFile = _verifyFile;
 
-module.exports.encrypt = _encryptFile;
-module.exports.decrypt = _decryptFile;
+module.exports.encryptFile = _encryptFile;
+module.exports.decryptFile = _decryptFile;
+
 module.exports.encrypt = encrypt;
 module.exports.decrypt = decrypt;
 
-module.exports.getCiphers = getCiphers;
-module.exports.getHashes = getHashes;
+module.exports._genKeyPair = _genKeyPair;
+module.exports.genKeyPair = _genKeyPair;
+
+module.exports.getCiphers = _getCiphers;
+module.exports.getHashes = _getHashes;
 
 module.exports.createSign = _createSign;
 module.exports.createSignVerify = _createSignVerify;
-
 
 module.exports._createSHAHash = _createSHAHash;
 module.exports._fileContentHash = _fileContentHash;
