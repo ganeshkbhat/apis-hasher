@@ -1,6 +1,6 @@
 # hasher-apis
 
-Simple and flexible implementation Crypto Module functions to hash/ encrypt/ decrypt content and get SHA or other algorithm hashes of text or any data
+Simpler flexible implementation Crypto Module functions to hash/ encrypt/ decrypt content and get SHA or other algorithm hashes of text or any data
 
 Find the demos in the [demos folder](./demos)
 
