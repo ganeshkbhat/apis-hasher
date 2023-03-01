@@ -19,7 +19,7 @@
 'use strict';
 
 const fs = require('fs');
-const { getConstants, getSymbols } = require("./const.js");
+const { getConstants, getSymbolsList } = require("./const.js");
 
 /**
  *
@@ -516,4 +516,4 @@ module.exports._createSign = _createSign;
 module.exports._createSignVerify = _createSignVerify;
 
 module.exports.getConstants = getConstants;
-module.exports.getSymbols = getSymbols;
+module.exports.getSymbolsList = getSymbolsList;

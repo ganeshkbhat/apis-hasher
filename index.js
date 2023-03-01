@@ -19,7 +19,7 @@ const {
     createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
-    genKeyPair, getSymbols, getConstants,
+    genKeyPair, getSymbolsList, getConstants,
     
     _createSHAHash, _fileContentHash, _fileContentDeHash, 
     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
@@ -82,5 +82,8 @@ module.exports._decryptFile = _decryptFile;
 
 module.exports._createSign = _createSign;
 module.exports._createSignVerify = _createSignVerify;
+
+module.exports.getSymbolsList = getSymbolsList;
+module.exports.getConstants = getConstants;
 
 module.exports.default = _createSHAHash;

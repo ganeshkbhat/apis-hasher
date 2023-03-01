@@ -22,7 +22,7 @@ import {
     createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
-    genKeyPair, 
+    genKeyPair, getConstants, getSymbolsList,
     
     _createSHAHash, _fileContentHash, _fileContentDeHash, 
     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
