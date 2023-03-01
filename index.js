@@ -86,4 +86,16 @@ module.exports._createSignVerify = _createSignVerify;
 module.exports.getSymbolsList = getSymbolsList;
 module.exports.getConstants = getConstants;
 
-module.exports.default = _createSHAHash;
+module.exports.default = {
+    createSHA, hashContent, dehashContent, hashFile, dehashFile,
+    verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
+    encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
+    genKeyPair, getConstants, getSymbolsList,
+    
+    _createSHAHash, _fileContentHash, _fileContentDeHash, 
+    _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
+    _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
+    _encryptFile, _decryptFile, _createSign, _createSignVerify, _getCiphers, _getHashes,
+    _genKeyPair
+
+};
