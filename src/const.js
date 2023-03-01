@@ -231,7 +231,7 @@ function getConstants(constantname) {
  * @param {*} listname
  */
 function getSymbolsList(listname) {
-
+    let list;
     switch (listname) {
         case "keyGen":
             list = ['rsa', 'rsa-pss', 'dsa', 'ec', 'ed25519', 'ed448', 'x25519', 'x448', 'dh'];
@@ -258,49 +258,130 @@ function getSymbolsList(listname) {
             list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("rsa")) return i; });
             break;
         case "sha":
-            list = list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("sha")) return i; });
+            list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("sha")) return i; });
             break;
         case "md5":
             list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("md5")) return i; });
             break;
         case "shake":
-            list = list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("shake")) return i; });
+            list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("shake")) return i; });
             break;
         case "sm":
-            list = list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("sm")) return i; });
+            list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("sm")) return i; });
         case "ssl":
-            list = list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("ssl")) return i; });
+            list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("ssl")) return i; });
             break;
         case "rsassl":
-            list = list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("rsassl")) return i; });
+            list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("rsassl")) return i; });
             break;
         case "pkcs":
-            list = list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("pkcs")) return i; });
+            list = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("pkcs")) return i; });
             break;
         case "aes":
-            list = list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("aes")) return i; });
+            list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("aes")) return i; });
             break;
         case "camellia":
-            list = list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("camellia")) return i; });
+            list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("camellia")) return i; });
             break;
         case "aria":
-            list = list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("aria")) return i; });
+            list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("aria")) return i; });
             break;
         case "des":
-            list = list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("des")) return i; });
+            list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("des")) return i; });
             break;
         case "id":
-            list = list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("id")) return i; });
+            list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("id")) return i; });
             break;
         case "sm4":
-            list = list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("sm4")) return i; });
+            list = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("sm4")) return i; });
             break;
         default:
+            list = [...crypto.getCiphers(), crypto.getHashes()].filter((i) => { if (!!i.toLowerCase().includes(listname)) return i; })
             break;
     }
+    return list;
+}
 
+
+/**
+ *
+ *
+ * @param {*} symbolname
+ * @return {*} 
+ */
+function getSymbols(symbolname) {
+    let symbols;
+    switch (symbolname) {
+        case "keyGen":
+            symbols = { 'rsa': 'rsa', 'rsa-pss': 'rsa-pss', 'dsa': 'dsa', 'ec': 'ec', 'ed25519': 'ed25519', 'ed448': 'ed448', 'x25519': 'x25519', 'x448': 'x448', 'dh': 'dh' }
+            break;
+        case "digest":
+            symbols = { 'ascii': 'ascii', 'utf8': 'utf8', 'utf-8': 'utf-8', 'utf16le': 'utf16le', 'ucs2': 'ucs2', 'ucs-2': 'ucs-2', 'base64': 'base64', 'base64url': 'base64url', 'latin1': 'latin1', 'binary': 'binary', 'hex': 'hex' };
+            break;
+        case "encryptType":
+            symbols = { "createSign": "createSign", "publicEncrypt": "publicEncrypt" };
+            break;
+        case "hashes":
+            symbols = crypto.getHashes();
+            break;
+        case "ciphers":
+            symbols = crypto.getCiphers();
+            break;
+        case "keyAlgorithm":
+            symbols = crypto.getCiphers();
+            break;
+        case "algorithm":
+            symbols = crypto.getHashes();
+            break;
+        case "rsa":
+            symbols = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("rsa")) return [i, i]; });
+            break;
+        case "sha":
+            symbols = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("sha")) return [i, i]; });
+            break;
+        case "md5":
+            symbols = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("md5")) return [i, i]; });
+            break;
+        case "shake":
+            symbols = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("shake")) return [i, i]; });
+            break;
+        case "sm":
+            symbols = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("sm")) return [i, i]; });
+        case "ssl":
+            symbols = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("ssl")) return [i, i]; });
+            break;
+        case "rsassl":
+            symbols = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("rsassl")) return [i, i]; });
+            break;
+        case "pkcs":
+            symbols = crypto.getCiphers().filter((i) => { if (!!i.toLowerCase().includes("pkcs")) return [i, i]; });
+            break;
+        case "aes":
+            symbols = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("aes")) return [i, i]; });
+            break;
+        case "camellia":
+            symbols = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("camellia")) return [i, i]; });
+            break;
+        case "aria":
+            symbols = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("aria")) return [i, i]; });
+            break;
+        case "des":
+            symbols = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("des")) return [i, i]; });
+            break;
+        case "id":
+            symbols = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("id")) return [i, i]; });
+            break;
+        case "sm4":
+            symbols = crypto.getHashes().filter((i) => { if (!!i.toLowerCase().includes("sm4")) return [i, i]; }).map((i) => { return { [i[0]]: i[1] } });
+            break;
+        default:
+            symbols = [...crypto.getCiphers(), crypto.getHashes()].filter((i) => { if (!!i.toLowerCase().includes(symbolname)) return [i, i]; })
+            break;
+    }
+    return symbols;
 }
 
 
 module.exports.getConstants = getConstants;
 module.exports.getSymbolsList = getSymbolsList;
+module.exports.getSymbols = getSymbols;

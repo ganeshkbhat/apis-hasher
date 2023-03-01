@@ -9,6 +9,9 @@
  * File: hasher.js
  * File Description: 
  * 
+ * PKCS: https://stackoverflow.com/questions/5866129/rsa-encryption-problem-size-of-payload-data/5868456#5868456
+ * OAEP: https://crypto.stackexchange.com/questions/42097/what-is-the-maximum-size-of-the-plaintext-message-for-rsa-oaep/42100#42100
+ * 
 */
 
 /* eslint no-console: 0 */
@@ -16,7 +19,7 @@
 'use strict';
 
 const fs = require('fs');
-
+const { getConstants, getSymbolList } = require("./const.js");
 
 /**
  *
@@ -260,7 +263,7 @@ function _encryptFile(remotePath, remoteDestPath, algorithm = "sha256", keyAlgor
 
     let encrypted = crypto.publicEncrypt({
         key: publicKey,
-        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+        padding: getConstants("RSA_PKCS1_PADDING"),
         oaepHash: algorithm
     },
         Buffer.from(data)
@@ -300,7 +303,7 @@ function _decryptFile(remotePath, remoteDestPath, privateKey, algorithm = "sha25
 
     let decrypted = crypto.privateDecrypt({
         key: privateKey,
-        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+        padding: getConstants("RSA_PKCS1_PADDING"),
         oaepHash: algorithm
     },
         Buffer.from(hashdata, digest)
@@ -415,7 +418,7 @@ function _createSign(data, algorithm, base, keyGenType, keyOptions, options, enc
         case "publicEncrypt":
             options = {
                 key: privateKey,
-                padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+                padding: getConstants("RSA_PKCS1_OAEP_PADDING"),
                 ...options
             };
             signature = crypto.sign(algorithm, Buffer.from(data), options).toString(base);
@@ -456,7 +459,7 @@ function _createSignVerify(data, signature, publicKey, algorithm, base, options,
             return crypto.verify(
                 algorithm,
                 Buffer.from(data),
-                { key: publicKey, padding: crypto.constants.RSA_PKCS1_PSS_PADDING, ...options },
+                { key: publicKey, padding: getConstants("RSA_PKCS1_OAEP_PADDING"), ...options },
                 Buffer.from(signature, base)
             )
     }
@@ -511,3 +514,6 @@ module.exports._decryptFile = _decryptFile;
 
 module.exports._createSign = _createSign;
 module.exports._createSignVerify = _createSignVerify;
+
+module.exports.getConstants = getConstants;
+module.exports.getSymbolsList = getSymbolsList;
