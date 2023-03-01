@@ -383,5 +383,5 @@ function getSymbols(symbolname) {
 
 
 module.exports.getConstants = getConstants;
-module.exports.getSymbolsList = getSymbolsList;
+module.exports.getSymbols = getSymbols;
 module.exports.getSymbols = getSymbols;

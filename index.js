@@ -19,7 +19,7 @@ const {
     createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
-    genKeyPair, 
+    genKeyPair, getSymbols, getConstants,
     
     _createSHAHash, _fileContentHash, _fileContentDeHash, 
     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,

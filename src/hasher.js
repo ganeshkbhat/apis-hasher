@@ -19,7 +19,7 @@
 'use strict';
 
 const fs = require('fs');
-const { getConstants, getSymbolList } = require("./const.js");
+const { getConstants, getSymbols } = require("./const.js");
 
 /**
  *
@@ -418,7 +418,7 @@ function _createSign(data, algorithm, base, keyGenType, keyOptions, options, enc
         case "publicEncrypt":
             options = {
                 key: privateKey,
-                padding: getConstants("RSA_PKCS1_OAEP_PADDING"),
+                padding: getConstants("RSA_PKCS1_PADDING"),
                 ...options
             };
             signature = crypto.sign(algorithm, Buffer.from(data), options).toString(base);
@@ -516,4 +516,4 @@ module.exports._createSign = _createSign;
 module.exports._createSignVerify = _createSignVerify;
 
 module.exports.getConstants = getConstants;
-module.exports.getSymbolsList = getSymbolsList;
+module.exports.getSymbols = getSymbols;
