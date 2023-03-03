@@ -727,10 +727,17 @@ Usage: `dumpKeyFile(filename, key, format, base)`
 ```
 
 
-##### Contributions
+# TODO
+
+Please take a look at the [TODO](./.todo)
+
+
+# Contributions
 
 Contributions, Feature Improvements, Bugs, and Issues are invited. [raising an issue](https://github.com/ganeshkbhat/apis-hasher/issues)
+
 
 # License
 
 [MIT License](./LICENSE)
+
