@@ -6,6 +6,8 @@ Find the demos in the [demos folder](./demos)
 
 # APIs hasher
 
+You can find details about crypto algorithm details in the [nodejs docs here](https://nodejs.org/api/crypto.html)
+
 ### Commonjs Code
 
 ```
