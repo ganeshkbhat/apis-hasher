@@ -119,21 +119,32 @@ Usage: `dehashContent(hashdata, salt)`
 ##### <a name="encryptwithkey"></a> `encryptWithKey`
 
 
-``
+
+Usage: `encryptWithKey(data, options)`
 
 ```
-
-
+/**
+ * encryptWithKey
+ *
+ * @param {*} [options] < { [publicKey | publicKeyPath], padding, algorithm ) } >
+ * @return {*} 
+ */
 ```
 
 ##### <a name="decryptwithkey"></a> `decryptWithKey`
 
 
-``
+
+Usage: `decryptWithKey(hashdata, options)`
 
 ```
-
-
+/**
+ *
+ *
+ * @param {*} hashdata
+ * @param {*} [options] < { [privateKey | privateKeyPath], padding, algorithm ) } >
+ * @return {*} 
+ */
 ```
 
 
@@ -543,11 +554,20 @@ Usage: `verifySHA(data, hashToCheck)`
 ##### <a name="verifyfilecontent"></a> `verifyFileContent`
 
 
-``
+
+Usage: `verifyFileContentHash(data, hashToCheck, algorithm, digest, options)`
 
 ```
-
-
+/**
+ *
+ *
+ * @param {*} data
+ * @param {*} hashToCheck
+ * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
+ * @return {*} 
+ */
 ```
 
 
@@ -604,43 +624,62 @@ Usage: `getHashes()`
 ##### <a name="getdiffiehellman"></a> `getDiffieHellman`
 
 
-``
+
+Usage: `getDiffieHellman(groupName)`
 
 ```
-
-
+/**
+ * getDiffieHellman
+ *
+ * @param {*} groupName
+ * @return {*[]} 
+ */
 ```
 
 ##### <a name="getfips"></a> `getFips`
 
 
-``
+
+Usage: `getFips()`
 
 ```
-
-
+/**
+ * getFips
+ *
+ * @return {*[]} 
+ */
 ```
 
 ##### <a name="getrandomvalues"></a> `getRandomValues`
 
 
-``
+
+Usage: `getRandomValues(typedArray)`
 
 ```
-
-
+/**
+ * getRandomValues
+ *
+ * @param {*} typedArray
+ * @return {*[]} 
+ */
 ```
 
 ##### <a name="getconstants"></a> `getConstants`
 
 
-``
+
+Usage: `getConstants(constantname)`
 
 ```
-
-
+/**
+ * List of constants in crypto
+ *
+ * @param {*} constantname
+ * @return {*} 
+ */
 ```
-
+<!-- 
 ##### <a name="getsymbolslist"></a> `getSymbolsList`
 
 
@@ -649,13 +688,13 @@ Usage: `getHashes()`
 ```
 
 
-```
+``` -->
 
 ##### <a name="genkeypair"></a> `genKeyPair`
 
 Create an public key and private key using genKeyPair or \_genKeyPair functions
 
-`_genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 })`
+`_genKeyPair(keyGenType = "rsa", options)`
 
 ```
 /**
@@ -670,11 +709,18 @@ Create an public key and private key using genKeyPair or \_genKeyPair functions
 ##### <a name="dumpkeyfile"></a> `dumpKeyFile`
 
 
-``
+
+Usage: `dumpKeyFile(filename, key, format, base)`
 
 ```
-
-
+/**
+ * dumpKeyFile
+ *
+ * @param {*} filename
+ * @param {*} key
+ * @param {string} [format="pem"]
+ * @param {string} [base="hex"]
+ */
 ```
 
 
