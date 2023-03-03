@@ -21,29 +21,34 @@ import {
     default as hasher,
     createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
-    encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
+    encrypt, decrypt, createSign, createSignVerify,
+    getCiphers, getHashes, getDiffieHellman, getFips, getRandomValues,
     genKeyPair, getConstants, getSymbolsList,
-    
-    _createSHAHash, _fileContentHash, _fileContentDeHash, 
+    encryptWithKey, decryptWithKey, dumpKeyFile,
+
+    _createSHAHash, _fileContentHash, _fileContentDeHash,
     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-    _encryptFile, _decryptFile, _createSign, _createSignVerify, _getCiphers, _getHashes,
-    _genKeyPair,
-
+    _encryptFile, _decryptFile, _createSign, _createSignVerify,
+    _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
+    _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
 } from './index.js';
 // process.env.NODE_OPTIONS = '--experimental-modules --loader ./custom-loader.mjs';
 
 export default hasher;
+
 export {
     createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
-    encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
+    encrypt, decrypt, createSign, createSignVerify,
+    getCiphers, getHashes, getDiffieHellman, getFips, getRandomValues,
     genKeyPair, getConstants, getSymbolsList,
-    
-    _createSHAHash, _fileContentHash, _fileContentDeHash, 
+    encryptWithKey, decryptWithKey, dumpKeyFile,
+
+    _createSHAHash, _fileContentHash, _fileContentDeHash,
     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-    _encryptFile, _decryptFile, _createSign, _createSignVerify, _getCiphers, _getHashes,
-    _genKeyPair,
-
+    _encryptFile, _decryptFile, _createSign, _createSignVerify,
+    _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
+    _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
 };

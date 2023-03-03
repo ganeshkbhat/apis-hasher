@@ -25,11 +25,17 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             let {
                 createSHA, hashContent, dehashContent, hashFile, dehashFile,
                 verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
-                encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
+                encrypt, decrypt, createSign, createSignVerify,
+                getCiphers, getHashes, getDiffieHellman, getFips, getRandomValues,
+                genKeyPair, getConstants, getSymbolsList,
+                encryptWithKey, decryptWithKey, dumpKeyFile,
 
-                _createSHAHash, _fileContentHash, _fileContentDeHash, _fileHash, _fileDeHash,
+                _createSHAHash, _fileContentHash, _fileContentDeHash,
+                _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
                 _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-                _encryptFile, _decryptFile, _createSign, _createSignVerify
+                _encryptFile, _decryptFile, _createSign, _createSignVerify,
+                _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
+                _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
             } = require("../index.js");
 
 
@@ -66,6 +72,29 @@ describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files', function ()
             expect(!!_createSign).to.equal(true)
             expect(!!_createSignVerify).to.equal(true)
 
+            expect(!!getDiffieHellman).to.equal(true)
+            expect(!!getFips).to.equal(true)
+            expect(!!getRandomValues).to.equal(true)
+            expect(!!genKeyPair).to.equal(true)
+            expect(!!getConstants).to.equal(true)
+            expect(!!getSymbolsList).to.equal(true)
+            expect(!!encryptWithKey).to.equal(true)
+            expect(!!decryptWithKey).to.equal(true)
+            expect(!!dumpKeyFile).to.equal(true)
+
+            expect(!!_getDiffieHellman).to.equal(true)
+            expect(!!_getFips).to.equal(true)
+            expect(!!_getRandomValues).to.equal(true)
+            expect(!!_genKeyPair).to.equal(true)
+            expect(!!_encryptWithKey).to.equal(true)
+            expect(!!_decryptWithKey).to.equal(true)
+            expect(!!_dumpKeyFile).to.equal(true)
+
+            expect(!!_fileHashFromContent).to.equal(true)
+            expect(!!_fileDeHashLoadContent).to.equal(true)
+            expect(!!_fileDeHashContent).to.equal(true)
+            expect(!!_getCiphers).to.equal(true)
+            expect(!!_getHashes).to.equal(true)
 
             done();
         });

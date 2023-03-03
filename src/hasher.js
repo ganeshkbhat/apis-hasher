@@ -319,6 +319,43 @@ function _decryptFile(remotePath, remoteDestPath, privateKey, algorithm = "sha25
 /**
  *
  *
+ * @param {*} [options] < { [publicKey | publicKeyPath], padding, algorithm ) } >
+ * @return {*} 
+ */
+function encryptWithKey(data, options = {}) {
+    const crypto = require('crypto');
+    return crypto.publicEncrypt({
+        key: (!!options.publicKey) ? options.publicKey : (!!options.publicKeyPath) ? fs.readFileSync(options.publicKeyPath) : null,
+        padding: getConstants("RSA_PKCS1_PADDING"),
+        oaepHash: algorithm
+    },
+        Buffer.from(data)
+    ).toString(options.digest || "base64");
+}
+
+
+/**
+ *
+ *
+ * @param {*} hashdata
+ * @param {*} [options] < { [privateKey | privateKeyPath], padding, algorithm ) } >
+ * @return {*} 
+ */
+function decryptWithKey(hashdata, options = {}) {
+    const crypto = require('crypto');
+    return crypto.privateDecrypt({
+        key: (!!options.privateKey) ? options.privateKey : (!!options.privateKeyPath) ? fs.readFileSync(options.privateKeyPath) : null,
+        padding: options.padding || getConstants("RSA_PKCS1_PADDING"),
+        oaepHash: options.algorithm
+    },
+        Buffer.from(hashdata, options.digest || "base64")
+    ).toString(options.encoding || "utf-8");
+}
+
+
+/**
+ *
+ *
  * @param {*} remotePath
  * @param {*} checksum
  * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
@@ -334,9 +371,9 @@ function _verifyFile(remotePath, checksum, algorithm = "sha256", digest = "base6
 
 
 /**
+ * getCiphers
  *
- *
- * @return {*} 
+ * @return {*[]} 
  */
 function getCiphers() {
     return require('crypto').getCiphers();
@@ -344,9 +381,9 @@ function getCiphers() {
 
 
 /**
+ * getHashes
  *
- *
- * @return {*} 
+ * @return {*[]} 
  */
 function getHashes() {
     return require('crypto').getHashes();
@@ -354,7 +391,39 @@ function getHashes() {
 
 
 /**
+ * getDiffieHellman
  *
+ * @param {*} groupName
+ * @return {*[]} 
+ */
+function getDiffieHellman(groupName) {
+    return require('crypto').getDiffieHellman(groupName);
+}
+
+
+/**
+ * getFips
+ *
+ * @return {*[]} 
+ */
+function getFips() {
+    return require('crypto').getFips();
+}
+
+
+/**
+ * getRandomValues
+ *
+ * @param {*} typedArray
+ * @return {*[]} 
+ */
+function getRandomValues(typedArray) {
+    return require('crypto').getRandomValues(typedArray);
+}
+
+
+/**
+ * _verifyHashedFile, verifyHashedFile
  *
  * @param {*} remotePath
  * @param {*} hashToCheck
@@ -380,6 +449,25 @@ function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
     const crypto = require('crypto');
     const { privateKey, publicKey } = crypto.generateKeyPairSync(keyGenType, options);
     return { privateKey, publicKey }
+}
+
+
+
+/**
+ * dumpKeyFile
+ *
+ * @param {*} filename
+ * @param {*} key
+ * @param {string} [format="pem"]
+ * @param {string} [base="hex"]
+ */
+function _dumpKeyFile(filename, key, format = "pem", base = "hex") {
+    // const { privateKey, publicKey } = encrypt();
+    // fs.writeFileSync("public.pem", publicKey.toString('hex')); // or console.log
+    // fs.writeFileSync("private.pem", privateKey.export().toString('hex'));
+    filename = (!!filename.includes(format)) ? filename : path.join(filename + format);
+    fs.writeFileSync(filename, key.toString(base));
+    return true;
 }
 
 
@@ -481,14 +569,29 @@ module.exports.verifyFile = _verifyFile;
 module.exports.encrypt = _encryptFile;
 module.exports.decrypt = _decryptFile;
 
+module.exports._encryptWithKey = encryptWithKey;
+module.exports._decryptWithKey = decryptWithKey;
+
+module.exports.encryptWithKey = encryptWithKey;
+module.exports.decryptWithKey = decryptWithKey;
+
+module.exports._dumpKeyFile = _dumpKeyFile;
+module.exports.dumpKeyFile = _dumpKeyFile;
+
 module.exports._genKeyPair = _genKeyPair;
 module.exports.genKeyPair = _genKeyPair;
 
 module.exports.getCiphers = getCiphers;
 module.exports.getHashes = getHashes;
+module.exports.getDiffieHellman = getDiffieHellman;
+module.exports.getFips = getFips;
+module.exports.getRandomValues = getRandomValues;
 
 module.exports._getCiphers = getCiphers;
 module.exports._getHashes = getHashes;
+module.exports._getDiffieHellman = getDiffieHellman;
+module.exports._getFips = getFips;
+module.exports._getRandomValues = getRandomValues;
 
 module.exports.createSign = _createSign;
 module.exports.createSignVerify = _createSignVerify;
@@ -517,3 +620,13 @@ module.exports._createSignVerify = _createSignVerify;
 
 module.exports.getConstants = getConstants;
 module.exports.getSymbolsList = getSymbolsList;
+
+module.exports._encryptWithKey = encryptWithKey;
+module.exports._decryptWithKey = decryptWithKey;
+
+module.exports.encryptWithKey = encryptWithKey;
+module.exports.decryptWithKey = decryptWithKey;
+
+module.exports._dumpKeyFile = _dumpKeyFile;
+module.exports.dumpKeyFile = _dumpKeyFile;
+

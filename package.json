@@ -1,6 +1,6 @@
 {
   "name": "hasher-apis",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Simple and flexible implementation Crypto Module functions to hash/ encrypt/ decrypt content and get SHA or other algorithm hashes of text or any data",
   "main": "index.js",
   "exports": {

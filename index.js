@@ -19,15 +19,17 @@ const {
     createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
-    genKeyPair, getSymbolsList, getConstants,
+    genKeyPair, getConstants, getSymbolsList,
+    encryptWithKey, decryptWithKey, dumpKeyFile, 
+    getDiffieHellman, getFips, getRandomValues,
     
     _createSHAHash, _fileContentHash, _fileContentDeHash, 
     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-    _encryptFile, _decryptFile, _createSign, _createSignVerify, _getCiphers, _getHashes,
-    _genKeyPair
+    _encryptFile, _decryptFile, _createSign, _createSignVerify, 
+    _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
+    _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
 } = require("./src/hasher.js");
-
 
 
 module.exports.createSHA = _createSHAHash;
@@ -52,11 +54,29 @@ module.exports.decryptFile = _decryptFile;
 module.exports.encrypt = encrypt;
 module.exports.decrypt = decrypt;
 
+module.exports._encryptWithKey = encryptWithKey;
+module.exports._decryptWithKey = decryptWithKey;
+
+module.exports.encryptWithKey = encryptWithKey;
+module.exports.decryptWithKey = decryptWithKey;
+
+module.exports._dumpKeyFile = _dumpKeyFile;
+module.exports.dumpKeyFile = _dumpKeyFile;
+
 module.exports._genKeyPair = _genKeyPair;
 module.exports.genKeyPair = _genKeyPair;
 
 module.exports.getCiphers = _getCiphers;
 module.exports.getHashes = _getHashes;
+module.exports.getDiffieHellman = getDiffieHellman;
+module.exports.getFips = getFips;
+module.exports.getRandomValues = getRandomValues;
+
+module.exports._getCiphers = _getCiphers;
+module.exports._getHashes = _getHashes;
+module.exports._getDiffieHellman = getDiffieHellman;
+module.exports._getFips = getFips;
+module.exports._getRandomValues = getRandomValues;
 
 module.exports.createSign = _createSign;
 module.exports.createSignVerify = _createSignVerify;
@@ -86,16 +106,19 @@ module.exports._createSignVerify = _createSignVerify;
 module.exports.getSymbolsList = getSymbolsList;
 module.exports.getConstants = getConstants;
 
+
 module.exports.default = {
     createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
-    encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
+    encrypt, decrypt, createSign, createSignVerify, 
+    getCiphers, getHashes, getDiffieHellman, getFips, getRandomValues,
     genKeyPair, getConstants, getSymbolsList,
+    encryptWithKey, decryptWithKey, dumpKeyFile, 
     
     _createSHAHash, _fileContentHash, _fileContentDeHash, 
     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-    _encryptFile, _decryptFile, _createSign, _createSignVerify, _getCiphers, _getHashes,
-    _genKeyPair
-
+    _encryptFile, _decryptFile, _createSign, _createSignVerify, 
+    _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
+    _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
 };
