@@ -729,7 +729,7 @@ Usage: `dumpKeyFile(filename, key, format, base)`
 
 ### TODO
 
-Please take a look at the [TODO](./.todo)
+Please take a look at the [todo](./.todo)
 
 
 # Contributions
