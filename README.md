@@ -41,11 +41,11 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 
 
 * ##### Data or Content Based Methods
-    - [hashContent](#link), [dehashContent](#link), [encryptWithKey](#link), [decryptWithKey](#link)
+    - [hashContent](#hashcontent), [dehashContent](#dehashcontent), [encryptWithKey](#encryptwithkey), [decryptWithKey](#decryptwithkey)
 * ##### File Based Methods
-    - [hashFile](#link), [dehashFile](#link), [verifyHashedFile](#link), [verifyFile](#link), [encrypt](#link), [decrypt](#link), [createSign](#link), [createSignVerify](#link)
+    - [hashFile](#hashfile), [dehashFile](#dehashfile), [verifyHashedFile](#verifyhashedfile), [verifyFile](#verifyfile), [encrypt](#encrypt), [decrypt](#decrypt), [createSign](#createsign), [createSignVerify](#createsignverify)
 * ##### Keys or Hash or Other Based Methods
-    - [createSHA](#link), [verifySHA](#link), [verifyFileContent](#link), [getCiphers](#link), [getHashes](#link), [getDiffieHellman](#link), [getFips](#link), [getRandomValues](#link), [getConstants](#link), [getSymbolsList](#link), [genKeyPair](#link), [dumpKeyFile](#link)
+    - [createSHA](#createsha), [verifySHA](#verifysha), [verifyFileContent](#verifyfilecontent), [getCiphers](#getciphers), [getHashes](#gethashes), [getDiffieHellman](#getdiffiehellman), [getFips](#getfips), [getRandomValues](#getrandomvalues), [getConstants](#getconstants), [getSymbolsList](#getsymbolslist), [genKeyPair](#genkeypair), [dumpKeyFile](#dumpkeyfile)
 
 
 ### hasher-apis APIS Methods
@@ -56,7 +56,7 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 
 
 
-##### <a name="link"></a> `hashContent`
+##### <a name="hashcontent"></a> `hashContent`
 
 Create an encrytion using a content using salt and algorithms
 
@@ -86,7 +86,7 @@ Usage: `hashContent(data, salt)`
  */
 ```
 
-##### <a name="link"></a> `dehashContent`
+##### <a name="dehashcontent"></a> `dehashContent`
 
 Create an decryption of encrypted data using salt and algorithms
 
@@ -116,7 +116,7 @@ Usage: `dehashContent(hashdata, salt)`
  */
 ```
 
-##### <a name="link"></a> `encryptWithKey`
+##### <a name="encryptwithkey"></a> `encryptWithKey`
 
 
 ``
@@ -126,7 +126,7 @@ Usage: `dehashContent(hashdata, salt)`
 
 ```
 
-##### <a name="link"></a> `decryptWithKey`
+##### <a name="decryptwithkey"></a> `decryptWithKey`
 
 
 ``
@@ -140,7 +140,7 @@ Usage: `dehashContent(hashdata, salt)`
 ### File Based Methods
 
 
-##### <a name="link"></a> `hashFile`
+##### <a name="hashfile"></a> `hashFile`
 
 Create an encrytion of a file using salt and algorithms
 
@@ -171,7 +171,7 @@ Usage: `hashFile(remotePath, remoteDestPath, salt)`
  */
 ```
 
-##### <a name="link"></a> `dehashFile`
+##### <a name="dehashfile"></a> `dehashFile`
 
 Create an decryption of encrypted file using salt and algorithms
 
@@ -202,7 +202,7 @@ Usage: `dehashFile(remotePath, remoteDestPath, salt)`
  */
 ```
 
-##### <a name="link"></a> `fileHashFromContent`
+##### <a name="filehashfromcontent"></a> `fileHashFromContent`
 
 Create an encrytion of a file using salt and algorithms
 
@@ -226,7 +226,7 @@ Usage: `fileHashFromContent(remotePath, content, salt)`
  */
 ```
 
-##### <a name="link"></a> `fileDeHashContent`
+##### <a name="filedehashcontent"></a> `fileDeHashContent`
 
 Create an encrytion of a file using salt and algorithms
 
@@ -250,7 +250,7 @@ Usage: `fileDeHashContent(remoteDestPath, salt)`
  */
 ```
 
-##### <a name="link"></a> `fileDeHashLoadContent`
+##### <a name="filedehashloadcontent"></a> `fileDeHashLoadContent`
 
 Create an encrytion of a file using salt and algorithms
 
@@ -275,7 +275,7 @@ Usage: `fileDeHashLoadContent(remoteDestPath, salt)`
 ```
 
 
-##### <a name="link"></a> `verifyFileContent`
+##### <a name="verifyfilecontent"></a> `verifyFileContent`
 
 Verify a content data using hash provided
 
@@ -302,7 +302,7 @@ Usage: `verifyFileContent(data, hashToCheck)`
  */
 ```
 
-##### <a name="link"></a> `verifyHashedFile`
+##### <a name="verifyhashedfile"></a> `verifyHashedFile`
 
 Verify a file data using hash provided
 
@@ -329,7 +329,7 @@ Usage: `verifyHashedFile(remotePath, hashToCheck)`
  */
 ```
 
-##### <a name="link"></a> `verifyFile`
+##### <a name="verifyfile"></a> `verifyFile`
 
 Verify a file data using checksum provided - market standards
 
@@ -356,7 +356,7 @@ Usage: `verifyFile(remotePath, checksum)`
  */
 ```
 
-##### <a name="link"></a> `encrypt`
+##### <a name="encrypt"></a> `encrypt`
 
 Encrypt a file
 
@@ -386,7 +386,7 @@ Usage: `encrypt(remotePath, remoteDestPath)`
  */
 ```
 
-##### <a name="link"></a> `decrypt`
+##### <a name="decrypt"></a> `decrypt`
 
 Decrypt a file
 
@@ -419,7 +419,7 @@ Usage: `decrypt(remotePath, remoteDestPath, privateKey)`
  */
 ```
 
-##### <a name="link"></a> `createSign`
+##### <a name="createsign"></a> `createSign`
 
 Sign a Data
 
@@ -452,7 +452,7 @@ Usage: `createSign(data)`
  */
 ```
 
-##### <a name="link"></a> `createSignVerify`
+##### <a name="createsignverify"></a> `createSignVerify`
 
 Verify a Signed Data
 
@@ -486,7 +486,7 @@ Usage: `createSignVerify(data, signature, publicKey)`
 ### Keys or Hash or Other Based Methods
 
 
-##### <a name="link"></a> `createSHA`
+##### <a name="createsha"></a> `createSHA`
 
 Create an Hash with algorithms like SHA using a data
 
@@ -512,7 +512,7 @@ Usage: `createSHA(data)`
  */
 ```
 
-##### <a name="link"></a> `verifySHA`
+##### <a name="verifysha"></a> `verifySHA`
 
 Verify an data using hash provided
 
@@ -540,7 +540,7 @@ Usage: `verifySHA(data, hashToCheck)`
  */
 ```
 
-##### <a name="link"></a> `verifyFileContent`
+##### <a name="verifyfilecontent"></a> `verifyFileContent`
 
 
 ``
@@ -551,7 +551,7 @@ Usage: `verifySHA(data, hashToCheck)`
 ```
 
 
-##### <a name="link"></a> `_genKeyPair`
+##### <a name="genkeypair"></a> `_genKeyPair`
 
 Create a Key Pair - public and private using key generator type and options for key generation
 
@@ -573,7 +573,7 @@ Usage: `_genKeyPair()`
  */
 ```
 
-##### <a name="link"></a> `getCiphers`
+##### <a name="getciphers"></a> `getCiphers`
 
 Get list of Ciphers supported by Node Crypto Module
 
@@ -587,7 +587,7 @@ Usage: `getCiphers()`
  */
 ```
 
-##### <a name="link"></a> `getHashes`
+##### <a name="gethashes"></a> `getHashes`
 
 Get list of Hashes supported by Node Crypto Module
 
@@ -601,7 +601,7 @@ Usage: `getHashes()`
  */
 ```
 
-##### <a name="link"></a> `getDiffieHellman`
+##### <a name="getdiffiehellman"></a> `getDiffieHellman`
 
 
 ``
@@ -611,7 +611,7 @@ Usage: `getHashes()`
 
 ```
 
-##### <a name="link"></a> `getFips`
+##### <a name="getfips"></a> `getFips`
 
 
 ``
@@ -621,7 +621,7 @@ Usage: `getHashes()`
 
 ```
 
-##### <a name="link"></a> `getRandomValues`
+##### <a name="getrandomvalues"></a> `getRandomValues`
 
 
 ``
@@ -631,7 +631,7 @@ Usage: `getHashes()`
 
 ```
 
-##### <a name="link"></a> `getConstants`
+##### <a name="getconstants"></a> `getConstants`
 
 
 ``
@@ -641,7 +641,7 @@ Usage: `getHashes()`
 
 ```
 
-##### <a name="link"></a> `getSymbolsList`
+##### <a name="getsymbolslist"></a> `getSymbolsList`
 
 
 ``
@@ -651,7 +651,7 @@ Usage: `getHashes()`
 
 ```
 
-##### <a name="link"></a> `genKeyPair`
+##### <a name="genkeypair"></a> `genKeyPair`
 
 Create an public key and private key using genKeyPair or \_genKeyPair functions
 
@@ -667,7 +667,7 @@ Create an public key and private key using genKeyPair or \_genKeyPair functions
  */
 ```
 
-##### <a name="link"></a> `dumpKeyFile`
+##### <a name="dumpkeyfile"></a> `dumpKeyFile`
 
 
 ``
