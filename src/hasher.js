@@ -19,6 +19,7 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 const { getConstants, getSymbolsList } = require("./const.js");
 
 /**
@@ -327,7 +328,7 @@ function encryptWithKey(data, options = {}) {
     return crypto.publicEncrypt({
         key: (!!options.publicKey) ? options.publicKey : (!!options.publicKeyPath) ? fs.readFileSync(options.publicKeyPath) : null,
         padding: getConstants("RSA_PKCS1_PADDING"),
-        oaepHash: algorithm
+        oaepHash: options.algorithm
     },
         Buffer.from(data)
     ).toString(options.digest || "base64");
@@ -461,12 +462,17 @@ function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
  * @param {string} [format="pem"]
  * @param {string} [base="hex"]
  */
-function _dumpKeyFile(filename, key, format = "pem", base = "hex") {
+function _dumpKeyFile(filename, key, format = "pem", type = "pkcs1", base = "hex") {
     // const { privateKey, publicKey } = encrypt();
     // fs.writeFileSync("public.pem", publicKey.toString('hex')); // or console.log
     // fs.writeFileSync("private.pem", privateKey.export().toString('hex'));
-    filename = (!!filename.includes(format)) ? filename : path.join(filename + format);
-    fs.writeFileSync(filename, key.toString(base));
+    // var xpem = publicKey.export({type: "pkcs1",  format: "pem"});
+    // require("fs").writeFileSync("./publicKey.pem", xpem)
+
+    filename = (!!filename.includes(format)) ? filename : path.join(filename + "." + format);
+    // fs.writeFileSync(filename, key.toString(base));
+    var xKpem = key.export({type: type,  format: "pem"});
+    fs.writeFileSync(filename, xKpem);
     return true;
 }
 
