@@ -67,6 +67,10 @@ Usage: `hashContent(data, salt, algorithm, keyAlgorithm, digest, options)`
 
 Usage: `hashContent(data, salt)`
 
+Usage: `content.hash(data, salt)`
+
+Usage: `content.encrypt(data, salt)`
+
 ```
 /**
  *
@@ -97,6 +101,11 @@ Usage: `dehashContent(hashdata, salt, algorithm, keyAlgorithm, digest, options)`
 
 Usage: `dehashContent(hashdata, salt)`
 
+Usage: `content.dehash(hashdata, salt)`
+
+Usage: `content.decrypt(hashdata, salt)`
+
+
 ```
 /**
  *
@@ -125,6 +134,11 @@ Usage: `dehashContent(hashdata, salt)`
 
 Usage: `encryptWithKey(data, options)`
 
+Usage: `content.encryptWithKey(data, options)`
+
+Usage: `content.encryptWithKey(data, options)`
+
+
 ```
 /**
  * encryptWithKey
@@ -139,6 +153,11 @@ Usage: `encryptWithKey(data, options)`
 
 
 Usage: `decryptWithKey(hashdata, options)`
+
+Usage: `content.decryptWithKey(hashdata, options)`
+
+Usage: `content.decryptWithKey(hashdata, options)`
+
 
 ```
 /**
@@ -161,6 +180,9 @@ Create an encrytion of a file using salt and algorithms
 Usage: `hashFile(remotePath, remoteDestPath, salt, algorithm, keyAlgorithm, digest, options)`
 
 Usage: `hashFile(remotePath, remoteDestPath, salt)`
+
+Usage: `file.hash(remotePath, remoteDestPath, salt)`
+
 
 ```
 /**
@@ -193,6 +215,9 @@ Usage: `dehashFile(remotePath, remoteDestPath, salt, algorithm, keyAlgorithm, di
 
 Usage: `dehashFile(remotePath, remoteDestPath, salt)`
 
+Usage: `file.dehash(remotePath, remoteDestPath, salt)`
+
+
 ```
 /**
  *
@@ -224,6 +249,11 @@ Usage: `fileHashFromContent(remotePath, content, salt, algorithm, keyAlgorithm, 
 
 Usage: `fileHashFromContent(remotePath, content, salt)`
 
+Usage: `file.hashContent(remotePath, content, salt, algorithm, keyAlgorithm, digest, options)`
+
+Usage: `file.hashContent(remotePath, content, salt)`
+
+
 ```
 /**
  * fileHashFromContent
@@ -247,6 +277,11 @@ Create an encrytion of a file using salt and algorithms
 Usage: `fileDeHashContent(remoteDestPath, salt, algorithm, keyAlgorithm, digest, options)`
 
 Usage: `fileDeHashContent(remoteDestPath, salt)`
+
+Usage: `file.dehashContent(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
+
+Usage: `file.dehashContent(remotePath, salt)`
+
 
 ```
 
@@ -272,6 +307,11 @@ Usage: `fileDeHashLoadContent(remoteDestPath, salt, algorithm, keyAlgorithm, dig
 
 Usage: `fileDeHashLoadContent(remoteDestPath, salt)`
 
+Usage: `file.dehashLoad(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
+
+Usage: `file.dehashLoad(remotePath, salt)`
+
+
 ```
 
 /**
@@ -296,6 +336,11 @@ Verify a content data using hash provided
 Usage: `verifyFileContent(data, hashToCheck, algorithm, digest, options)`
 
 Usage: `verifyFileContent(data, hashToCheck)`
+
+Usage: `file.verifyContent(data, hashToCheck, algorithm, digest, options)`
+
+Usage: `file.verifyContent(data, hashToCheck)`
+
 
 ```
 /**
@@ -324,6 +369,11 @@ Usage: `verifyHashedFile(remotePath, hashToCheck, algorithm, digest, options)`
 
 Usage: `verifyHashedFile(remotePath, hashToCheck)`
 
+Usage: `file.verifyFile(remotePath, hashToCheck, algorithm, digest, options)`
+
+Usage: `file.verifyFile(remotePath, hashToCheck)`
+
+
 ```
 /**
  *
@@ -351,6 +401,11 @@ Usage: `verifyFile(remotePath, checksum, algorithm, digest, options)`
 
 Usage: `verifyFile(remotePath, checksum)`
 
+Usage: `file.verify(remotePath, checksum, algorithm, digest, options)`
+
+Usage: `file.verify(remotePath, checksum)`
+
+
 ```
 /**
  *
@@ -377,6 +432,11 @@ Encrypt a file
 Usage: `encrypt(remotePath, remoteDestPath, algorithm, keyAlgorithm, digest, keyOptions, options)`
 
 Usage: `encrypt(remotePath, remoteDestPath)`
+
+Usage: `file.encrypt(remotePath, remoteDestPath, algorithm, keyAlgorithm, digest, keyOptions, options)`
+
+Usage: `file.encrypt(remotePath, remoteDestPath)`
+
 
 ```
 /**
@@ -407,6 +467,11 @@ Decrypt a file
 Usage: `decrypt(remotePath, remoteDestPath, privateKey, algorithm, keyAlgorithm, digest, options)`
 
 Usage: `decrypt(remotePath, remoteDestPath, privateKey)`
+
+Usage: `file.decrypt(remotePath, remoteDestPath, privateKey, algorithm, keyAlgorithm, digest, options)`
+
+Usage: `file.decrypt(remotePath, remoteDestPath, privateKey)`
+
 
 ```
 /**
@@ -441,6 +506,11 @@ Usage: `createSign(data, algorithm, base, keyGenType, keyOptions, options, encry
 
 Usage: `createSign(data)`
 
+Usage: `file.createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType)`
+
+Usage: `file.createSign(data)`
+
+
 ```
 /**
  *
@@ -473,6 +543,11 @@ Verify a Signed Data
 Usage: `createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType)`
 
 Usage: `createSignVerify(data, signature, publicKey)`
+
+Usage: `file.createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType)`
+
+Usage: `file.createSignVerify(data, signature, publicKey)`
+
 
 ```
 /**
@@ -508,6 +583,11 @@ Usage: `createSHA(data, algorithm , digest, options)`
 
 Usage: `createSHA(data)`
 
+Usage: `crypt.SHA(data, algorithm , digest, options)`
+
+Usage: `crypt.SHA(data)`
+
+
 ```
 /**
  *
@@ -533,6 +613,11 @@ Verify an data using hash provided
 Usage: `verifySHA(data, hashToCheck, algorithm, digest, options)`
 
 Usage: `verifySHA(data, hashToCheck)`
+
+Usage: `crypt.verifySHA(data, hashToCheck, algorithm, digest, options)`
+
+Usage: `crypt.verifySHA(data, hashToCheck)`
+
 
 ```
 /**
@@ -560,6 +645,9 @@ Usage: `verifySHA(data, hashToCheck)`
 
 Usage: `verifyFileContentHash(data, hashToCheck, algorithm, digest, options)`
 
+Usage: `crypt.verify(data, hashToCheck, algorithm, digest, options)`
+
+
 ```
 /**
  *
@@ -582,6 +670,11 @@ Usage: `_genKeyPair(keyGenType, options)`
 
 Usage: `_genKeyPair()`
 
+Usage: `crypt.genKeyPair(keyGenType, options)`
+
+Usage: `crypt.genKeyPair()`
+
+
 ```
 /**
  *
@@ -602,6 +695,9 @@ Get list of Ciphers supported by Node Crypto Module
 
 Usage: `getCiphers()`
 
+Usage: `crypt.getCiphers()`
+
+
 ```
 /**
  *
@@ -616,6 +712,9 @@ Get list of Hashes supported by Node Crypto Module
 
 Usage: `getHashes()`
 
+Usage: `crypt.getHashes()`
+
+
 ```
 /**
  *
@@ -629,6 +728,9 @@ Usage: `getHashes()`
 
 
 Usage: `getDiffieHellman(groupName)`
+
+Usage: `crypt.getDiffieHellman(groupName)`
+
 
 ```
 /**
@@ -645,6 +747,9 @@ Usage: `getDiffieHellman(groupName)`
 
 Usage: `getFips()`
 
+Usage: `crypt.getFips()`
+
+
 ```
 /**
  * getFips
@@ -658,6 +763,9 @@ Usage: `getFips()`
 
 
 Usage: `getRandomValues(typedArray)`
+
+Usage: `crypt.getRandomValues(typedArray)`
+
 
 ```
 /**
@@ -673,6 +781,9 @@ Usage: `getRandomValues(typedArray)`
 
 
 Usage: `getConstants(constantname)`
+
+Usage: `crypt.getConstants(constantname)`
+
 
 ```
 /**
@@ -697,7 +808,10 @@ Usage: `getConstants(constantname)`
 
 Create an public key and private key using genKeyPair or \_genKeyPair functions
 
-`_genKeyPair(keyGenType = "rsa", options)`
+Usage: `_genKeyPair(keyGenType = "rsa", options)`
+
+Usage: `crypt.genKeyPair(keyGenType = "rsa", options)`
+
 
 ```
 /**
@@ -714,6 +828,9 @@ Create an public key and private key using genKeyPair or \_genKeyPair functions
 
 
 Usage: `dumpKeyFile(filename, key, format, base)`
+
+Usage: `crypt.dumpKeys(filename, key, format, base)`
+
 
 ```
 /**
