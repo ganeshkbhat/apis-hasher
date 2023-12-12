@@ -369,9 +369,9 @@ Usage: `verifyHashedFile(remotePath, hashToCheck, algorithm, digest, options)`
 
 Usage: `verifyHashedFile(remotePath, hashToCheck)`
 
-Usage: `file.verifyFile(remotePath, hashToCheck, algorithm, digest, options)`
+Usage: `file.verify(remotePath, hashToCheck, algorithm, digest, options)`
 
-Usage: `file.verifyFile(remotePath, hashToCheck)`
+Usage: `file.verify(remotePath, hashToCheck)`
 
 
 ```
@@ -401,9 +401,9 @@ Usage: `verifyFile(remotePath, checksum, algorithm, digest, options)`
 
 Usage: `verifyFile(remotePath, checksum)`
 
-Usage: `file.verify(remotePath, checksum, algorithm, digest, options)`
+Usage: `file.verifyFile(remotePath, checksum, algorithm, digest, options)`
 
-Usage: `file.verify(remotePath, checksum)`
+Usage: `file.verifyFile(remotePath, checksum)`
 
 
 ```
