@@ -69,7 +69,6 @@ Usage: `hashContent(data, salt)`
 
 Usage: `content.hash(data, salt)`
 
-Usage: `content.encrypt(data, salt)`
 
 ```
 /**
@@ -102,8 +101,6 @@ Usage: `dehashContent(hashdata, salt, algorithm, keyAlgorithm, digest, options)`
 Usage: `dehashContent(hashdata, salt)`
 
 Usage: `content.dehash(hashdata, salt)`
-
-Usage: `content.decrypt(hashdata, salt)`
 
 
 ```
@@ -181,7 +178,7 @@ Usage: `hashFile(remotePath, remoteDestPath, salt, algorithm, keyAlgorithm, dige
 
 Usage: `hashFile(remotePath, remoteDestPath, salt)`
 
-Usage: `content.hashFile(remotePath, remoteDestPath, salt)`
+Usage: `file.hash(remotePath, remoteDestPath, salt)`
 
 
 ```
@@ -215,7 +212,7 @@ Usage: `dehashFile(remotePath, remoteDestPath, salt, algorithm, keyAlgorithm, di
 
 Usage: `dehashFile(remotePath, remoteDestPath, salt)`
 
-Usage: `content.dehashFile(remotePath, remoteDestPath, salt)`
+Usage: `file.dehash(remotePath, remoteDestPath, salt)`
 
 
 ```

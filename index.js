@@ -45,8 +45,8 @@ module.exports.file = {
 module.exports.content = {
     encryptWithKey: encryptWithKey,
     decryptWithKey: decryptWithKey,
-    hashContent: _fileContentHash,
-    dehashContent: _fileContentDeHash,
+    hash: _fileContentHash,
+    dehash: _fileContentDeHash,
     dehashLoad: _fileDeHashLoadContent,
     verifyContent: _verifyFileContentHash,
     verifySHA: _verifySHAHash,
@@ -55,10 +55,10 @@ module.exports.content = {
 }
 
 module.export.crypt = {
-    SHA: _createSHAHash,
-    verifySHA: _verifySHAHash,
+    SHA: createSHA,
+    verifySHA: verifySHA,
     verify: _verifyFileContentHash,
-    genKeyPair: _genKeyPair,
+    genKeyPair: genKeyPair,
     getCiphers: getCiphers,
     getHashes: getHashes,
     getDiffieHellman: getDiffieHellman,
