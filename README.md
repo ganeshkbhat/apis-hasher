@@ -44,11 +44,32 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 
 
 * ##### Data or Content Based Methods
-    - [hashContent](#hashcontent), [dehashContent](#dehashcontent), [encryptWithKey](#encryptwithkey), [decryptWithKey](#decryptwithkey)
+    - [hashContent](#hashcontent), 
+    - [dehashContent](#dehashcontent), 
+    - [encryptWithKey](#encryptwithkey), 
+    - [decryptWithKey](#decryptwithkey)
 * ##### File Based Methods
-    - [hashFile](#hashfile), [dehashFile](#dehashfile), [verifyHashedFile](#verifyhashedfile), [verifyFile](#verifyfile), [encrypt](#encrypt), [decrypt](#decrypt), [createSign](#createsign), [createSignVerify](#createsignverify)
+    - [hash](#hashfile), 
+    - [dehash](#dehashfile), 
+    - [verifyContent](#verifyhashedfile), 
+    - [verifyChecksum](#verifyfile), 
+    - [encrypt](#encrypt), 
+    - [decrypt](#decrypt), 
+    - [createSign](#createsign), 
+    - [createSignVerify](#createsignverify)
 * ##### Keys or Hash or Other Based Methods
-    - [createSHA](#createsha), [verifySHA](#verifysha), [verifyFileContent](#verifyfilecontent), [getCiphers](#getciphers), [getHashes](#gethashes), [getDiffieHellman](#getdiffiehellman), [getFips](#getfips), [getRandomValues](#getrandomvalues), [getConstants](#getconstants), [getSymbolsList](#getsymbolslist), [genKeyPair](#genkeypair), [dumpKeyFile](#dumpkeyfile)
+    - [createSHA](#createsha), 
+    - [verifySHA](#verifysha), 
+    - [verifyContent](#verifyfilecontent), 
+    - [getCiphers](#getciphers), 
+    - [getHashes](#gethashes), 
+    - [getDiffieHellman](#getdiffiehellman), 
+    - [getFips](#getfips), 
+    - [getRandomValues](#getrandomvalues), 
+    - [getConstants](#getconstants), 
+    - [getSymbolsList](#getsymbolslist), 
+    - [genKeyPair](#genkeypair), 
+    - [dumpKeyFile](#dumpkeyfile)
 
 
 ### hasher-apis APIS Methods
