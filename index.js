@@ -33,28 +33,28 @@ const {
 
 
 module.exports.file = {
-    hash: _fileHash,
-    dehash: _fileDeHash,
-    verifyContent: _verifyHashedFile,
-    verifyChecksum: _verifyFile,
-    encrypt: _encryptFile,
-    decrypt: _decryptFile,
+    hash: hashFile,
+    dehash: dehashFile,
+    verifyContent: verifyHashedFile,
+    verifyChecksum: verifyFile,
+    encrypt: encrypt,
+    decrypt: decrypt,
     load: _fileDeHashLoadContent,
 }
 
 module.exports.content = {
     encryptWithKey: encryptWithKey,
     decryptWithKey: decryptWithKey,
-    hash: _fileContentHash,
-    dehash: _fileContentDeHash,
+    hash: hashContent,
+    dehash: dehashContent,
     dehashLoad: _fileDeHashLoadContent,
-    verifyContent: _verifyFileContentHash,
-    verifySHA: _verifySHAHash,
-    createSign: _createSign,
-    createSignVerify: _createSignVerify
+    verifyContent: verifySHA,
+    verifyContent: verifyFileContent,
+    createSign: createSign,
+    createSignVerify: createSignVerify
 }
 
-module.export.crypt = {
+module.exports.crypt = {
     SHA: createSHA,
     verifySHA: verifySHA,
     verify: _verifyFileContentHash,

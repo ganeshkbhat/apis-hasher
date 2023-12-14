@@ -246,9 +246,9 @@ Usage: `fileHashFromContent(remotePath, content, salt, algorithm, keyAlgorithm, 
 
 Usage: `fileHashFromContent(remotePath, content, salt)`
 
-Usage: `content.hashContent(remotePath, content, salt, algorithm, keyAlgorithm, digest, options)`
+Usage: `file.hash(remotePath, content, salt, algorithm, keyAlgorithm, digest, options)`
 
-Usage: `content.hashContent(remotePath, content, salt)`
+Usage: `file.hash(remotePath, content, salt)`
 
 
 ```
@@ -275,9 +275,9 @@ Usage: `fileDeHashContent(remoteDestPath, salt, algorithm, keyAlgorithm, digest,
 
 Usage: `fileDeHashContent(remoteDestPath, salt)`
 
-Usage: `content.dehashContent(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
+Usage: `file.dehash(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
 
-Usage: `content.dehashContent(remotePath, salt)`
+Usage: `file.dehash(remotePath, salt)`
 
 
 ```
@@ -433,9 +433,9 @@ Usage: `encrypt(remotePath, remoteDestPath, algorithm, keyAlgorithm, digest, key
 
 Usage: `encrypt(remotePath, remoteDestPath)`
 
-Usage: `content.encrypt(remotePath, remoteDestPath, algorithm, keyAlgorithm, digest, keyOptions, options)`
+Usage: `file.encrypt(remotePath, remoteDestPath, algorithm, keyAlgorithm, digest, keyOptions, options)`
 
-Usage: `content.encrypt(remotePath, remoteDestPath)`
+Usage: `file.encrypt(remotePath, remoteDestPath)`
 
 
 ```
@@ -468,9 +468,9 @@ Usage: `decrypt(remotePath, remoteDestPath, privateKey, algorithm, keyAlgorithm,
 
 Usage: `decrypt(remotePath, remoteDestPath, privateKey)`
 
-Usage: `content.decrypt(remotePath, remoteDestPath, privateKey, algorithm, keyAlgorithm, digest, options)`
+Usage: `file.decrypt(remotePath, remoteDestPath, privateKey, algorithm, keyAlgorithm, digest, options)`
 
-Usage: `content.decrypt(remotePath, remoteDestPath, privateKey)`
+Usage: `file.decrypt(remotePath, remoteDestPath, privateKey)`
 
 
 ```
@@ -614,9 +614,9 @@ Usage: `verifySHA(data, hashToCheck, algorithm, digest, options)`
 
 Usage: `verifySHA(data, hashToCheck)`
 
-Usage: `crypt.verifySHA(data, hashToCheck, algorithm, digest, options)`
+Usage: `crypt.verifyContent(data, hashToCheck, algorithm, digest, options)`
 
-Usage: `crypt.verifySHA(data, hashToCheck)`
+Usage: `crypt.verifyContent(data, hashToCheck)`
 
 
 ```
@@ -645,7 +645,7 @@ Usage: `crypt.verifySHA(data, hashToCheck)`
 
 Usage: `verifyFileContentHash(data, hashToCheck, algorithm, digest, options)`
 
-Usage: `crypt.verifyContent(data, hashToCheck, algorithm, digest, options)`
+Usage: `crypt.verifyFileContent(data, hashToCheck, algorithm, digest, options)`
 
 
 ```

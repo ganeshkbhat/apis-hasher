@@ -39,32 +39,34 @@ export default hasher;
 
 
 export var file = {
-    hash: _fileHash,
-    dehash: _fileDeHash,
-    verifyContent: _verifyHashedFile,
-    verifyChecksum: _verifyFile,
-    encrypt: _encryptFile,
-    decrypt: _decryptFile,
+    hash: dehashContent,
+    dehash: hashContent,
+    hashFile: hashFile,
+    dehashFile: dehashFile,
+    verifyContent: verifyHashedFile,
+    verifyChecksum: verifyFile,
+    encrypt: encrypt,
+    decrypt: decrypt,
     load: _fileDeHashLoadContent,
 }
 
 export var content = {
     encryptWithKey: encryptWithKey,
     decryptWithKey: decryptWithKey,
-    hashContent: _fileContentHash,
-    dehashContent: _fileContentDeHash,
+    hash: hashContent,
+    dehash: dehashContent,
     dehashLoad: _fileDeHashLoadContent,
-    verifyContent: _verifyFileContentHash,
-    verifySHA: _verifySHAHash,
-    createSign: _createSign,
-    createSignVerify: _createSignVerify
+    verifyContent: verifySHA,
+    verifyFileContent: verifyFileContent,
+    createSign: createSign,
+    createSignVerify: createSignVerify
 }
 
 export var crypt = {
-    SHA: _createSHAHash,
-    verifySHA: _verifySHAHash,
+    SHA: createSHA,
+    verifySHA: verifySHA,
     verify: _verifyFileContentHash,
-    genKeyPair: _genKeyPair,
+    genKeyPair: genKeyPair,
     getCiphers: getCiphers,
     getHashes: getHashes,
     getDiffieHellman: getDiffieHellman,
