@@ -43,7 +43,7 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 ### hasher-apis APIS Methods
 
 
-* ##### Data or Content Based Methods `require('hasher-apis').content.xxx`
+* ##### Data or Content Based Methods `PKG**.content.xxx`
     - [hash](#hashcontent), 
     - [dehash](#dehashcontent), 
     - [encryptWithKey](#encryptwithkey), 
@@ -52,14 +52,14 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
     - [verifyContent](#verifyfilecontent), 
     - [createSign](#createsign), 
     - [createSignVerify](#createsignverify)
-* ##### File Based Methods `require('hasher-apis').file.xxx`
+* ##### File Based Methods `PKG**.file.xxx`
     - [hash](#hashfile), 
     - [dehash](#dehashfile), 
     - [verifyContent](#verifyhashedfile), 
     - [verifyChecksum](#verifyfile), 
     - [encrypt](#encrypt), 
     - [decrypt](#decrypt) 
-* ##### Keys or Hash or Other Based Methods `require('hasher-apis').crypt.xxx`
+* ##### Keys or Hash or Other Based Methods `PKG**.crypt.xxx`
     - [createSHA](#createsha), 
     - [getCiphers](#getciphers), 
     - [getHashes](#gethashes), 
@@ -71,6 +71,8 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
     - [genKeyPair](#genkeypair), 
     - [dumpKeyFile](#dumpkeyfile)
 
+
+###### ***PKG - package
 
 ### hasher-apis APIS Methods
 
