@@ -471,7 +471,7 @@ function _dumpKeyFile(filename, key, format = "pem", type = "pkcs1", base = "hex
 
     filename = (!!filename.includes(format)) ? filename : path.join(filename + "." + format);
     // fs.writeFileSync(filename, key.toString(base));
-    var xKpem = key.export({type: type,  format: "pem"});
+    var xKpem = key.export({ type: type, format: "pem" });
     fs.writeFileSync(filename, xKpem);
     return true;
 }
@@ -575,11 +575,12 @@ module.exports.verifyFile = _verifyFile;
 module.exports.encrypt = _encryptFile;
 module.exports.decrypt = _decryptFile;
 
-module.exports._encryptWithKey = encryptWithKey;
-module.exports._decryptWithKey = decryptWithKey;
-
 module.exports.encryptWithKey = encryptWithKey;
 module.exports.decryptWithKey = decryptWithKey;
+
+
+module.exports.hashContent = _fileContentHash;
+module.exports.dehashContent = _fileContentDeHash;
 
 module.exports._dumpKeyFile = _dumpKeyFile;
 module.exports.dumpKeyFile = _dumpKeyFile;
@@ -635,4 +636,56 @@ module.exports.decryptWithKey = decryptWithKey;
 
 module.exports._dumpKeyFile = _dumpKeyFile;
 module.exports.dumpKeyFile = _dumpKeyFile;
+
+
+module.exports.createSHA = _createSHAHash;
+module.exports.hashContent = _fileContentHash;
+module.exports.dehashContent = _fileContentDeHash;
+
+module.exports.hashFile = _fileHash;
+module.exports.dehashFile = _fileDeHash;
+
+module.exports.verifySHA = _verifySHAHash;
+module.exports.verifyFileContent = _verifyFileContentHash;
+module.exports.verifyHashedFile = _verifyHashedFile;
+module.exports.verifyFile = _verifyFile;
+
+module.exports.encrypt = _encryptFile;
+module.exports.decrypt = _decryptFile;
+
+module.exports.encryptWithKey = encryptWithKey;
+module.exports.decryptWithKey = decryptWithKey;
+
+
+module.exports.file = {
+    hash: _fileHash,
+    dehash: _fileDeHash,
+    verifyFile: _verifyFile,
+    encrypt: _encryptFile,
+    decrypt: _decryptFile
+}
+
+module.exports.content = {
+    encryptWithKey: encryptWithKey,
+    decryptWithKey: decryptWithKey,
+    hashContent: _fileContentHash,
+    dehashContent: _fileContentDeHash,
+    dehashLoad: _fileDeHashLoadContent,
+    verifyContent: _verifyFileContentHash,
+    verify: _verifySHAHash,
+    createSign: _createSign,
+    createSignVerify: _createSignVerify
+}
+
+module.export.crypt = {
+    SHA: _createSHAHash,
+    verifySHA: _verifySHAHash,
+    verify: _verifyFileContentHash,
+    genKeyPair: _genKeyPair,
+    getCiphers: getCiphers,
+    getHashes: getHashes,
+    getDiffieHellman: getDiffieHellman,
+    getFips: getFips,
+    getRandomValues: getRandomValues,
+}
 

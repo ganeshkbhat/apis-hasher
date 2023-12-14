@@ -181,7 +181,7 @@ Usage: `hashFile(remotePath, remoteDestPath, salt, algorithm, keyAlgorithm, dige
 
 Usage: `hashFile(remotePath, remoteDestPath, salt)`
 
-Usage: `file.hash(remotePath, remoteDestPath, salt)`
+Usage: `content.hashFile(remotePath, remoteDestPath, salt)`
 
 
 ```
@@ -215,7 +215,7 @@ Usage: `dehashFile(remotePath, remoteDestPath, salt, algorithm, keyAlgorithm, di
 
 Usage: `dehashFile(remotePath, remoteDestPath, salt)`
 
-Usage: `file.dehash(remotePath, remoteDestPath, salt)`
+Usage: `content.dehashFile(remotePath, remoteDestPath, salt)`
 
 
 ```
@@ -249,9 +249,9 @@ Usage: `fileHashFromContent(remotePath, content, salt, algorithm, keyAlgorithm, 
 
 Usage: `fileHashFromContent(remotePath, content, salt)`
 
-Usage: `file.hashContent(remotePath, content, salt, algorithm, keyAlgorithm, digest, options)`
+Usage: `content.hashContent(remotePath, content, salt, algorithm, keyAlgorithm, digest, options)`
 
-Usage: `file.hashContent(remotePath, content, salt)`
+Usage: `content.hashContent(remotePath, content, salt)`
 
 
 ```
@@ -278,9 +278,9 @@ Usage: `fileDeHashContent(remoteDestPath, salt, algorithm, keyAlgorithm, digest,
 
 Usage: `fileDeHashContent(remoteDestPath, salt)`
 
-Usage: `file.dehashContent(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
+Usage: `content.dehashContent(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
 
-Usage: `file.dehashContent(remotePath, salt)`
+Usage: `content.dehashContent(remotePath, salt)`
 
 
 ```
@@ -307,9 +307,9 @@ Usage: `fileDeHashLoadContent(remoteDestPath, salt, algorithm, keyAlgorithm, dig
 
 Usage: `fileDeHashLoadContent(remoteDestPath, salt)`
 
-Usage: `file.dehashLoad(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
+Usage: `content.dehashLoad(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
 
-Usage: `file.dehashLoad(remotePath, salt)`
+Usage: `content.dehashLoad(remotePath, salt)`
 
 
 ```
@@ -337,9 +337,9 @@ Usage: `verifyFileContent(data, hashToCheck, algorithm, digest, options)`
 
 Usage: `verifyFileContent(data, hashToCheck)`
 
-Usage: `file.verifyContent(data, hashToCheck, algorithm, digest, options)`
+Usage: `content.verifyContent(data, hashToCheck, algorithm, digest, options)`
 
-Usage: `file.verifyContent(data, hashToCheck)`
+Usage: `content.verifyContent(data, hashToCheck)`
 
 
 ```
@@ -369,9 +369,9 @@ Usage: `verifyHashedFile(remotePath, hashToCheck, algorithm, digest, options)`
 
 Usage: `verifyHashedFile(remotePath, hashToCheck)`
 
-Usage: `file.verify(remotePath, hashToCheck, algorithm, digest, options)`
+Usage: `content.verify(remotePath, hashToCheck, algorithm, digest, options)`
 
-Usage: `file.verify(remotePath, hashToCheck)`
+Usage: `content.verify(remotePath, hashToCheck)`
 
 
 ```
@@ -401,9 +401,9 @@ Usage: `verifyFile(remotePath, checksum, algorithm, digest, options)`
 
 Usage: `verifyFile(remotePath, checksum)`
 
-Usage: `file.verifyFile(remotePath, checksum, algorithm, digest, options)`
+Usage: `content.verifyFile(remotePath, checksum, algorithm, digest, options)`
 
-Usage: `file.verifyFile(remotePath, checksum)`
+Usage: `content.verifyFile(remotePath, checksum)`
 
 
 ```
@@ -433,9 +433,9 @@ Usage: `encrypt(remotePath, remoteDestPath, algorithm, keyAlgorithm, digest, key
 
 Usage: `encrypt(remotePath, remoteDestPath)`
 
-Usage: `file.encrypt(remotePath, remoteDestPath, algorithm, keyAlgorithm, digest, keyOptions, options)`
+Usage: `content.encrypt(remotePath, remoteDestPath, algorithm, keyAlgorithm, digest, keyOptions, options)`
 
-Usage: `file.encrypt(remotePath, remoteDestPath)`
+Usage: `content.encrypt(remotePath, remoteDestPath)`
 
 
 ```
@@ -468,9 +468,9 @@ Usage: `decrypt(remotePath, remoteDestPath, privateKey, algorithm, keyAlgorithm,
 
 Usage: `decrypt(remotePath, remoteDestPath, privateKey)`
 
-Usage: `file.decrypt(remotePath, remoteDestPath, privateKey, algorithm, keyAlgorithm, digest, options)`
+Usage: `content.decrypt(remotePath, remoteDestPath, privateKey, algorithm, keyAlgorithm, digest, options)`
 
-Usage: `file.decrypt(remotePath, remoteDestPath, privateKey)`
+Usage: `content.decrypt(remotePath, remoteDestPath, privateKey)`
 
 
 ```
@@ -506,9 +506,9 @@ Usage: `createSign(data, algorithm, base, keyGenType, keyOptions, options, encry
 
 Usage: `createSign(data)`
 
-Usage: `file.createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType)`
+Usage: `content.createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType)`
 
-Usage: `file.createSign(data)`
+Usage: `content.createSign(data)`
 
 
 ```
@@ -544,9 +544,9 @@ Usage: `createSignVerify(data, signature, publicKey, algorithm, base, options, e
 
 Usage: `createSignVerify(data, signature, publicKey)`
 
-Usage: `file.createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType)`
+Usage: `content.createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType)`
 
-Usage: `file.createSignVerify(data, signature, publicKey)`
+Usage: `content.createSignVerify(data, signature, publicKey)`
 
 
 ```
