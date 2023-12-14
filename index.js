@@ -57,7 +57,8 @@ module.exports.content = {
 module.exports.crypt = {
     SHA: createSHA,
     verifySHA: verifySHA,
-    verify: _verifyFileContentHash,
+    verifyEncrypt: verifySHA,
+    verifyContent: _verifyFileContentHash,
     genKeyPair: genKeyPair,
     getCiphers: getCiphers,
     getHashes: getHashes,

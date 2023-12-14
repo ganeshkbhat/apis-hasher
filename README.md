@@ -614,9 +614,13 @@ Usage: `verifySHA(data, hashToCheck, algorithm, digest, options)`
 
 Usage: `verifySHA(data, hashToCheck)`
 
-Usage: `crypt.verifyContent(data, hashToCheck, algorithm, digest, options)`
+Usage: `crypt.verifyEncrypt(data, hashToCheck, algorithm, digest, options)`
 
-Usage: `crypt.verifyContent(data, hashToCheck)`
+Usage: `crypt.verifyEncrypt(data, hashToCheck)`
+
+Usage: `crypt.verifySHA(data, hashToCheck, algorithm, digest, options)`
+
+Usage: `crypt.verifySHA(data, hashToCheck)`
 
 
 ```
@@ -645,7 +649,7 @@ Usage: `crypt.verifyContent(data, hashToCheck)`
 
 Usage: `verifyFileContentHash(data, hashToCheck, algorithm, digest, options)`
 
-Usage: `crypt.verifyFileContent(data, hashToCheck, algorithm, digest, options)`
+Usage: `crypt.verifyContent(data, hashToCheck, algorithm, digest, options)`
 
 
 ```

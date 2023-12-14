@@ -56,9 +56,10 @@ export var content = {
     hash: hashContent,
     dehash: dehashContent,
     dehashLoad: _fileDeHashLoadContent,
-    verifyContent: verifySHA,
-    verifyFileContent: verifyFileContent,
-    createSign: createSign,
+    verifySHA: verifySHA, 
+    verifyEncrypt: verifySHA, 
+    verifyContent: verifyFileContent, 
+    createSign: createSign, 
     createSignVerify: createSignVerify
 }
 
