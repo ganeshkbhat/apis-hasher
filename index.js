@@ -20,16 +20,51 @@ const {
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
     genKeyPair, getConstants, getSymbolsList,
-    encryptWithKey, decryptWithKey, dumpKeyFile, 
+    encryptWithKey, decryptWithKey, dumpKeyFile,
     getDiffieHellman, getFips, getRandomValues,
-    
-    _createSHAHash, _fileContentHash, _fileContentDeHash, 
+
+    _createSHAHash, _fileContentHash, _fileContentDeHash,
     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-    _encryptFile, _decryptFile, _createSign, _createSignVerify, 
+    _encryptFile, _decryptFile, _createSign, _createSignVerify,
     _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
     _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
 } = require("./src/hasher.js");
+
+
+module.exports.file = {
+    hash: _fileHash,
+    dehash: _fileDeHash,
+    verifyContent: _verifyHashedFile,
+    verifyChecksum: _verifyFile,
+    encrypt: _encryptFile,
+    decrypt: _decryptFile,
+    load: _fileDeHashLoadContent,
+}
+
+module.exports.content = {
+    encryptWithKey: encryptWithKey,
+    decryptWithKey: decryptWithKey,
+    hashContent: _fileContentHash,
+    dehashContent: _fileContentDeHash,
+    dehashLoad: _fileDeHashLoadContent,
+    verifyContent: _verifyFileContentHash,
+    verifySHA: _verifySHAHash,
+    createSign: _createSign,
+    createSignVerify: _createSignVerify
+}
+
+module.export.crypt = {
+    SHA: _createSHAHash,
+    verifySHA: _verifySHAHash,
+    verify: _verifyFileContentHash,
+    genKeyPair: _genKeyPair,
+    getCiphers: getCiphers,
+    getHashes: getHashes,
+    getDiffieHellman: getDiffieHellman,
+    getFips: getFips,
+    getRandomValues: getRandomValues
+}
 
 
 module.exports.createSHA = _createSHAHash;
@@ -110,15 +145,15 @@ module.exports.getConstants = getConstants;
 module.exports.default = {
     createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
-    encrypt, decrypt, createSign, createSignVerify, 
+    encrypt, decrypt, createSign, createSignVerify,
     getCiphers, getHashes, getDiffieHellman, getFips, getRandomValues,
     genKeyPair, getConstants, getSymbolsList,
-    encryptWithKey, decryptWithKey, dumpKeyFile, 
-    
-    _createSHAHash, _fileContentHash, _fileContentDeHash, 
+    encryptWithKey, decryptWithKey, dumpKeyFile,
+
+    _createSHAHash, _fileContentHash, _fileContentDeHash,
     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-    _encryptFile, _decryptFile, _createSign, _createSignVerify, 
+    _encryptFile, _decryptFile, _createSign, _createSignVerify,
     _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
     _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
 };

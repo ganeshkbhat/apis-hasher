@@ -37,6 +37,42 @@ import {
 
 export default hasher;
 
+
+export var file = {
+    hash: _fileHash,
+    dehash: _fileDeHash,
+    verifyContent: _verifyHashedFile,
+    verifyChecksum: _verifyFile,
+    encrypt: _encryptFile,
+    decrypt: _decryptFile,
+    load: _fileDeHashLoadContent,
+}
+
+export var content = {
+    encryptWithKey: encryptWithKey,
+    decryptWithKey: decryptWithKey,
+    hashContent: _fileContentHash,
+    dehashContent: _fileContentDeHash,
+    dehashLoad: _fileDeHashLoadContent,
+    verifyContent: _verifyFileContentHash,
+    verifySHA: _verifySHAHash,
+    createSign: _createSign,
+    createSignVerify: _createSignVerify
+}
+
+export var crypt = {
+    SHA: _createSHAHash,
+    verifySHA: _verifySHAHash,
+    verify: _verifyFileContentHash,
+    genKeyPair: _genKeyPair,
+    getCiphers: getCiphers,
+    getHashes: getHashes,
+    getDiffieHellman: getDiffieHellman,
+    getFips: getFips,
+    getRandomValues: getRandomValues
+}
+
+
 export {
     createSHA, hashContent, dehashContent, hashFile, dehashFile,
     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,

@@ -657,35 +657,3 @@ module.exports.encryptWithKey = encryptWithKey;
 module.exports.decryptWithKey = decryptWithKey;
 
 
-module.exports.file = {
-    hash: _fileHash,
-    dehash: _fileDeHash,
-    verifyFile: _verifyFile,
-    encrypt: _encryptFile,
-    decrypt: _decryptFile
-}
-
-module.exports.content = {
-    encryptWithKey: encryptWithKey,
-    decryptWithKey: decryptWithKey,
-    hashContent: _fileContentHash,
-    dehashContent: _fileContentDeHash,
-    dehashLoad: _fileDeHashLoadContent,
-    verifyContent: _verifyFileContentHash,
-    verify: _verifySHAHash,
-    createSign: _createSign,
-    createSignVerify: _createSignVerify
-}
-
-module.export.crypt = {
-    SHA: _createSHAHash,
-    verifySHA: _verifySHAHash,
-    verify: _verifyFileContentHash,
-    genKeyPair: _genKeyPair,
-    getCiphers: getCiphers,
-    getHashes: getHashes,
-    getDiffieHellman: getDiffieHellman,
-    getFips: getFips,
-    getRandomValues: getRandomValues,
-}
-

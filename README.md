@@ -311,6 +311,9 @@ Usage: `content.dehashLoad(remotePath, salt, algorithm, keyAlgorithm, digest, op
 
 Usage: `content.dehashLoad(remotePath, salt)`
 
+Usage: `file.load(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
+
+Usage: `file.load(remotePath, salt)`
 
 ```
 
@@ -369,9 +372,9 @@ Usage: `verifyHashedFile(remotePath, hashToCheck, algorithm, digest, options)`
 
 Usage: `verifyHashedFile(remotePath, hashToCheck)`
 
-Usage: `content.verify(remotePath, hashToCheck, algorithm, digest, options)`
+Usage: `file.verifyContent(remotePath, hashToCheck, algorithm, digest, options)`
 
-Usage: `content.verify(remotePath, hashToCheck)`
+Usage: `file.verifyContent(remotePath, hashToCheck)`
 
 
 ```
@@ -401,9 +404,9 @@ Usage: `verifyFile(remotePath, checksum, algorithm, digest, options)`
 
 Usage: `verifyFile(remotePath, checksum)`
 
-Usage: `content.verifyFile(remotePath, checksum, algorithm, digest, options)`
+Usage: `file.verifyChecksum(remotePath, checksum, algorithm, digest, options)`
 
-Usage: `content.verifyFile(remotePath, checksum)`
+Usage: `file.verifyChecksum(remotePath, checksum)`
 
 
 ```
@@ -645,7 +648,7 @@ Usage: `crypt.verifySHA(data, hashToCheck)`
 
 Usage: `verifyFileContentHash(data, hashToCheck, algorithm, digest, options)`
 
-Usage: `crypt.verify(data, hashToCheck, algorithm, digest, options)`
+Usage: `crypt.verifyContent(data, hashToCheck, algorithm, digest, options)`
 
 
 ```
