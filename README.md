@@ -43,7 +43,7 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 ### hasher-apis APIS Methods
 
 
-* ##### Data or Content Based Methods
+* ##### Data or Content Based Methods `package.content.xxx`
     - [hash](#hashcontent), 
     - [dehash](#dehashcontent), 
     - [encryptWithKey](#encryptwithkey), 
@@ -52,14 +52,14 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
     - [verifyContent](#verifyfilecontent), 
     - [createSign](#createsign), 
     - [createSignVerify](#createsignverify)
-* ##### File Based Methods
+* ##### File Based Methods `package.file.xxx`
     - [hash](#hashfile), 
     - [dehash](#dehashfile), 
     - [verifyContent](#verifyhashedfile), 
     - [verifyChecksum](#verifyfile), 
     - [encrypt](#encrypt), 
     - [decrypt](#decrypt) 
-* ##### Keys or Hash or Other Based Methods
+* ##### Keys or Hash or Other Based Methods `package.crypt.xxx`
     - [createSHA](#createsha), 
     - [getCiphers](#getciphers), 
     - [getHashes](#gethashes), 
