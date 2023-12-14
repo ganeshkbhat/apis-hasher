@@ -614,10 +614,6 @@ Usage: `verifySHA(data, hashToCheck, algorithm, digest, options)`
 
 Usage: `verifySHA(data, hashToCheck)`
 
-Usage: `crypt.verifyEncrypt(data, hashToCheck, algorithm, digest, options)`
-
-Usage: `crypt.verifyEncrypt(data, hashToCheck)`
-
 Usage: `crypt.verifySHA(data, hashToCheck, algorithm, digest, options)`
 
 Usage: `crypt.verifySHA(data, hashToCheck)`

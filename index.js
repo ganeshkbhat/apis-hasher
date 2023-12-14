@@ -48,9 +48,9 @@ module.exports.content = {
     hash: hashContent,
     dehash: dehashContent,
     dehashLoad: _fileDeHashLoadContent,
-    verifyContent: verifySHA,
-    verifyContent: verifyFileContent,
-    createSign: createSign,
+    verifySHA: verifySHA, 
+    verifyContent: verifyFileContent, 
+    createSign: createSign, 
     createSignVerify: createSignVerify
 }
 
