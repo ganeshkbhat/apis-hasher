@@ -44,23 +44,23 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 
 
 * ##### Data or Content Based Methods
-    - [hashContent](#hashcontent), 
-    - [dehashContent](#dehashcontent), 
+    - [hash](#hashcontent), 
+    - [dehash](#dehashcontent), 
     - [encryptWithKey](#encryptwithkey), 
-    - [decryptWithKey](#decryptwithkey)
+    - [decryptWithKey](#decryptwithkey),
+    - [verifySHA](#verifysha), 
+    - [verifyContent](#verifyfilecontent), 
+    - [createSign](#createsign), 
+    - [createSignVerify](#createsignverify)
 * ##### File Based Methods
     - [hash](#hashfile), 
     - [dehash](#dehashfile), 
     - [verifyContent](#verifyhashedfile), 
     - [verifyChecksum](#verifyfile), 
     - [encrypt](#encrypt), 
-    - [decrypt](#decrypt), 
-    - [createSign](#createsign), 
-    - [createSignVerify](#createsignverify)
+    - [decrypt](#decrypt) 
 * ##### Keys or Hash or Other Based Methods
     - [createSHA](#createsha), 
-    - [verifySHA](#verifysha), 
-    - [verifyContent](#verifyfilecontent), 
     - [getCiphers](#getciphers), 
     - [getHashes](#gethashes), 
     - [getDiffieHellman](#getdiffiehellman), 
