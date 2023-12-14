@@ -610,13 +610,13 @@ Usage: `crypt.SHA(data)`
 
 Verify an data using hash provided
 
-Usage: `verifySHA(data, hashToCheck, algorithm, digest, options)`
+Usage: `verifySHA(data, SHAHashToCheck, algorithm, digest, options)`
 
-Usage: `verifySHA(data, hashToCheck)`
+Usage: `verifySHA(data, SHAHashToCheck)`
 
-Usage: `crypt.verifySHA(data, hashToCheck, algorithm, digest, options)`
+Usage: `crypt.verifySHA(data, SHAHashToCheck, algorithm, digest, options)`
 
-Usage: `crypt.verifySHA(data, hashToCheck)`
+Usage: `crypt.verifySHA(data, SHAHashToCheck)`
 
 
 ```

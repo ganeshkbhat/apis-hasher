@@ -106,13 +106,14 @@ function _fileContentDeHash(hashdata, salt, algorithm = "aes-256-ctr", keyAlgori
  *
  *
  * @param {*} data
- * @param {*} hashToCheck
+ * @param {*} SHAHashToCheck
  * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
  * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifySHAHash(data, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function _verifySHAHash(data, SHAHashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+    let hashToCheck = SHAHashToCheck;
     if (!hashToCheck) throw new Error("Hash to Check not provided");
     if (hashToCheck === _createSHAHash(data, algorithm, digest, options)) return true;
 }
