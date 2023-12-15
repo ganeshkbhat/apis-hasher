@@ -55,12 +55,13 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 * ##### File Based Methods `PKG**.file.xxx`
     - [hash](#hashfile), 
     - [dehash](#dehashfile), 
+    - [verifyEncrypt](#verifyhashedfile), 
     - [verifyContent](#verifyhashedfile), 
     - [verifyChecksum](#verifyfile), 
     - [encrypt](#encrypt), 
     - [decrypt](#decrypt) 
 * ##### Keys or Hash or Other Based Methods `PKG**.crypt.xxx`
-    - [createSHA](#createsha), 
+    - [createSHA, SHA](#createsha), 
     - [getCiphers](#getciphers), 
     - [getHashes](#gethashes), 
     - [getDiffieHellman](#getdiffiehellman), 
@@ -327,9 +328,9 @@ Usage: `fileDeHashLoadContent(remoteDestPath, salt, algorithm, keyAlgorithm, dig
 
 Usage: `fileDeHashLoadContent(remoteDestPath, salt)`
 
-Usage: `content.dehashLoad(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
+Usage: `content.load(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
 
-Usage: `content.dehashLoad(remotePath, salt)`
+Usage: `content.load(remotePath, salt)`
 
 Usage: `file.load(remotePath, salt, algorithm, keyAlgorithm, digest, options)`
 

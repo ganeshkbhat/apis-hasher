@@ -47,7 +47,7 @@ module.exports.content = {
     decryptWithKey: decryptWithKey,
     hash: hashContent,
     dehash: dehashContent,
-    dehashLoad: _fileDeHashLoadContent,
+    load: _fileDeHashLoadContent,
     verifySHA: verifySHA, 
     verifyContent: verifyFileContent, 
     createSign: createSign, 
