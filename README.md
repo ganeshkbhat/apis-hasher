@@ -14,7 +14,12 @@ You can find details about used crypto algorithm details in the [nodejs crypto, 
 ```
 
 var hasher = require("hasher-apis");
-hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", options = { logger: console.log })
+hasher.createSHA(
+    data="texter data", 
+    algorithm = "sha256", 
+    digest="base64", 
+    options = { logger: console.log }
+    )
 
 ```
 
@@ -23,7 +28,12 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 ```
 
 import { default as _createSHAHash, createSHA } as "hasher-apis";
-createSHA(data="texter data", algorithm = "sha256", digest="base64", options = { logger: console.log })
+createSHA(
+    data="texter data", 
+    algorithm = "sha256", 
+    digest="base64", 
+    options = { logger: console.log }
+    )
 
 ```
 
@@ -32,7 +42,12 @@ createSHA(data="texter data", algorithm = "sha256", digest="base64", options = {
 ```
 
 var hasher = import("hasher-apis");
-hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", options = { logger: console.log })
+hasher.createSHA(
+    data="texter data", 
+    algorithm = "sha256", 
+    digest="base64", 
+    options = { logger: console.log }
+    )
 
 ```
 
