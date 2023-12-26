@@ -92,8 +92,7 @@ hasher.createSHA(
 
 
 
-### Data or Content Based Methods
-
+### Demo Usages for Content (with or without keys)
 
 
 ##### <a name="hashcontent"></a> `hashContent`
@@ -102,10 +101,10 @@ Create an encrytion using a content using salt and algorithms
 
 Usage: `hashContent(data, salt, algorithm, keyAlgorithm, digest, options)`
 
-Usage: `hashContent(data, salt)`
 
-Usage: `content.hash(data, salt)`
+```
 
+```
 
 
 
