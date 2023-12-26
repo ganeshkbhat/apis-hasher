@@ -6,7 +6,7 @@ const { getConstants, getSymbolsList } = require("./const.js");
 
 
 /**
- *
+ * _verifySHAHash
  *
  * @param {*} data
  * @param {*} SHAHashToCheck
@@ -15,14 +15,15 @@ const { getConstants, getSymbolsList } = require("./const.js");
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifySHAHash(data, SHAHashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.verify = module.exports.SHA = function verifySHA(data, SHAHashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let hashToCheck = SHAHashToCheck;
     if (!hashToCheck) throw new Error("Hash to Check not provided");
     if (hashToCheck === _createSHAHash(data, algorithm, digest, options)) return true;
 }
 
-
 /**
+ * 
+ * _verifyFileContentHash
  * rename compareContent
  *
  * @param {*} data
@@ -32,16 +33,14 @@ function _verifySHAHash(data, SHAHashToCheck, algorithm = "sha256", digest = "ba
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifyFileContentHash(data, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.contentChecksum = function compareContentChecksum(data, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
     let hashdata = _fileContentHash(data, salt, algorithm, keyAlgorithm, digest, options);
     return _verifySHAHash(_createSHAHash(hashdata), _createSHAHash(hashToCheck), algorithm, digest, options);
 }
 
-
-
 /**
- *
+ * _verifyFile
  *
  * @param {*} remotePath
  * @param {*} checksum
@@ -50,13 +49,11 @@ function _verifyFileContentHash(data, hashToCheck, algorithm = "sha256", digest 
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifyFile(remotePath, checksum, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.checksum = module.exports.fileWithChecksum = function fileWithChecksum(remotePath, checksum, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
     let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
     return _verifySHAHash(_createSHAHash(hashdata), checksum, algorithm, digest, options);
 }
-
-
 
 /**
  * _verifyHashedFile, verifyHashedFile
@@ -68,14 +65,13 @@ function _verifyFile(remotePath, checksum, algorithm = "sha256", digest = "base6
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifyHashedFile(remotePath, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.fileWithContent = function fileWithContent(remotePath, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
     return _verifyFile(remotePath, _createSHAHash(hashToCheck), algorithm, digest, options);
 }
 
-
 /**
- *
+ * _createSign
  *
  * @param {*} data
  * @param {*} algorithm [default: "SHA256"] [options: use function getHashes]
@@ -86,7 +82,7 @@ function _verifyHashedFile(remotePath, hashToCheck, algorithm = "sha256", digest
  * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
  * @return {*} 
  */
-function _createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType, padding) {
+module.exports.createSign = function createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType, padding) {
     const crypto = require('crypto');
 
     algorithm = algorithm || "sha256";
@@ -119,10 +115,8 @@ function _createSign(data, algorithm, base, keyGenType, keyOptions, options, enc
     return { privateKey: privateKey, publicKey: publicKey, signature: signature };
 }
 
-
-
 /**
- *
+ * _createSignVerify
  *
  * @param {*} data
  * @param {*} signature
@@ -133,7 +127,7 @@ function _createSign(data, algorithm, base, keyGenType, keyOptions, options, enc
  * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
  * @return {*} 
  */
-function _createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType) {
+module.exports.createSignVerify = function createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType) {
     const crypto = require('crypto');
 
     algorithm = algorithm || "sha256";
@@ -157,3 +151,14 @@ function _createSignVerify(data, signature, publicKey, algorithm, base, options,
     }
 }
 
+module.exports.default = {
+    SHA: verifySHA,
+    verify: verifySHA,
+    contentChecksum: compareContentChecksum,
+    compareContentChecksum: compareContentChecksum,
+    checksum: fileWithChecksum,
+    fileWithChecksum,
+    fileWithContent,
+    createSign,
+    createSignVerify
+}

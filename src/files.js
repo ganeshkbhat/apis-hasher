@@ -19,7 +19,7 @@ const { getConstants, getSymbolsList } = require("./const.js");
  * https://www.sohamkamani.com/nodejs/rsa-encryption/
  * 
  */
-function encryptWithKeysFromTo(remotePath, remoteDestPath, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", keyOptions = { modulusLength: 2048 }, options = { modulusLength: 2048 }) {
+module.exports.encryptWithKeysFromTo = function encryptWithKeysFromTo(remotePath, remoteDestPath, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", keyOptions = { modulusLength: 2048 }, options = { modulusLength: 2048 }) {
     const crypto = require('crypto');
     let data = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
 
@@ -61,7 +61,7 @@ function encryptWithKeysFromTo(remotePath, remoteDestPath, algorithm = "sha256",
  * @param {*} [options={ modulusLength: 2048 }]
  * @return {*} 
  */
-function decryptWithKeysFromTo(remotePath, remoteDestPath, privateKey, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", options = { modulusLength: 2048 }) {
+module.exports.decryptWithKeysFromTo = function decryptWithKeysFromTo(remotePath, remoteDestPath, privateKey, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", options = { modulusLength: 2048 }) {
     const crypto = require('crypto');
     let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
 
@@ -98,7 +98,7 @@ function decryptWithKeysFromTo(remotePath, remoteDestPath, privateKey, algorithm
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function encryptFromTo(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.encryptFromTo = function encryptFromTo(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let data = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
     let hashdata = _fileContentHash(data, salt, algorithm, keyAlgorithm, digest, options);
     fs.writeFileSync(remoteDestPath, JSON.stringify(hashdata), { encoding: options.encoding ? options.encoding : "utf-8", flag: "w" });
@@ -119,7 +119,7 @@ function encryptFromTo(remotePath, remoteDestPath, salt, algorithm = "aes-256-ct
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function decryptFromTo(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.decryptFromTo = function decryptFromTo(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
     let data = _fileContentDeHash(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
     fs.writeFileSync(remoteDestPath, data);
@@ -139,7 +139,7 @@ function decryptFromTo(remotePath, remoteDestPath, salt, algorithm = "aes-256-ct
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function encryptContentTo(remoteDestPath, data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.encryptContentTo = function encryptContentTo(remoteDestPath, data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     // let data = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
     let hashdata = _fileContentHash(data, salt, algorithm, keyAlgorithm, digest, options);
     fs.writeFileSync(remoteDestPath, JSON.stringify(hashdata), { encoding: options.encoding ? options.encoding : "utf-8", flag: "w" });
@@ -159,7 +159,7 @@ function encryptContentTo(remoteDestPath, data, salt, algorithm = "aes-256-ctr",
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function decryptContentTo(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.decryptContentFrom = function decryptContentFrom(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let hashdata = fs.readFileSync(remoteDestPath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
     let data = _fileContentDeHash(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
     fs.writeFileSync(remoteDestPath, data);
@@ -179,10 +179,20 @@ function decryptContentTo(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAl
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function loadContentFrom(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.loadContentFrom = function loadContentFrom(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let hashdata = fs.readFileSync(remoteDestPath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
     let data = _fileContentDeHash(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
     // fs.writeFileSync(remoteDestPath, data);
     return data;
 }
 
+
+module.exports.default = {
+    encryptWithKeysFromTo,
+    decryptWithKeysFromTo,
+    encryptFromTo,
+    decryptFromTo,
+    encryptContentTo,
+    decryptContentFrom,
+    loadContentFrom
+}

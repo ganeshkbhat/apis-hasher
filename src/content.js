@@ -5,9 +5,9 @@ const path = require('path');
 const { getConstants, getSymbolsList } = require("./const.js");
 
 
-
 /**
- *
+ * _fileContentHash
+ * 
  * reference: https://attacomsian.com/blog/nodejs-encrypt-decrypt-data
  * 
  * @param {*} data
@@ -18,7 +18,7 @@ const { getConstants, getSymbolsList } = require("./const.js");
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileContentHash(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.encrypt = function encryptContent(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
 
     const hashesList = crypto.getHashes();
@@ -41,7 +41,7 @@ function _fileContentHash(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = 
 
 
 /**
- *
+ * _fileContentDeHash
  *
  * @param {*} hashdata
  * @param {*} salt
@@ -51,7 +51,7 @@ function _fileContentHash(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = 
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileContentDeHash(hashdata, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.decrypt = function decryptContent(hashdata, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
 
     const hashesList = crypto.getHashes();
@@ -70,12 +70,12 @@ function _fileContentDeHash(hashdata, salt, algorithm = "aes-256-ctr", keyAlgori
 
 
 /**
- *
+ * encryptWithKey
  *
  * @param {*} [options] < { [publicKey | publicKeyPath], padding, algorithm ) } >
  * @return {*} 
  */
-function encryptWithKey(data, options = {}) {
+module.exports.encryptWithKey = function encryptWithKey(data, options = {}) {
     const crypto = require('crypto');
     return crypto.publicEncrypt({
         key: (!!options.publicKey) ? options.publicKey : (!!options.publicKeyPath) ? fs.readFileSync(options.publicKeyPath) : null,
@@ -89,13 +89,13 @@ function encryptWithKey(data, options = {}) {
 
 
 /**
- *
+ * decryptWithKey
  *
  * @param {*} hashdata
  * @param {*} [options] < { [privateKey | privateKeyPath], padding, algorithm ) } >
  * @return {*} 
  */
-function decryptWithKey(hashdata, options = {}) {
+module.exports.decryptWithKey = function decryptWithKey(hashdata, options = {}) {
     const crypto = require('crypto');
     return crypto.privateDecrypt({
         key: (!!options.privateKey) ? options.privateKey : (!!options.privateKeyPath) ? fs.readFileSync(options.privateKeyPath) : null,
@@ -106,3 +106,9 @@ function decryptWithKey(hashdata, options = {}) {
     ).toString(options.encoding || "utf-8");
 }
 
+module.exports.default = {
+    encrypt,
+    decrypt,
+    encryptWithKey,
+    decryptWithKey
+}

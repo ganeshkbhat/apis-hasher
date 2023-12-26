@@ -23,7 +23,7 @@ const crypto = require('crypto');
  * @param {*} constantname
  * @return {*} 
  */
-function getConstants(constantname) {
+module.exports.getConstants = function getConstants(constantname) {
     let constanttype;
 
     switch (constantname) {
@@ -230,7 +230,7 @@ function getConstants(constantname) {
  *
  * @param {*} listname
  */
-function getSymbolsList(listname) {
+module.exports.getSymbolsList = function getSymbolsList(listname) {
     let list;
     switch (listname) {
         case "keyGen":
@@ -309,7 +309,7 @@ function getSymbolsList(listname) {
  * @param {*} symbolname
  * @return {*} 
  */
-function getSymbols(symbolname) {
+module.exports.getSymbols = function getSymbols(symbolname) {
     let symbols;
     switch (symbolname) {
         case "keyGen":
@@ -387,7 +387,7 @@ function getSymbols(symbolname) {
  *
  * @return {*[]} 
  */
-function getCiphers() {
+module.exports.getCiphers = function getCiphers() {
     return require('crypto').getCiphers();
 }
 
@@ -397,7 +397,7 @@ function getCiphers() {
  *
  * @return {*[]} 
  */
-function getHashes() {
+module.exports.getHashes = function getHashes() {
     return require('crypto').getHashes();
 }
 
@@ -408,7 +408,7 @@ function getHashes() {
  * @param {*} groupName
  * @return {*[]} 
  */
-function getDiffieHellman(groupName) {
+module.exports.getDiffieHellman = function getDiffieHellman(groupName) {
     return require('crypto').getDiffieHellman(groupName);
 }
 
@@ -418,7 +418,7 @@ function getDiffieHellman(groupName) {
  *
  * @return {*[]} 
  */
-function getFips() {
+module.exports.getFips = function getFips() {
     return require('crypto').getFips();
 }
 
@@ -429,11 +429,18 @@ function getFips() {
  * @param {*} typedArray
  * @return {*[]} 
  */
-function getRandomValues(typedArray) {
+module.exports.getRandomValues = function getRandomValues(typedArray) {
     return require('crypto').getRandomValues(typedArray);
 }
 
-
-module.exports.getConstants = getConstants;
-module.exports.getSymbolsList = getSymbolsList;
-module.exports.getSymbols = getSymbols;
+module.exports.default = {
+    getConstants,
+    getSymbolsList,
+    getSymbols,
+    getCiphers,
+    getHashes,
+    getHashes,
+    getDiffieHellman,
+    getFips,
+    getRandomValues
+}

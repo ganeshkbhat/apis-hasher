@@ -31,7 +31,7 @@ const { getConstants, getSymbolsList } = require("./const.js");
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _createSHAHash(data, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function createSHA(data, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
     const hashesList = crypto.getHashes();
     if (!hashesList.includes(algorithm)) throw new Error("[_createSHAHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList))
@@ -49,7 +49,7 @@ function _createSHAHash(data, algorithm = "sha256", digest = "base64", options =
  * @param {*} [options={ modulusLength: 2048 }] [default: { modulusLength: 2048 }] 
  * @return {*} 
  */
-function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
+function genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
     const crypto = require('crypto');
     const { privateKey, publicKey } = crypto.generateKeyPairSync(keyGenType, options);
     return { privateKey, publicKey }
@@ -64,7 +64,7 @@ function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
  * @param {string} [format="pem"]
  * @param {string} [base="hex"]
  */
-function _dumpKeyFile(filename, key, format = "pem", type = "pkcs1", base = "hex") {
+function dumpKeyFile(filename, key, format = "pem", type = "pkcs1", base = "hex") {
     // const { privateKey, publicKey } = encrypt();
     // fs.writeFileSync("public.pem", publicKey.toString('hex')); // or console.log
     // fs.writeFileSync("private.pem", privateKey.export().toString('hex'));
