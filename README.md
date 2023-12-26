@@ -14,7 +14,6 @@ You can find details about used crypto algorithm details in the [nodejs crypto, 
 ```
 
 var hasher = require("hasher-apis");
-hasher._createSHAHash(data="texter data", algorithm = "sha256", digest="base64", options = { logger: console.log })
 hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", options = { logger: console.log })
 
 ```
@@ -24,7 +23,6 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 ```
 
 import { default as _createSHAHash, createSHA } as "hasher-apis";
-_createSHAHash(data="texter data", algorithm = "sha256", digest="base64", options = { logger: console.log })
 createSHA(data="texter data", algorithm = "sha256", digest="base64", options = { logger: console.log })
 
 ```
@@ -34,7 +32,6 @@ createSHA(data="texter data", algorithm = "sha256", digest="base64", options = {
 ```
 
 var hasher = import("hasher-apis");
-hasher._createSHAHash(data="texter data", algorithm = "sha256", digest="base64", options = { logger: console.log })
 hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", options = { logger: console.log })
 
 ```
@@ -44,6 +41,9 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
 
 
 * ##### Data or Content Based Methods `PKG**.content.xxx`
+    - [createSHA, SHA](#createsha), 
+    - [genKeyPair](#genkeypair), 
+    - [dumpKeyFile](#dumpkeyfile)
     - [hash](#hashcontent), 
     - [dehash](#dehashcontent), 
     - [encryptWithKey](#encryptwithkey), 
@@ -53,15 +53,14 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
     - [createSign](#createsign), 
     - [createSignVerify](#createsignverify)
 * ##### File Based Methods `PKG**.file.xxx`
+    - [encrypt](#encrypt), 
+    - [decrypt](#decrypt), 
     - [hash](#hashfile), 
     - [dehash](#dehashfile), 
     - [verifyEncrypt](#verifyhashedfile), 
     - [verifyContent](#verifyhashedfile), 
     - [verifyChecksum](#verifyfile), 
-    - [encrypt](#encrypt), 
-    - [decrypt](#decrypt) 
-* ##### Keys or Hash or Other Based Methods `PKG**.crypt.xxx`
-    - [createSHA, SHA](#createsha), 
+* ##### Keys or Hash or Other Based Methods `PKG**.const.xxx`
     - [getCiphers](#getciphers), 
     - [getHashes](#gethashes), 
     - [getDiffieHellman](#getdiffiehellman), 
@@ -69,8 +68,7 @@ hasher.createSHA(data="texter data", algorithm = "sha256", digest="base64", opti
     - [getRandomValues](#getrandomvalues), 
     - [getConstants](#getconstants), 
     - [getSymbolsList](#getsymbolslist), 
-    - [genKeyPair](#genkeypair), 
-    - [dumpKeyFile](#dumpkeyfile)
+    
 
 
 ###### ***PKG - package
@@ -93,28 +91,6 @@ Usage: `hashContent(data, salt)`
 
 Usage: `content.hash(data, salt)`
 
-
-```
-/**
- *
- * @param {*} data
- * @param {*} salt
- * @param {string} [algorithm="aes-256-ctr"]
- *      [default: "aes-256-ctr"]
- *      [options: use function getCiphers]
- * @param {string} [keyAlgorithm="sha256"]
- *      [default: "SHA256"]
- *      [options: use function getHashes]
- * @param {string} [digest="base64"]
- *      [default: "base64"]
- *      [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
- * @param {*} options
- *      [default: { logger: console.log }]
- *      [options: logger function]
- * @return {*}
- *
- */
-```
 
 
 
