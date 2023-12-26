@@ -56,25 +56,26 @@ hasher.createSHA(
 
 
 * ##### Data or Content Based Methods `PKG**.content.xxx`
-    - [createSHA, SHA](#createsha), 
     - [genKeyPair](#genkeypair), 
     - [dumpKeyFile](#dumpkeyfile)
     - [hash](#hashcontent), 
     - [dehash](#dehashcontent), 
     - [encryptWithKey](#encryptwithkey), 
     - [decryptWithKey](#decryptwithkey),
-    - [verifySHA](#verifysha), 
-    - [verifyContent](#verifyfilecontent), 
-    - [createSign](#createsign), 
-    - [createSignVerify](#createsignverify)
 * ##### File Based Methods `PKG**.file.xxx`
     - [encrypt](#encrypt), 
     - [decrypt](#decrypt), 
     - [hash](#hashfile), 
     - [dehash](#dehashfile), 
+* ##### Verify Content or File Methods `PKG**.file.xxx`
+    - [createSHA, SHA](#createsha), 
+    - [verifySHA](#verifysha), 
+    - [verifyContent](#verifyfilecontent), 
     - [verifyEncrypt](#verifyhashedfile), 
     - [verifyContent](#verifyhashedfile), 
     - [verifyChecksum](#verifyfile), 
+    - [createSign](#createsign), 
+    - [createSignVerify](#createsignverify)
 * ##### Keys or Hash or Other Based Methods `PKG**.const.xxx`
     - [getCiphers](#getciphers), 
     - [getHashes](#gethashes), 
@@ -84,7 +85,6 @@ hasher.createSHA(
     - [getConstants](#getconstants), 
     - [getSymbolsList](#getsymbolslist), 
     
-
 
 ###### ***PKG - package
 
