@@ -1,9 +1,7 @@
 
-
 const fs = require('fs');
 const path = require('path');
 const { getConstants, getSymbolsList } = require("./const.js");
-
 
 /**
  * _fileContentHash
@@ -39,7 +37,6 @@ module.exports.encrypt = function encryptContent(data, salt, algorithm = "aes-25
     };
 }
 
-
 /**
  * _fileContentDeHash
  *
@@ -67,8 +64,6 @@ module.exports.decrypt = function decryptContent(hashdata, salt, algorithm = "ae
     return decrpyted.toString();
 }
 
-
-
 /**
  * encryptWithKey
  *
@@ -85,8 +80,6 @@ module.exports.encryptWithKey = function encryptWithKey(data, options = {}) {
         Buffer.from(data)
     ).toString(options.digest || "base64");
 }
-
-
 
 /**
  * decryptWithKey
@@ -106,9 +99,122 @@ module.exports.decryptWithKey = function decryptWithKey(hashdata, options = {}) 
     ).toString(options.encoding || "utf-8");
 }
 
+/**
+ *
+ *
+ * @param {*} data
+ * @param {*} salt
+ * @return {*} 
+ */
+module.exports.encryptWithCipheriv = function encryptCipheriv(data, salt) {
+    const iv = getIV();
+    const cipher = crypto.createCipheriv(
+        ALGORITHM.BLOCK_CIPHER, key, iv,
+        { 'authTagLength': ALGORITHM.AUTH_TAG_BYTE_LEN });
+    let encryptedMessage = cipher.update(messagetext);
+    encryptedMessage = Buffer.concat([encryptedMessage, cipher.final()]);
+    return Buffer.concat([iv, encryptedMessage, cipher.getAuthTag()]);
+}
+
+/**
+ *
+ *
+ * @param {*} cryptedData
+ * @param {*} salt
+ * @param {*} iv
+ * @return {*} 
+ */
+module.exports.decryptWithCipheriv = function decryptCipheriv(cryptedData, salt) {
+    const authTag = ciphertext.slice(-16);
+    const iv = ciphertext.slice(0, 12);
+    const encryptedMessage = ciphertext.slice(12, -16);
+    const decipher = crypto.createDecipheriv(
+        ALGORITHM.BLOCK_CIPHER, key, iv,
+        { 'authTagLength': ALGORITHM.AUTH_TAG_BYTE_LEN });
+    decipher.setAuthTag(authTag);
+    let messagetext = decipher.update(encryptedMessage);
+    messagetext = Buffer.concat([messagetext, decipher.final()]);
+    return messagetext;
+}
+
+/**
+ *
+ *
+ * @class Encrypter
+ */
+class Encrypter {
+
+    // // USAGE: 
+    // const encrypter = new Encrypter("secret");
+    // const clearText = "adventure time";
+    // const encrypted = encrypter.encrypt(clearText);
+    // const dencrypted = encrypter.dencrypt(encrypted);
+    // console.log({ worked: clearText === dencrypted });
+
+    constructor(encryptionKey) {
+        this.algorithm = "aes-192-cbc";
+        this.key = !!encryptionKey ? crypto.scryptSync(encryptionKey, "salt", 24) : null;
+    }
+
+    /**
+     *
+     *
+     * @param {*} clearText
+     * @param {*} key
+     * @param {boolean} [set=false]
+     * @return {*} 
+     * @memberof Encrypter
+     */
+    encrypt(clearText, key, set = false) {
+        const iv = crypto.randomBytes(16);
+        const cipher = crypto.createCipheriv(this.algorithm, key || this.key, iv);
+        const encrypted = cipher.update(clearText, "utf8", "hex");
+        if (!!set) { this.key = key; }
+        return [
+            encrypted + cipher.final("hex"),
+            Buffer.from(iv).toString("hex"),
+        ].join("|");
+    }
+
+    /**
+     *
+     *
+     * @param {*} encryptedText
+     * @param {*} key
+     * @param {boolean} [set=false]
+     * @return {*} 
+     * @memberof Encrypter
+     */
+    decrypt(encryptedText, key, set = false) {
+        const [encrypted, iv] = encryptedText.split("|");
+        if (!iv) throw new Error("IV not found");
+        const decipher = crypto.createDecipheriv(
+            this.algorithm,
+            key || this.key,
+            Buffer.from(iv, "hex")
+        );
+        if (!!set) { this.key = key; }
+        return decipher.update(encrypted, "hex", "utf8") + decipher.final("utf8");
+    }
+
+}
+
+module.exports.Encrypter = Encrypter;
+
+module.exports.encryptWithCipheriv = function encryptWithCipheriv() { }
+
+module.exports.decryptWithCipheriv = function decryptWithCipheriv() { }
+
 module.exports.default = {
     encrypt,
     decrypt,
     encryptWithKey,
-    decryptWithKey
+    decryptWithKey,
+    Encrypter,
+    encryptWithCipher,
+    decryptWithCipher,
+    encryptWithCipherivJoins,
+    decryptWithCipherivJoins,
+    encryptWithCipheriv,
+    decryptWithCipheriv
 }
