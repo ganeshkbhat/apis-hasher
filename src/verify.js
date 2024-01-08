@@ -20,7 +20,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { getConstants, getSymbolsList } = require("./const.js");
+const { getConstants, getSymbolsList } = require("./consts.js");
 
 
 /**
@@ -52,7 +52,7 @@ module.exports.verify = module.exports.SHA = function verifySHA(data, SHAHashToC
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-module.exports.contentChecksum = function compareContentChecksum(data, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.contentWithChecksum = module.exports.contentChecksum = function compareContentChecksum(data, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
     let hashdata = hashContent(data, salt, algorithm, keyAlgorithm, digest, options);
     return verifySHA(createSHA(hashdata), createSHA(hashToCheck), algorithm, digest, options);

@@ -20,7 +20,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { getConstants } = require("./const.js");
+const { getConstants } = require("./consts.js");
 
 /**
  *

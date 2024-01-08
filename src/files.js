@@ -20,7 +20,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { getConstants, getSymbolsList } = require("./const.js");
+const { getConstants, getSymbolsList } = require("./consts.js");
 
 /**
  * _encryptFile
