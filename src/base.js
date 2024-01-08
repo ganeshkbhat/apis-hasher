@@ -42,6 +42,7 @@ function createSHA(data, algorithm = "sha256", digest = "base64", options = { lo
 module.exports._createSHAHash = createSHA;
 module.exports.createSHA = createSHA;
 
+
 /**
  *
  *
@@ -90,6 +91,7 @@ function createSign(data, algorithm, base, keyGenType, keyOptions, options, encr
 module.exports.createSign = createSign;
 module.exports._createSign = createSign;
 
+
 /**
  *
  *
@@ -105,6 +107,7 @@ function genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
 
 module.exports._genKeyPair = genKeyPair;
 module.exports.genKeyPair = genKeyPair;
+
 
 /**
  * dumpKeyFile

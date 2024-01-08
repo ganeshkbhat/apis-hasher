@@ -222,6 +222,7 @@ module.exports.getConstants = function getConstants(constantname) {
     return constanttype;
 }
 
+
 /**
  * List of symbols like 
  *      digest, base, keyGens, hashes, ciphers, 
@@ -302,6 +303,7 @@ module.exports.getSymbolsList = function getSymbolsList(listname) {
     return list;
 }
 
+
 /**
  *
  *
@@ -380,6 +382,7 @@ module.exports.getSymbols = function getSymbols(symbolname) {
     return symbols;
 }
 
+
 /**
  * getCiphers
  *
@@ -389,6 +392,7 @@ module.exports.getCiphers = function getCiphers() {
     return require('crypto').getCiphers();
 }
 
+
 /**
  * getHashes
  *
@@ -397,6 +401,7 @@ module.exports.getCiphers = function getCiphers() {
 module.exports.getHashes = function getHashes() {
     return require('crypto').getHashes();
 }
+
 
 /**
  * getDiffieHellman
@@ -408,6 +413,7 @@ module.exports.getDiffieHellman = function getDiffieHellman(groupName) {
     return require('crypto').getDiffieHellman(groupName);
 }
 
+
 /**
  * getFips
  *
@@ -416,6 +422,7 @@ module.exports.getDiffieHellman = function getDiffieHellman(groupName) {
 module.exports.getFips = function getFips() {
     return require('crypto').getFips();
 }
+
 
 /**
  * getRandomValues
@@ -426,6 +433,7 @@ module.exports.getFips = function getFips() {
 module.exports.getRandomValues = function getRandomValues(typedArray) {
     return require('crypto').getRandomValues(typedArray);
 }
+
 
 module.exports.default = {
     getConstants,
