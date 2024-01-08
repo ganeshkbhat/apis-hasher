@@ -20,7 +20,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { getConstants, getSymbolsList } = require("./const.js");
+const { getConstants } = require("./const.js");
 
 /**
  *
@@ -34,13 +34,61 @@ const { getConstants, getSymbolsList } = require("./const.js");
 function createSHA(data, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
     const hashesList = crypto.getHashes();
-    if (!hashesList.includes(algorithm)) throw new Error("[_createSHAHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList))
+    if (!hashesList.includes(algorithm)) throw new Error("[createSHA] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList))
     var hash = crypto.createHash(algorithm).update(JSON.stringify(data)).digest(digest);
     return hash;
 }
 
+module.exports._createSHAHash = createSHA;
+module.exports.createSHA = createSHA;
 
+/**
+ *
+ *
+ * @param {*} data
+ * @param {*} algorithm [default: "SHA256"] [options: use function getHashes]
+ * @param {*} base [default: "hex"] [options: ]
+ * @param {*} keyGenType [default: "rsa"] [options: 'rsa', 'rsa-pss', 'dsa', 'ec', 'ed25519', 'ed448', 'x25519', 'x448', or 'dh']
+ * @param {*} keyOptions [default: For createSign & publicEncrypt: { modulusLength: 2048 }]
+ * @param {*} options [default: For createSign: { modulusLength: 2048 }, For publicEncrypt: { padding: crypto.constants.RSA_PKCS1_PSS_PADDING}]
+ * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
+ * @return {*} 
+ */
+function createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType, padding) {
+    const crypto = require('crypto');
 
+    algorithm = algorithm || "sha256";
+    base = base || "hex";
+    keyGenType = keyGenType || "rsa";
+    keyOptions = keyOptions || { modulusLength: 2048 };
+    options = options || { modulusLength: 2048 };
+    encryptType = encryptType || "createSign";
+
+    const { privateKey, publicKey } = genKeyPair(keyGenType, keyOptions);
+
+    let signature;
+    switch (encryptType) {
+        case "createSign":
+            let sign = crypto.createSign(algorithm, options);
+            sign.write(data);
+            sign.end();
+            signature = sign.sign(privateKey, base);
+            break;
+        case "publicEncrypt":
+            options = {
+                key: privateKey,
+                padding: getConstants("RSA_PKCS1_PADDING"),
+                ...options
+            };
+            signature = crypto.sign(algorithm, Buffer.from(data), options).toString(base);
+            break;
+    }
+
+    return { privateKey: privateKey, publicKey: publicKey, signature: signature };
+}
+
+module.exports.createSign = createSign;
+module.exports._createSign = createSign;
 
 /**
  *
@@ -55,6 +103,8 @@ function genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
     return { privateKey, publicKey }
 }
 
+module.exports._genKeyPair = genKeyPair;
+module.exports.genKeyPair = genKeyPair;
 
 /**
  * dumpKeyFile
@@ -78,3 +128,5 @@ function dumpKeyFile(filename, key, format = "pem", type = "pkcs1", base = "hex"
     return true;
 }
 
+module.exports._dumpKeyFile = dumpKeyFile;
+module.exports.dumpKeyFile = dumpKeyFile;

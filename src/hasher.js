@@ -251,6 +251,7 @@ function hashContentToFile(remoteDestPath, data, salt, algorithm = "aes-256-ctr"
 }
 
 module.exports._fileHashFromContent = hashContentToFile;
+module.exports.hashContentToFile = hashContentToFile;
 
 /**
  * fileDeHashContent
@@ -272,6 +273,7 @@ function dehashContentFromFile(remoteDestPath, salt, algorithm = "aes-256-ctr", 
 }
 
 module.exports._fileDeHashContent = dehashContentFromFile;
+module.exports.dehashContentFromFile = dehashContentFromFile;
 
 /**
  * fileDeHashLoadContent
@@ -293,6 +295,7 @@ function dehashLoadContentFromFile(remoteDestPath, salt, algorithm = "aes-256-ct
 }
 
 module.exports._fileDeHashLoadContent = dehashLoadContentFromFile;
+module.exports.dehashLoadContentFromFile = dehashLoadContentFromFile;
 
 /**
  *
