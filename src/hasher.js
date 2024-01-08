@@ -20,6 +20,13 @@
 
 const fs = require('fs');
 const path = require('path');
+
+const base = require("./base.js");
+const consts = require("./const.js");
+const constent = require("./constent.js");
+const files = require("./files.js");
+const verify = require("./verify.js");
+
 const { getConstants, getSymbolsList } = require("./const.js");
 
 module.exports.getConstants = getConstants;
