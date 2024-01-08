@@ -561,12 +561,24 @@ function createSignVerify(data, signature, publicKey, algorithm, base, options, 
 }
 
 
+module.exports._createSHAHash = createSHA;
+module.exports._fileContentHash = hashContent;
+module.exports._fileContentDeHash = dehashContent;
+
 module.exports.createSHA = createSHA;
 module.exports.hashContent = hashContent;
 module.exports.dehashContent = dehashContent;
 
+module.exports._fileHash = hashFile;
+module.exports._fileDeHash = dehashFile;
+
 module.exports.hashFile = hashFile;
 module.exports.dehashFile = dehashFile;
+
+module.exports._verifySHAHash = verifySHA;
+module.exports._verifyFileContentHash = verifyContents;
+module.exports._verifyHashedFile = verifyFileWithEncryptedContent;
+module.exports._verifyFile = verifyFileChecksum;
 
 module.exports.verifySHA = verifySHA;
 module.exports.verifyFileContent = verifyContents;
@@ -576,12 +588,14 @@ module.exports.verifyFileChecksum = verifyFileChecksum;
 module.exports.encrypt = encryptFile;
 module.exports.decrypt = decryptFile;
 
+module.exports._fileHashFromContent = hashContentToFile;
+module.exports._fileDeHashContent = dehashContentFromFile;
+module.exports._fileDeHashLoadContent = dehashLoadContentFromFile;
+
+module.exports._encryptWithKey = encryptWithKey;
+module.exports._decryptWithKey = decryptWithKey;
 module.exports.encryptWithKey = encryptWithKey;
 module.exports.decryptWithKey = decryptWithKey;
-
-
-module.exports.hashContent = hashContent;
-module.exports.dehashContent = dehashContent;
 
 module.exports._dumpKeyFile = dumpKeyFile;
 module.exports.dumpKeyFile = dumpKeyFile;
@@ -601,60 +615,13 @@ module.exports._getDiffieHellman = getDiffieHellman;
 module.exports._getFips = getFips;
 module.exports._getRandomValues = getRandomValues;
 
+module.exports._createSign = createSign;
+module.exports._createSignVerify = createSignVerify;
 module.exports.createSign = createSign;
 module.exports.createSignVerify = createSignVerify;
-
-module.exports._createSHAHash = createSHA;
-module.exports._fileContentHash = hashContent;
-module.exports._fileContentDeHash = dehashContent;
-
-module.exports._fileHash = hashFile;
-module.exports._fileDeHash = dehashFile;
-
-module.exports._fileHashFromContent = hashContentToFile;
-module.exports._fileDeHashContent = dehashContentFromFile;
-module.exports._fileDeHashLoadContent = dehashLoadContentFromFile;
-
-module.exports._verifySHAHash = verifySHA;
-module.exports._verifyFileContentHash = verifyContents;
-module.exports._verifyHashedFile = verifyFileWithEncryptedContent;
-module.exports._verifyFile = verifyFileChecksum;
 
 module.exports._encryptFile = encryptFile;
 module.exports._decryptFile = decryptFile;
 
-module.exports._createSign = createSign;
-module.exports._createSignVerify = createSignVerify;
-
 module.exports.getConstants = getConstants;
 module.exports.getSymbolsList = getSymbolsList;
-
-module.exports._encryptWithKey = encryptWithKey;
-module.exports._decryptWithKey = decryptWithKey;
-
-module.exports.encryptWithKey = encryptWithKey;
-module.exports.decryptWithKey = decryptWithKey;
-
-module.exports._dumpKeyFile = dumpKeyFile;
-module.exports.dumpKeyFile = dumpKeyFile;
-
-
-module.exports.createSHA = createSHA;
-module.exports.hashContent = hashContent;
-module.exports.dehashContent = dehashContent;
-
-module.exports.hashFile = hashFile;
-module.exports.dehashFile = dehashFile;
-
-module.exports.verifySHA = verifySHA;
-module.exports.verifyFileContent = verifyContents;
-module.exports.verifyHashedFile = verifyFileWithEncryptedContent;
-module.exports.verifyFileChecksum = verifyFileChecksum;
-
-module.exports.encrypt = encryptFile;
-module.exports.decrypt = decryptFile;
-
-module.exports.encryptWithKey = encryptWithKey;
-module.exports.decryptWithKey = decryptWithKey;
-
-
