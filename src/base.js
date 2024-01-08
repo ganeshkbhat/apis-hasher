@@ -6,7 +6,7 @@
  * Install: npm i hasher-apis --save
  * Github: https://github.com/ganeshkbhat/apis-hasher
  * npmjs Link: https://www.npmjs.com/package/hasher-apis
- * File: hasher.js
+ * File: base.js
  * File Description: 
  * 
  * PKCS: https://stackoverflow.com/questions/5866129/rsa-encryption-problem-size-of-payload-data/5868456#5868456

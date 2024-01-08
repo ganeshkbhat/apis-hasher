@@ -1,3 +1,22 @@
+/**
+ * 
+ * Package: hasher-apis
+ * Author: Ganesh B
+ * Description: 
+ * Install: npm i hasher-apis --save
+ * Github: https://github.com/ganeshkbhat/apis-hasher
+ * npmjs Link: https://www.npmjs.com/package/hasher-apis
+ * File: files.js
+ * File Description: 
+ * 
+ * PKCS: https://stackoverflow.com/questions/5866129/rsa-encryption-problem-size-of-payload-data/5868456#5868456
+ * OAEP: https://crypto.stackexchange.com/questions/42097/what-is-the-maximum-size-of-the-plaintext-message-for-rsa-oaep/42100#42100
+ * 
+*/
+
+/* eslint no-console: 0 */
+
+'use strict';
 
 const fs = require('fs');
 const path = require('path');

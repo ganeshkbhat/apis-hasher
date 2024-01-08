@@ -6,7 +6,7 @@
  * Install: npm i hasher-apis --save
  * Github: https://github.com/ganeshkbhat/apis-hasher
  * npmjs Link: https://www.npmjs.com/package/hasher-apis
- * File: hasher.js
+ * File: const.js
  * File Description: 
  * 
 */

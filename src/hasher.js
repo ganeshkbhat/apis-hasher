@@ -22,6 +22,9 @@ const fs = require('fs');
 const path = require('path');
 const { getConstants, getSymbolsList } = require("./const.js");
 
+module.exports.getConstants = getConstants;
+module.exports.getSymbolsList = getSymbolsList;
+
 /**
  *
  *
@@ -39,6 +42,8 @@ function createSHA(data, algorithm = "sha256", digest = "base64", options = { lo
     return hash;
 }
 
+module.exports._createSHAHash = createSHA;
+module.exports.createSHA = createSHA;
 
 /**
  *
@@ -73,6 +78,8 @@ function hashContent(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha2
     };
 }
 
+module.exports._fileContentHash = hashContent;
+module.exports.hashContent = hashContent;
 
 /**
  *
@@ -101,6 +108,8 @@ function dehashContent(hashdata, salt, algorithm = "aes-256-ctr", keyAlgorithm =
     return decrpyted.toString();
 }
 
+module.exports._fileContentDeHash = dehashContent;
+module.exports.dehashContent = dehashContent;
 
 /**
  *
@@ -118,6 +127,8 @@ function verifySHA(data, SHAHashToCheck, algorithm = "sha256", digest = "base64"
     if (hashToCheck === createSHA(data, algorithm, digest, options)) return true;
 }
 
+module.exports._verifySHAHash = verifySHA;
+module.exports.verifySHA = verifySHA;
 
 /**
  *
@@ -135,6 +146,8 @@ function verifyContents(data, hashToCheck, algorithm = "sha256", digest = "base6
     return verifySHA(createSHA(hashdata), createSHA(hashToCheck), algorithm, digest, options);
 }
 
+module.exports._verifyFileContentHash = verifyContents;
+module.exports.verifyFileContent = verifyContents;
 
 /**
  *
@@ -152,6 +165,8 @@ function verifyFileChecksum(remotePath, checksum, algorithm = "sha256", digest =
     return verifySHA(createSHA(hashdata), checksum, algorithm, digest, options);
 }
 
+module.exports._verifyFile = verifyFileChecksum;
+module.exports.verifyFileChecksum = verifyFileChecksum;
 
 /**
  * verifyFileWithEncryptedContent, verifyHashedFile
@@ -168,6 +183,8 @@ function verifyFileWithEncryptedContent(remotePath, hashToCheck, algorithm = "sh
     return verifyFileChecksum(remotePath, createSHA(hashToCheck), algorithm, digest, options);
 }
 
+module.exports.verifyHashedFile = verifyFileWithEncryptedContent;
+module.exports._verifyHashedFile = verifyFileWithEncryptedContent;
 
 /**
  *
@@ -188,6 +205,8 @@ function hashFile(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", k
     return hashdata;
 }
 
+module.exports.hashFile = hashFile;
+module.exports._fileHash = hashFile;
 
 /**
  *
@@ -208,6 +227,8 @@ function dehashFile(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr",
     return data;
 }
 
+module.exports._fileDeHash = dehashFile;
+module.exports.dehashFile = dehashFile;
 
 /**
  * hashContentToFile
@@ -229,6 +250,8 @@ function hashContentToFile(remoteDestPath, data, salt, algorithm = "aes-256-ctr"
     return hashdata;
 }
 
+module.exports._fileHashFromContent = hashContentToFile;
+
 /**
  * fileDeHashContent
  * file uses dehashContent
@@ -248,6 +271,7 @@ function dehashContentFromFile(remoteDestPath, salt, algorithm = "aes-256-ctr", 
     return data;
 }
 
+module.exports._fileDeHashContent = dehashContentFromFile;
 
 /**
  * fileDeHashLoadContent
@@ -268,6 +292,7 @@ function dehashLoadContentFromFile(remoteDestPath, salt, algorithm = "aes-256-ct
     return data;
 }
 
+module.exports._fileDeHashLoadContent = dehashLoadContentFromFile;
 
 /**
  *
@@ -312,6 +337,8 @@ function encryptFile(remotePath, remoteDestPath, algorithm = "sha256", keyAlgori
     }
 }
 
+module.exports.encrypt = encryptFile;
+module.exports._encryptFile = encryptFile;
 
 /**
  *
@@ -350,6 +377,8 @@ function decryptFile(remotePath, remoteDestPath, privateKey, algorithm = "sha256
     }
 }
 
+module.exports.decrypt = decryptFile;
+module.exports._decryptFile = decryptFile;
 
 /**
  *
@@ -368,6 +397,8 @@ function encryptWithKey(data, options = {}) {
     ).toString(options.digest || "base64");
 }
 
+module.exports._encryptWithKey = encryptWithKey;
+module.exports.encryptWithKey = encryptWithKey;
 
 /**
  *
@@ -387,58 +418,8 @@ function decryptWithKey(hashdata, options = {}) {
     ).toString(options.encoding || "utf-8");
 }
 
-
-/**
- * getCiphers
- *
- * @return {*[]} 
- */
-function getCiphers() {
-    return require('crypto').getCiphers();
-}
-
-
-/**
- * getHashes
- *
- * @return {*[]} 
- */
-function getHashes() {
-    return require('crypto').getHashes();
-}
-
-
-/**
- * getDiffieHellman
- *
- * @param {*} groupName
- * @return {*[]} 
- */
-function getDiffieHellman(groupName) {
-    return require('crypto').getDiffieHellman(groupName);
-}
-
-
-/**
- * getFips
- *
- * @return {*[]} 
- */
-function getFips() {
-    return require('crypto').getFips();
-}
-
-
-/**
- * getRandomValues
- *
- * @param {*} typedArray
- * @return {*[]} 
- */
-function getRandomValues(typedArray) {
-    return require('crypto').getRandomValues(typedArray);
-}
-
+module.exports._decryptWithKey = decryptWithKey;
+module.exports.decryptWithKey = decryptWithKey;
 
 /**
  *
@@ -453,7 +434,8 @@ function genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
     return { privateKey, publicKey }
 }
 
-
+module.exports._genKeyPair = genKeyPair;
+module.exports.genKeyPair = genKeyPair;
 
 /**
  * dumpKeyFile
@@ -477,6 +459,8 @@ function dumpKeyFile(filename, key, format = "pem", type = "pkcs1", base = "hex"
     return true;
 }
 
+module.exports._dumpKeyFile = dumpKeyFile;
+module.exports.dumpKeyFile = dumpKeyFile;
 
 /**
  *
@@ -523,6 +507,8 @@ function createSign(data, algorithm, base, keyGenType, keyOptions, options, encr
     return { privateKey: privateKey, publicKey: publicKey, signature: signature };
 }
 
+module.exports.createSign = createSign;
+module.exports._createSign = createSign;
 
 /**
  *
@@ -560,68 +546,67 @@ function createSignVerify(data, signature, publicKey, algorithm, base, options, 
     }
 }
 
-
-module.exports._createSHAHash = createSHA;
-module.exports._fileContentHash = hashContent;
-module.exports._fileContentDeHash = dehashContent;
-
-module.exports.createSHA = createSHA;
-module.exports.hashContent = hashContent;
-module.exports.dehashContent = dehashContent;
-
-module.exports._fileHash = hashFile;
-module.exports._fileDeHash = dehashFile;
-
-module.exports.hashFile = hashFile;
-module.exports.dehashFile = dehashFile;
-
-module.exports._verifySHAHash = verifySHA;
-module.exports._verifyFileContentHash = verifyContents;
-module.exports._verifyHashedFile = verifyFileWithEncryptedContent;
-module.exports._verifyFile = verifyFileChecksum;
-
-module.exports.verifySHA = verifySHA;
-module.exports.verifyFileContent = verifyContents;
-module.exports.verifyHashedFile = verifyFileWithEncryptedContent;
-module.exports.verifyFileChecksum = verifyFileChecksum;
-
-module.exports.encrypt = encryptFile;
-module.exports.decrypt = decryptFile;
-
-module.exports._fileHashFromContent = hashContentToFile;
-module.exports._fileDeHashContent = dehashContentFromFile;
-module.exports._fileDeHashLoadContent = dehashLoadContentFromFile;
-
-module.exports._encryptWithKey = encryptWithKey;
-module.exports._decryptWithKey = decryptWithKey;
-module.exports.encryptWithKey = encryptWithKey;
-module.exports.decryptWithKey = decryptWithKey;
-
-module.exports._dumpKeyFile = dumpKeyFile;
-module.exports.dumpKeyFile = dumpKeyFile;
-
-module.exports._genKeyPair = genKeyPair;
-module.exports.genKeyPair = genKeyPair;
-
-module.exports.getCiphers = getCiphers;
-module.exports.getHashes = getHashes;
-module.exports.getDiffieHellman = getDiffieHellman;
-module.exports.getFips = getFips;
-module.exports.getRandomValues = getRandomValues;
-
-module.exports._getCiphers = getCiphers;
-module.exports._getHashes = getHashes;
-module.exports._getDiffieHellman = getDiffieHellman;
-module.exports._getFips = getFips;
-module.exports._getRandomValues = getRandomValues;
-
-module.exports._createSign = createSign;
 module.exports._createSignVerify = createSignVerify;
-module.exports.createSign = createSign;
 module.exports.createSignVerify = createSignVerify;
 
-module.exports._encryptFile = encryptFile;
-module.exports._decryptFile = decryptFile;
+/**
+ * getCiphers
+ *
+ * @return {*[]} 
+ */
+function getCiphers() {
+    return require('crypto').getCiphers();
+}
 
-module.exports.getConstants = getConstants;
-module.exports.getSymbolsList = getSymbolsList;
+module.exports.getCiphers = getCiphers;
+module.exports._getCiphers = getCiphers;
+
+/**
+ * getHashes
+ *
+ * @return {*[]} 
+ */
+function getHashes() {
+    return require('crypto').getHashes();
+}
+
+module.exports.getHashes = getHashes;
+module.exports._getHashes = getHashes;
+
+/**
+ * getDiffieHellman
+ *
+ * @param {*} groupName
+ * @return {*[]} 
+ */
+function getDiffieHellman(groupName) {
+    return require('crypto').getDiffieHellman(groupName);
+}
+
+module.exports.getDiffieHellman = getDiffieHellman;
+module.exports._getDiffieHellman = getDiffieHellman;
+
+/**
+ * getFips
+ *
+ * @return {*[]} 
+ */
+function getFips() {
+    return require('crypto').getFips();
+}
+
+module.exports.getFips = getFips;
+module.exports._getFips = getFips;
+
+/**
+ * getRandomValues
+ *
+ * @param {*} typedArray
+ * @return {*[]} 
+ */
+function getRandomValues(typedArray) {
+    return require('crypto').getRandomValues(typedArray);
+}
+
+module.exports.getRandomValues = getRandomValues;
+module.exports._getRandomValues = getRandomValues;

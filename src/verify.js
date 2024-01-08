@@ -1,4 +1,22 @@
+/**
+ * 
+ * Package: hasher-apis
+ * Author: Ganesh B
+ * Description: 
+ * Install: npm i hasher-apis --save
+ * Github: https://github.com/ganeshkbhat/apis-hasher
+ * npmjs Link: https://www.npmjs.com/package/hasher-apis
+ * File: hasher.js
+ * File Description: 
+ * 
+ * PKCS: https://stackoverflow.com/questions/5866129/rsa-encryption-problem-size-of-payload-data/5868456#5868456
+ * OAEP: https://crypto.stackexchange.com/questions/42097/what-is-the-maximum-size-of-the-plaintext-message-for-rsa-oaep/42100#42100
+ * 
+*/
 
+/* eslint no-console: 0 */
+
+'use strict';
 
 const fs = require('fs');
 const path = require('path');
@@ -18,8 +36,9 @@ const { getConstants, getSymbolsList } = require("./const.js");
 module.exports.verify = module.exports.SHA = function verifySHA(data, SHAHashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let hashToCheck = SHAHashToCheck;
     if (!hashToCheck) throw new Error("Hash to Check not provided");
-    if (hashToCheck === _createSHAHash(data, algorithm, digest, options)) return true;
+    if (hashToCheck === createSHA(data, algorithm, digest, options)) return true;
 }
+
 
 /**
  * 
@@ -35,9 +54,10 @@ module.exports.verify = module.exports.SHA = function verifySHA(data, SHAHashToC
  */
 module.exports.contentChecksum = function compareContentChecksum(data, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
-    let hashdata = _fileContentHash(data, salt, algorithm, keyAlgorithm, digest, options);
-    return _verifySHAHash(_createSHAHash(hashdata), _createSHAHash(hashToCheck), algorithm, digest, options);
+    let hashdata = hashContent(data, salt, algorithm, keyAlgorithm, digest, options);
+    return verifySHA(createSHA(hashdata), createSHA(hashToCheck), algorithm, digest, options);
 }
+
 
 /**
  * _verifyFile
@@ -52,8 +72,9 @@ module.exports.contentChecksum = function compareContentChecksum(data, hashToChe
 module.exports.checksum = module.exports.fileWithChecksum = function fileWithChecksum(remotePath, checksum, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
     let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
-    return _verifySHAHash(_createSHAHash(hashdata), checksum, algorithm, digest, options);
+    return verifySHA(createSHA(hashdata), checksum, algorithm, digest, options);
 }
+
 
 /**
  * _verifyHashedFile, verifyHashedFile
@@ -67,8 +88,9 @@ module.exports.checksum = module.exports.fileWithChecksum = function fileWithChe
  */
 module.exports.fileWithContent = function fileWithContent(remotePath, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
-    return _verifyFile(remotePath, _createSHAHash(hashToCheck), algorithm, digest, options);
+    return fileWithChecksum(remotePath, createSHA(hashToCheck), algorithm, digest, options);
 }
+
 
 /**
  * _createSign
@@ -115,6 +137,7 @@ module.exports.createSign = function createSign(data, algorithm, base, keyGenTyp
     return { privateKey: privateKey, publicKey: publicKey, signature: signature };
 }
 
+
 /**
  * _createSignVerify
  *
@@ -150,6 +173,7 @@ module.exports.createSignVerify = function createSignVerify(data, signature, pub
             )
     }
 }
+
 
 module.exports.default = {
     SHA: verifySHA,

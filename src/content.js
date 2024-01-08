@@ -6,7 +6,7 @@
  * Install: npm i hasher-apis --save
  * Github: https://github.com/ganeshkbhat/apis-hasher
  * npmjs Link: https://www.npmjs.com/package/hasher-apis
- * File: hasher.js
+ * File: content.js
  * File Description: 
  * 
  * PKCS: https://stackoverflow.com/questions/5866129/rsa-encryption-problem-size-of-payload-data/5868456#5868456
@@ -59,7 +59,7 @@ module.exports.encrypt = function encryptContent(data, salt, algorithm = "aes-25
 /**
  *
  *
- * @param {*} hashdata
+ * @param {*} encryptedData
  * @param {*} salt
  * @param {string} [algorithm="aes-256-ctr"] [default: "aes-256-ctr"] [options: use function getCiphers]
  * @param {string} [keyAlgorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
@@ -67,7 +67,7 @@ module.exports.encrypt = function encryptContent(data, salt, algorithm = "aes-25
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-module.exports.decrypt = function decryptContent(hashdata, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+module.exports.decrypt = function decryptContent(encryptedData, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
 
     const hashesList = crypto.getHashes();
@@ -78,9 +78,41 @@ module.exports.decrypt = function decryptContent(hashdata, salt, algorithm = "ae
     const key = crypto.createHash(keyAlgorithm).update(JSON.stringify(salt)).digest(digest);
     const key_in_bytes = Buffer.from(key, digest);
 
-    const decipher = crypto.createDecipheriv(algorithm, key_in_bytes, Buffer.from(hashdata.iv, digest));
-    const decrpyted = Buffer.concat([decipher.update(Buffer.from(hashdata.content, digest)), decipher.final()]);
+    const decipher = crypto.createDecipheriv(algorithm, key_in_bytes, Buffer.from(encryptedData.iv, digest));
+    const decrpyted = Buffer.concat([decipher.update(Buffer.from(encryptedData.content, digest)), decipher.final()]);
     return decrpyted.toString();
+}
+
+/**
+ *
+ *
+ * @param {*} data
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"]
+ * @param {string} [keyAlgorithm="sha256"]
+ * @param {string} [digest="base64"]
+ * @param {*} [options={ logger: console.log }]
+ * @return {*} 
+ */
+module.exports.encryptEncodeWithCipheriv = function encryptEncodeWithCipheriv(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+    let encrypted = ecrypt(data, salt, algorithm, keyAlgorithm, digest, options);
+    return atob(JSON.stringify(encrypted));
+}
+
+/**
+ *
+ *
+ * @param {*} encryptedData
+ * @param {*} salt
+ * @param {string} [algorithm="aes-256-ctr"]
+ * @param {string} [keyAlgorithm="sha256"]
+ * @param {string} [digest="base64"]
+ * @param {*} [options={ logger: console.log }]
+ * @return {*} 
+ */
+module.exports.decryptDecodeWithCipheriv = function decryptDecodeWithCipheriv(encryptedData, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+    let decrypted = JSON.parse(btoa(encryptedData));
+    return decrypt(decrypted, salt, algorithm, keyAlgorithm, digest, options);
 }
 
 /**
@@ -103,100 +135,19 @@ module.exports.encryptWithKey = function encryptWithKey(data, options = {}) {
 /**
  *
  *
- * @param {*} hashdata
+ * @param {*} encryptedData
  * @param {*} [options] < { [privateKey | privateKeyPath], padding, algorithm ) } >
  * @return {*} 
  */
-module.exports.decryptWithKey = function decryptWithKey(hashdata, options = {}) {
+module.exports.decryptWithKey = function decryptWithKey(encryptedData, options = {}) {
     const crypto = require('crypto');
     return crypto.privateDecrypt({
         key: (!!options.privateKey) ? options.privateKey : (!!options.privateKeyPath) ? fs.readFileSync(options.privateKeyPath) : null,
         padding: options.padding || getConstants("RSA_PKCS1_PADDING"),
         oaepHash: options.algorithm
     },
-        Buffer.from(hashdata, options.digest || "base64")
+        Buffer.from(encryptedData, options.digest || "base64")
     ).toString(options.encoding || "utf-8");
-}
-
-/**
- *
- *
- * @param {*} data
- * @param {*} algorithm [default: "SHA256"] [options: use function getHashes]
- * @param {*} base [default: "hex"] [options: ]
- * @param {*} keyGenType [default: "rsa"] [options: 'rsa', 'rsa-pss', 'dsa', 'ec', 'ed25519', 'ed448', 'x25519', 'x448', or 'dh']
- * @param {*} keyOptions [default: For createSign & publicEncrypt: { modulusLength: 2048 }]
- * @param {*} options [default: For createSign: { modulusLength: 2048 }, For publicEncrypt: { padding: crypto.constants.RSA_PKCS1_PSS_PADDING}]
- * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
- * @return {*} 
- */
-function createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType, padding) {
-    const crypto = require('crypto');
-
-    algorithm = algorithm || "sha256";
-    base = base || "hex";
-    keyGenType = keyGenType || "rsa";
-    keyOptions = keyOptions || { modulusLength: 2048 };
-    options = options || { modulusLength: 2048 };
-    encryptType = encryptType || "createSign";
-
-    const { privateKey, publicKey } = genKeyPair(keyGenType, keyOptions);
-
-    let signature;
-    switch (encryptType) {
-        case "createSign":
-            let sign = crypto.createSign(algorithm, options);
-            sign.write(data);
-            sign.end();
-            signature = sign.sign(privateKey, base);
-            break;
-        case "publicEncrypt":
-            options = {
-                key: privateKey,
-                padding: getConstants("RSA_PKCS1_PADDING"),
-                ...options
-            };
-            signature = crypto.sign(algorithm, Buffer.from(data), options).toString(base);
-            break;
-    }
-
-    return { privateKey: privateKey, publicKey: publicKey, signature: signature };
-}
-
-/**
- *
- *
- * @param {*} data
- * @param {*} signature
- * @param {*} publicKey
- * @param {*} algorithm [default: "SHA256"] [options: use function getHashes]
- * @param {*} base [default: "hex"] [options: ]
- * @param {*} options [default: For createSign: { modulusLength: 2048 }, For publicEncrypt: { padding: crypto.constants.RSA_PKCS1_PSS_PADDING }]
- * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
- * @return {*} 
- */
-function createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType) {
-    const crypto = require('crypto');
-
-    algorithm = algorithm || "sha256";
-    base = base || "hex";
-    options = options || { modulusLength: 2048 };
-    encryptType = encryptType || "createSign";
-
-    switch (encryptType) {
-        case "createSign":
-            let verify = crypto.createVerify(algorithm, { modulusLength: 2048, ...options });
-            verify.write(data);
-            verify.end();
-            return verify.verify(publicKey, signature, base);
-        case "publicEncrypt":
-            return crypto.verify(
-                algorithm,
-                Buffer.from(data),
-                { key: publicKey, padding: getConstants("RSA_PKCS1_OAEP_PADDING"), ...options },
-                Buffer.from(signature, base)
-            )
-    }
 }
 
 /**
@@ -301,26 +252,19 @@ class Encrypter {
 
 module.exports.Encrypter = Encrypter;
 
-module.exports.encryptEncodeWithCipheriv = function encryptEncodeWithCipheriv(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
-    let encrypted = ecrypt(data, salt, algorithm, keyAlgorithm, digest, options);
-    return atob(JSON.stringify(encrypted));
-}
-
-module.exports.decryptDecodeWithCipheriv = function decryptDecodeWithCipheriv(encryptedData, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
-    let decrypted = JSON.parse(btoa(encryptedData));
-    return decrypt(decrypted, salt, algorithm, keyAlgorithm, digest, options);
-}
 
 module.exports.default = {
     encrypt,
     decrypt,
+    encryptEncodeWithCipheriv,
+    decryptDecodeWithCipheriv,
     encryptWithKey,
     decryptWithKey,
     Encrypter,
     encryptWithCipher,
     decryptWithCipher,
-    encryptWithCipherivJoins,
-    decryptWithCipherivJoins,
+    // encryptWithCipherivJoins,
+    // decryptWithCipherivJoins,
     encryptWithCipheriv,
     decryptWithCipheriv
 }
