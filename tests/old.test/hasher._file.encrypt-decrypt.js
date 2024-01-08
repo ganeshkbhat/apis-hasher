@@ -17,7 +17,7 @@ const expect = require('chai').expect;
 
 const fs = require("fs");
 
-const _filelock = require("../index.js");
+const _filelock = require("../../index.js");
 const salt = "foobar";
 
 const path = require("path");
