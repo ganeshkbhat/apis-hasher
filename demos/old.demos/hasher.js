@@ -14,7 +14,7 @@ let {
     _encryptFile, _decryptFile, _createSign, _createSignVerify, 
     _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
     _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
- } = require("../index.js");
+ } = require("../../index.js");
 
 
 console.log(createSHA, hashContent, dehashContent, hashFile, dehashFile,

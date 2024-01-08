@@ -14,7 +14,7 @@
 /* eslint no-console: 0 */
 
 const fs = require("fs");
-const _filelock = require("../index.js");
+const _filelock = require("../../index.js");
 const salt = "foobar";
 const p1 = "./programming.base.txt";
 const p2 = "./programming.hashed.txt";
