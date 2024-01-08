@@ -133,3 +133,14 @@ function dumpKeyFile(filename, key, format = "pem", type = "pkcs1", base = "hex"
 
 module.exports._dumpKeyFile = dumpKeyFile;
 module.exports.dumpKeyFile = dumpKeyFile;
+
+module.exports.default = {
+    _createSHAHash,
+    createSHA,
+    createSign,
+    _createSign,
+    _genKeyPair,
+    genKeyPair,
+    _dumpKeyFile,
+    dumpKeyFile
+}
