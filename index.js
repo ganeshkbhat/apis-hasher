@@ -31,10 +31,14 @@ const {
     _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
 } = require("./src/hasher.js");
 
-let base = require("./src/base.js");
+let bases = require("./src/base.js");
 let files = require("./src/files.js");
 let content = require("./src/content.js");
-let crypter = require("./src/crypt.js");
+let verify = require("./src/verify.js");
+
+module.exports.base = {
+    ...bases
+};
 
 module.exports.file = {
     encrypt: files.encryptFromTo,
@@ -50,10 +54,10 @@ module.exports.content = {
 }
 
 module.exports.crypt = {
-    SHA: createSHA,
-    verifySHA: verifySHA,
-    verifyEncrypt: verifySHA,
-    verifyContent: _verifyFileContentHash,
+    SHA: verify.createSHA,
+    verifySHA: verify.verifySHA,
+    verifyEncrypt: verify.fileWithChecksum,
+    verifyContent: verify.contentWithChecksum,
     ...crypter
 }
 
