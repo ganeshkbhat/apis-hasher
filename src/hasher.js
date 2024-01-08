@@ -31,10 +31,10 @@ const { getConstants, getSymbolsList } = require("./const.js");
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _createSHAHash(data, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function createSHA(data, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
     const hashesList = crypto.getHashes();
-    if (!hashesList.includes(algorithm)) throw new Error("[_createSHAHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList))
+    if (!hashesList.includes(algorithm)) throw new Error("[createSHA] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList))
     var hash = crypto.createHash(algorithm).update(JSON.stringify(data)).digest(digest);
     return hash;
 }
@@ -52,13 +52,13 @@ function _createSHAHash(data, algorithm = "sha256", digest = "base64", options =
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileContentHash(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function hashContent(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
 
     const hashesList = crypto.getHashes();
     const ciphersList = crypto.getCiphers();
-    if (!hashesList.includes(keyAlgorithm)) throw new Error("[_fileContentHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList));
-    if (!ciphersList.includes(algorithm)) throw new Error("[_fileContentHash] Ciphers Algorithm not in list of included ciphers " + JSON.stringify(ciphersList));
+    if (!hashesList.includes(keyAlgorithm)) throw new Error("[hashContent] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList));
+    if (!ciphersList.includes(algorithm)) throw new Error("[hashContent] Ciphers Algorithm not in list of included ciphers " + JSON.stringify(ciphersList));
 
     const iv = crypto.randomBytes(16);
     const key = crypto.createHash(keyAlgorithm).update(JSON.stringify(salt)).digest(digest);
@@ -85,13 +85,13 @@ function _fileContentHash(data, salt, algorithm = "aes-256-ctr", keyAlgorithm = 
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileContentDeHash(hashdata, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function dehashContent(hashdata, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     const crypto = require('crypto');
 
     const hashesList = crypto.getHashes();
     const ciphersList = crypto.getCiphers();
-    if (!hashesList.includes(keyAlgorithm)) throw new Error("[_fileContentDeHash] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList));
-    if (!ciphersList.includes(algorithm)) throw new Error("[_fileContentDeHash] Ciphers Algorithm not in list of included ciphers " + JSON.stringify(ciphersList));
+    if (!hashesList.includes(keyAlgorithm)) throw new Error("[dehashContent] Hashes Algorithm not in list of included hashes " + JSON.stringify(hashesList));
+    if (!ciphersList.includes(algorithm)) throw new Error("[dehashContent] Ciphers Algorithm not in list of included ciphers " + JSON.stringify(ciphersList));
 
     const key = crypto.createHash(keyAlgorithm).update(JSON.stringify(salt)).digest(digest);
     const key_in_bytes = Buffer.from(key, digest);
@@ -112,10 +112,10 @@ function _fileContentDeHash(hashdata, salt, algorithm = "aes-256-ctr", keyAlgori
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifySHAHash(data, SHAHashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function verifySHA(data, SHAHashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let hashToCheck = SHAHashToCheck;
     if (!hashToCheck) throw new Error("Hash to Check not provided");
-    if (hashToCheck === _createSHAHash(data, algorithm, digest, options)) return true;
+    if (hashToCheck === createSHA(data, algorithm, digest, options)) return true;
 }
 
 
@@ -129,10 +129,43 @@ function _verifySHAHash(data, SHAHashToCheck, algorithm = "sha256", digest = "ba
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _verifyFileContentHash(data, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function verifyContents(data, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     if (!hashToCheck) throw new Error("Hash to Check not provided");
-    let hashdata = _fileContentHash(data, salt, algorithm, keyAlgorithm, digest, options);
-    return _verifySHAHash(_createSHAHash(hashdata), _createSHAHash(hashToCheck), algorithm, digest, options);
+    let hashdata = hashContent(data, salt, algorithm, keyAlgorithm, digest, options);
+    return verifySHA(createSHA(hashdata), createSHA(hashToCheck), algorithm, digest, options);
+}
+
+
+/**
+ *
+ *
+ * @param {*} remotePath
+ * @param {*} checksum
+ * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [default: "base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
+ * @return {*} 
+ */
+function verifyFileChecksum(remotePath, checksum, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+    if (!hashToCheck) throw new Error("Hash to Check not provided");
+    let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
+    return verifySHA(createSHA(hashdata), checksum, algorithm, digest, options);
+}
+
+
+/**
+ * verifyFileWithEncryptedContent, verifyHashedFile
+ *
+ * @param {*} remotePath
+ * @param {*} hashToCheck
+ * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
+ * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
+ * @param {*} options [default: { logger: console.log }] [options: logger function]
+ * @return {*} 
+ */
+function verifyFileWithEncryptedContent(remotePath, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+    if (!hashToCheck) throw new Error("Hash to Check not provided");
+    return verifyFileChecksum(remotePath, createSHA(hashToCheck), algorithm, digest, options);
 }
 
 
@@ -148,9 +181,9 @@ function _verifyFileContentHash(data, hashToCheck, algorithm = "sha256", digest 
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileHash(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function hashFile(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let data = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
-    let hashdata = _fileContentHash(data, salt, algorithm, keyAlgorithm, digest, options);
+    let hashdata = hashContent(data, salt, algorithm, keyAlgorithm, digest, options);
     fs.writeFileSync(remoteDestPath, JSON.stringify(hashdata), { encoding: options.encoding ? options.encoding : "utf-8", flag: "w" });
     return hashdata;
 }
@@ -168,17 +201,17 @@ function _fileHash(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", 
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileDeHash(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function dehashFile(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
-    let data = _fileContentDeHash(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
+    let data = dehashContent(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
     fs.writeFileSync(remoteDestPath, data);
     return data;
 }
 
 
 /**
- * _fileHashFromContent
- * file uses _fileContentHash function
+ * hashContentToFile
+ * file uses hashContent function
  *
  * @param {*} remoteDestPath
  * @param {*} data
@@ -189,16 +222,16 @@ function _fileDeHash(remotePath, remoteDestPath, salt, algorithm = "aes-256-ctr"
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileHashFromContent(remoteDestPath, data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function hashContentToFile(remoteDestPath, data, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     // let data = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
-    let hashdata = _fileContentHash(data, salt, algorithm, keyAlgorithm, digest, options);
+    let hashdata = hashContent(data, salt, algorithm, keyAlgorithm, digest, options);
     fs.writeFileSync(remoteDestPath, JSON.stringify(hashdata), { encoding: options.encoding ? options.encoding : "utf-8", flag: "w" });
     return hashdata;
 }
 
 /**
  * fileDeHashContent
- * file uses _fileContentDeHash
+ * file uses dehashContent
  *
  * @param {*} remoteDestPath
  * @param {*} salt
@@ -208,9 +241,9 @@ function _fileHashFromContent(remoteDestPath, data, salt, algorithm = "aes-256-c
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileDeHashContent(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function dehashContentFromFile(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let hashdata = fs.readFileSync(remoteDestPath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
-    let data = _fileContentDeHash(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
+    let data = dehashContent(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
     fs.writeFileSync(remoteDestPath, data);
     return data;
 }
@@ -218,7 +251,7 @@ function _fileDeHashContent(remoteDestPath, salt, algorithm = "aes-256-ctr", key
 
 /**
  * fileDeHashLoadContent
- * file uses _fileContentDeHash
+ * file uses dehashContent
  *
  * @param {*} remoteDestPath
  * @param {*} salt
@@ -228,9 +261,9 @@ function _fileDeHashContent(remoteDestPath, salt, algorithm = "aes-256-ctr", key
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*} 
  */
-function _fileDeHashLoadContent(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
+function dehashLoadContentFromFile(remoteDestPath, salt, algorithm = "aes-256-ctr", keyAlgorithm = "sha256", digest = "base64", options = { logger: console.log }) {
     let hashdata = fs.readFileSync(remoteDestPath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
-    let data = _fileContentDeHash(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
+    let data = dehashContent(JSON.parse(hashdata), salt, algorithm, keyAlgorithm, digest, options);
     // fs.writeFileSync(remoteDestPath, data);
     return data;
 }
@@ -247,11 +280,11 @@ function _fileDeHashLoadContent(remoteDestPath, salt, algorithm = "aes-256-ctr",
  * @param {*} options [default: { modulusLength: 2048 }]
  * @return {*} 
  * 
- * Reference file - Better the function: _encryptFile, _decryptFile
+ * Reference file - Better the function: encryptFile, decryptFile
  * https://www.sohamkamani.com/nodejs/rsa-encryption/
  * 
  */
-function _encryptFile(remotePath, remoteDestPath, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", keyOptions = { modulusLength: 2048 }, options = { modulusLength: 2048 }) {
+function encryptFile(remotePath, remoteDestPath, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", keyOptions = { modulusLength: 2048 }, options = { modulusLength: 2048 }) {
     const crypto = require('crypto');
     let data = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
 
@@ -261,7 +294,7 @@ function _encryptFile(remotePath, remoteDestPath, algorithm = "sha256", keyAlgor
     keyOptions = keyOptions || { modulusLength: 2048 };
     options = options || { modulusLength: 2048 };
 
-    const { privateKey, publicKey } = _genKeyPair(keyAlgorithm, keyOptions);
+    const { privateKey, publicKey } = genKeyPair(keyAlgorithm, keyOptions);
 
     let encrypted = crypto.publicEncrypt({
         key: publicKey,
@@ -294,7 +327,7 @@ function _encryptFile(remotePath, remoteDestPath, algorithm = "sha256", keyAlgor
  * @param {*} [options={ modulusLength: 2048 }]
  * @return {*} 
  */
-function _decryptFile(remotePath, remoteDestPath, privateKey, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", options = { modulusLength: 2048 }) {
+function decryptFile(remotePath, remoteDestPath, privateKey, algorithm = "sha256", keyAlgorithm = "rsa", digest = "base64", options = { modulusLength: 2048 }) {
     const crypto = require('crypto');
     let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
 
@@ -356,23 +389,6 @@ function decryptWithKey(hashdata, options = {}) {
 
 
 /**
- *
- *
- * @param {*} remotePath
- * @param {*} checksum
- * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
- * @param {string} [digest="base64"] [default: "base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
- * @param {*} options [default: { logger: console.log }] [options: logger function]
- * @return {*} 
- */
-function _verifyFile(remotePath, checksum, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
-    if (!hashToCheck) throw new Error("Hash to Check not provided");
-    let hashdata = fs.readFileSync(remotePath, { encoding: options.encoding ? options.encoding : "utf-8", flag: "r" });
-    return _verifySHAHash(_createSHAHash(hashdata), checksum, algorithm, digest, options);
-}
-
-
-/**
  * getCiphers
  *
  * @return {*[]} 
@@ -425,29 +441,13 @@ function getRandomValues(typedArray) {
 
 
 /**
- * _verifyHashedFile, verifyHashedFile
- *
- * @param {*} remotePath
- * @param {*} hashToCheck
- * @param {string} [algorithm="sha256"] [default: "SHA256"] [options: use function getHashes]
- * @param {string} [digest="base64"] [options: ['ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex']]
- * @param {*} options [default: { logger: console.log }] [options: logger function]
- * @return {*} 
- */
-function _verifyHashedFile(remotePath, hashToCheck, algorithm = "sha256", digest = "base64", options = { logger: console.log }) {
-    if (!hashToCheck) throw new Error("Hash to Check not provided");
-    return _verifyFile(remotePath, _createSHAHash(hashToCheck), algorithm, digest, options);
-}
-
-
-/**
  *
  *
  * @param {string} [keyGenType="rsa"] [default: "rsa"] [options: 'rsa', 'rsa-pss', 'dsa', 'ec', 'ed25519', 'ed448', 'x25519', 'x448', or 'dh']
  * @param {*} [options={ modulusLength: 2048 }] [default: { modulusLength: 2048 }] 
  * @return {*} 
  */
-function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
+function genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
     const crypto = require('crypto');
     const { privateKey, publicKey } = crypto.generateKeyPairSync(keyGenType, options);
     return { privateKey, publicKey }
@@ -463,7 +463,7 @@ function _genKeyPair(keyGenType = "rsa", options = { modulusLength: 2048 }) {
  * @param {string} [format="pem"]
  * @param {string} [base="hex"]
  */
-function _dumpKeyFile(filename, key, format = "pem", type = "pkcs1", base = "hex") {
+function dumpKeyFile(filename, key, format = "pem", type = "pkcs1", base = "hex") {
     // const { privateKey, publicKey } = encrypt();
     // fs.writeFileSync("public.pem", publicKey.toString('hex')); // or console.log
     // fs.writeFileSync("private.pem", privateKey.export().toString('hex'));
@@ -490,7 +490,7 @@ function _dumpKeyFile(filename, key, format = "pem", type = "pkcs1", base = "hex
  * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
  * @return {*} 
  */
-function _createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType, padding) {
+function createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType, padding) {
     const crypto = require('crypto');
 
     algorithm = algorithm || "sha256";
@@ -500,7 +500,7 @@ function _createSign(data, algorithm, base, keyGenType, keyOptions, options, enc
     options = options || { modulusLength: 2048 };
     encryptType = encryptType || "createSign";
 
-    const { privateKey, publicKey } = _genKeyPair(keyGenType, keyOptions);
+    const { privateKey, publicKey } = genKeyPair(keyGenType, keyOptions);
 
     let signature;
     switch (encryptType) {
@@ -536,7 +536,7 @@ function _createSign(data, algorithm, base, keyGenType, keyOptions, options, enc
  * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
  * @return {*} 
  */
-function _createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType) {
+function createSignVerify(data, signature, publicKey, algorithm, base, options, encryptType) {
     const crypto = require('crypto');
 
     algorithm = algorithm || "sha256";
@@ -561,33 +561,33 @@ function _createSignVerify(data, signature, publicKey, algorithm, base, options,
 }
 
 
-module.exports.createSHA = _createSHAHash;
-module.exports.hashContent = _fileContentHash;
-module.exports.dehashContent = _fileContentDeHash;
+module.exports.createSHA = createSHA;
+module.exports.hashContent = hashContent;
+module.exports.dehashContent = dehashContent;
 
-module.exports.hashFile = _fileHash;
-module.exports.dehashFile = _fileDeHash;
+module.exports.hashFile = hashFile;
+module.exports.dehashFile = dehashFile;
 
-module.exports.verifySHA = _verifySHAHash;
-module.exports.verifyFileContent = _verifyFileContentHash;
-module.exports.verifyHashedFile = _verifyHashedFile;
-module.exports.verifyFile = _verifyFile;
+module.exports.verifySHA = verifySHA;
+module.exports.verifyFileContent = verifyContents;
+module.exports.verifyHashedFile = verifyFileWithEncryptedContent;
+module.exports.verifyFileChecksum = verifyFileChecksum;
 
-module.exports.encrypt = _encryptFile;
-module.exports.decrypt = _decryptFile;
+module.exports.encrypt = encryptFile;
+module.exports.decrypt = decryptFile;
 
 module.exports.encryptWithKey = encryptWithKey;
 module.exports.decryptWithKey = decryptWithKey;
 
 
-module.exports.hashContent = _fileContentHash;
-module.exports.dehashContent = _fileContentDeHash;
+module.exports.hashContent = hashContent;
+module.exports.dehashContent = dehashContent;
 
-module.exports._dumpKeyFile = _dumpKeyFile;
-module.exports.dumpKeyFile = _dumpKeyFile;
+module.exports._dumpKeyFile = dumpKeyFile;
+module.exports.dumpKeyFile = dumpKeyFile;
 
-module.exports._genKeyPair = _genKeyPair;
-module.exports.genKeyPair = _genKeyPair;
+module.exports._genKeyPair = genKeyPair;
+module.exports.genKeyPair = genKeyPair;
 
 module.exports.getCiphers = getCiphers;
 module.exports.getHashes = getHashes;
@@ -601,30 +601,30 @@ module.exports._getDiffieHellman = getDiffieHellman;
 module.exports._getFips = getFips;
 module.exports._getRandomValues = getRandomValues;
 
-module.exports.createSign = _createSign;
-module.exports.createSignVerify = _createSignVerify;
+module.exports.createSign = createSign;
+module.exports.createSignVerify = createSignVerify;
 
-module.exports._createSHAHash = _createSHAHash;
-module.exports._fileContentHash = _fileContentHash;
-module.exports._fileContentDeHash = _fileContentDeHash;
+module.exports._createSHAHash = createSHA;
+module.exports._fileContentHash = hashContent;
+module.exports._fileContentDeHash = dehashContent;
 
-module.exports._fileHash = _fileHash;
-module.exports._fileDeHash = _fileDeHash;
+module.exports._fileHash = hashFile;
+module.exports._fileDeHash = dehashFile;
 
-module.exports._fileHashFromContent = _fileHashFromContent;
-module.exports._fileDeHashContent = _fileDeHashContent;
-module.exports._fileDeHashLoadContent = _fileDeHashLoadContent;
+module.exports._fileHashFromContent = hashContentToFile;
+module.exports._fileDeHashContent = dehashContentFromFile;
+module.exports._fileDeHashLoadContent = dehashLoadContentFromFile;
 
-module.exports._verifySHAHash = _verifySHAHash;
-module.exports._verifyFileContentHash = _verifyFileContentHash;
-module.exports._verifyHashedFile = _verifyHashedFile;
-module.exports._verifyFile = _verifyFile;
+module.exports._verifySHAHash = verifySHA;
+module.exports._verifyFileContentHash = verifyContents;
+module.exports._verifyHashedFile = verifyFileWithEncryptedContent;
+module.exports._verifyFile = verifyFileChecksum;
 
-module.exports._encryptFile = _encryptFile;
-module.exports._decryptFile = _decryptFile;
+module.exports._encryptFile = encryptFile;
+module.exports._decryptFile = decryptFile;
 
-module.exports._createSign = _createSign;
-module.exports._createSignVerify = _createSignVerify;
+module.exports._createSign = createSign;
+module.exports._createSignVerify = createSignVerify;
 
 module.exports.getConstants = getConstants;
 module.exports.getSymbolsList = getSymbolsList;
@@ -635,24 +635,24 @@ module.exports._decryptWithKey = decryptWithKey;
 module.exports.encryptWithKey = encryptWithKey;
 module.exports.decryptWithKey = decryptWithKey;
 
-module.exports._dumpKeyFile = _dumpKeyFile;
-module.exports.dumpKeyFile = _dumpKeyFile;
+module.exports._dumpKeyFile = dumpKeyFile;
+module.exports.dumpKeyFile = dumpKeyFile;
 
 
-module.exports.createSHA = _createSHAHash;
-module.exports.hashContent = _fileContentHash;
-module.exports.dehashContent = _fileContentDeHash;
+module.exports.createSHA = createSHA;
+module.exports.hashContent = hashContent;
+module.exports.dehashContent = dehashContent;
 
-module.exports.hashFile = _fileHash;
-module.exports.dehashFile = _fileDeHash;
+module.exports.hashFile = hashFile;
+module.exports.dehashFile = dehashFile;
 
-module.exports.verifySHA = _verifySHAHash;
-module.exports.verifyFileContent = _verifyFileContentHash;
-module.exports.verifyHashedFile = _verifyHashedFile;
-module.exports.verifyFile = _verifyFile;
+module.exports.verifySHA = verifySHA;
+module.exports.verifyFileContent = verifyContents;
+module.exports.verifyHashedFile = verifyFileWithEncryptedContent;
+module.exports.verifyFileChecksum = verifyFileChecksum;
 
-module.exports.encrypt = _encryptFile;
-module.exports.decrypt = _decryptFile;
+module.exports.encrypt = encryptFile;
+module.exports.decrypt = decryptFile;
 
 module.exports.encryptWithKey = encryptWithKey;
 module.exports.decryptWithKey = decryptWithKey;
