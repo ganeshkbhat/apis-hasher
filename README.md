@@ -58,15 +58,15 @@ crypt.createSHA(
 * ##### Data or Content Based Methods `PKG**.content.xxx`
     - [genKeyPair](#genkeypair), 
     - [dumpKeyFile](#dumpkeyfile)
-    - [hash](#hashcontent), 
-    - [dehash](#dehashcontent), 
+    - [hash / encrypt](#encrypt), 
+    - [dehash / decrypt](#decrypt), 
     - [encryptWithKey](#encryptwithkey), 
     - [decryptWithKey](#decryptwithkey),
 * ##### File Based Methods `PKG**.file.xxx`
-    - [encrypt](#encrypt), 
-    - [decrypt](#decrypt), 
-    - [hash](#hashfile), 
-    - [dehash](#dehashfile), 
+    - [encrypt](#fileencrypt), 
+    - [decrypt](#filedecrypt), 
+    <!-- - [hash](#hashfile), 
+    - [dehash](#dehashfile),  -->
 * ##### Verify Content or File Methods `PKG**.file.xxx`
     - [createSHA](#createsha), 
     - [SHA](#createsha), 
@@ -96,11 +96,11 @@ crypt.createSHA(
 ### Demo Usages for Content (with or without keys)
 
 
-##### <a name="hashcontent"></a> `hashContent`
+##### <a name="crypt"></a> `hashContent / encrypt`
 
 Create an encrytion using a content using salt and algorithms
 
-Usage: `hashContent(data, salt, algorithm, keyAlgorithm, digest, options)`
+Usage: `encrypt(data, salt, algorithm, keyAlgorithm, digest, options)`
 
 
 ```
