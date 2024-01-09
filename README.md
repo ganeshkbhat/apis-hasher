@@ -13,8 +13,8 @@ You can find details about used crypto algorithm details in the [nodejs crypto, 
 
 ```
 
-var hasher = require("hasher-apis");
-hasher.createSHA(
+var crypt = require("hasher-apis");
+crypt.createSHA(
     data="texter data", 
     algorithm = "sha256", 
     digest="base64", 
@@ -41,8 +41,8 @@ createSHA(
 
 ```
 
-var hasher = import("hasher-apis");
-hasher.createSHA(
+var crypt = import("hasher-apis");
+crypt.createSHA(
     data="texter data", 
     algorithm = "sha256", 
     digest="base64", 
@@ -68,7 +68,8 @@ hasher.createSHA(
     - [hash](#hashfile), 
     - [dehash](#dehashfile), 
 * ##### Verify Content or File Methods `PKG**.file.xxx`
-    - [createSHA, SHA](#createsha), 
+    - [createSHA](#createsha), 
+    - [SHA](#createsha), 
     - [verifySHA](#verifysha), 
     - [verifyContent](#verifyfilecontent), 
     - [verifyEncrypt](#verifyhashedfile), 
