@@ -17,76 +17,77 @@
 
 'use strict';
 
-import {
-    default as hasher,
-    createSHA, hashContent, dehashContent, hashFile, dehashFile,
-    verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
-    encrypt, decrypt, createSign, createSignVerify,
-    getCiphers, getHashes, getDiffieHellman, getFips, getRandomValues,
-    genKeyPair, getConstants, getSymbolsList,
-    encryptWithKey, decryptWithKey, dumpKeyFile,
-
-    _createSHAHash, _fileContentHash, _fileContentDeHash,
-    _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
-    _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-    _encryptFile, _decryptFile, _createSign, _createSignVerify,
-    _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
-    _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
-} from './index.js';
-// process.env.NODE_OPTIONS = '--experimental-modules --loader ./custom-loader.mjs';
-
-export default hasher;
+const base = require("./base.js");
+const consts = require("./consts.js");
+const content = require("./content.js");
+const files = require("./files.js");
+const verify = require("./verify.js");
 
 
 export var file = {
-    hash: dehashContent,
-    dehash: hashContent,
-    hashFile: hashFile,
-    dehashFile: dehashFile,
-    verifyContent: verifyHashedFile,
-    verifyChecksum: verifyFile,
-    encrypt: encrypt,
-    decrypt: decrypt,
-    load: _fileDeHashLoadContent,
+    encrypt: files.encryptFromTo,
+    decrypt: files.decryptFromTo,
+    // encryptFile: files,
+    // decryptFile: files,
+    load: files.loadContentFrom,
+    ...files
 }
+// {
+//     hash: dehashContent,
+//     dehash: hashContent,
+//     hashFile: hashFile,
+//     dehashFile: dehashFile,
+//     verifyContent: verifyHashedFile,
+//     verifyChecksum: verifyFile,
+//     encrypt: encrypt,
+//     decrypt: decrypt,
+//     load: _fileDeHashLoadContent,
+// }
 
 export var content = {
-    encryptWithKey: encryptWithKey,
-    decryptWithKey: decryptWithKey,
-    hash: hashContent,
-    dehash: dehashContent,
-    load: _fileDeHashLoadContent,
-    verifySHA: verifySHA, 
-    verifyContent: verifyFileContent, 
-    createSign: createSign, 
-    createSignVerify: createSignVerify
+    ...content
 }
+
+export var consts = {
+    ...consts
+}
+
+export var base = {
+    ...base
+}
+// {
+//     encryptWithKey: encryptWithKey,
+//     decryptWithKey: decryptWithKey,
+//     hash: hashContent,
+//     dehash: dehashContent,
+//     load: _fileDeHashLoadContent,
+//     verifySHA: verifySHA, 
+//     verifyContent: verifyFileContent, 
+//     createSign: createSign, 
+//     createSignVerify: createSignVerify
+// }
 
 export var crypt = {
-    SHA: createSHA,
-    verifySHA: verifySHA,
-    verify: _verifyFileContentHash,
-    genKeyPair: genKeyPair,
-    getCiphers: getCiphers,
-    getHashes: getHashes,
-    getDiffieHellman: getDiffieHellman,
-    getFips: getFips,
-    getRandomValues: getRandomValues
+    SHA: verify.createSHA,
+    verifySHA: verify.verifySHA,
+    verifyEncrypt: verify.fileWithChecksum,
+    verifyContent: verify.contentWithChecksum,
+    ...crypter
 }
+// {
+//     SHA: createSHA,
+//     verifySHA: verifySHA,
+//     verify: _verifyFileContentHash,
+//     genKeyPair: genKeyPair,
+//     getCiphers: getCiphers,
+//     getHashes: getHashes,
+//     getDiffieHellman: getDiffieHellman,
+//     getFips: getFips,
+//     getRandomValues: getRandomValues
+// }
 
+import hasher from "./index.js";
+import { default as hasherdefault } from "./index.js";
 
-export {
-    createSHA, hashContent, dehashContent, hashFile, dehashFile,
-    verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
-    encrypt, decrypt, createSign, createSignVerify,
-    getCiphers, getHashes, getDiffieHellman, getFips, getRandomValues,
-    genKeyPair, getConstants, getSymbolsList,
-    encryptWithKey, decryptWithKey, dumpKeyFile,
-
-    _createSHAHash, _fileContentHash, _fileContentDeHash,
-    _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
-    _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-    _encryptFile, _decryptFile, _createSign, _createSignVerify,
-    _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
-    _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
-};
+export const hasher = hasher;
+export default hasherdefault;
