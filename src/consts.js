@@ -388,7 +388,8 @@ module.exports.getSymbols = function getSymbols(symbolname) {
  *
  * @return {*[]} 
  */
-module.exports.getCiphers = function getCiphers() {
+module.exports.getCiphers = function getCiphers(ciphername) {
+    if (!!ciphername && require('crypto').getCiphers().map(v => v.toLowerCase()).includes(ciphername)) return true;
     return require('crypto').getCiphers();
 }
 
@@ -398,7 +399,8 @@ module.exports.getCiphers = function getCiphers() {
  *
  * @return {*[]} 
  */
-module.exports.getHashes = function getHashes() {
+module.exports.getHashes = function getHashes(hashesname) {
+    if (!!hashesname && require('crypto').getHashes().map(v => v.toLowerCase()).includes(hashesname.toLowerCase())) return true;
     return require('crypto').getHashes();
 }
 
@@ -410,6 +412,7 @@ module.exports.getHashes = function getHashes() {
  * @return {*[]} 
  */
 module.exports.getDiffieHellman = function getDiffieHellman(groupName) {
+    if (!!groupName && require('crypto').getHashes().map(v => v.toLowerCase()).includes(groupName.toLowerCase())) return true;
     return require('crypto').getDiffieHellman(groupName);
 }
 
@@ -419,7 +422,8 @@ module.exports.getDiffieHellman = function getDiffieHellman(groupName) {
  *
  * @return {*[]} 
  */
-module.exports.getFips = function getFips() {
+module.exports.getFips = function getFips(fipsname) {
+    if (!!fipsname && require('crypto').getHashes().map(v => v.toLowerCase()).includes(fipsname.toLowerCase())) return true;
     return require('crypto').getFips();
 }
 
