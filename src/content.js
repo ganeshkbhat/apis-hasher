@@ -260,7 +260,6 @@ class Encrypter {
 
 module.exports.Encrypter = Encrypter;
 
-
 module.exports.default = {
     encrypt,
     decrypt,

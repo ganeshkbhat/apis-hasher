@@ -135,12 +135,12 @@ module.exports._dumpKeyFile = dumpKeyFile;
 module.exports.dumpKeyFile = dumpKeyFile;
 
 module.exports.default = {
-    _createSHAHash,
     createSHA,
     createSign,
-    _createSign,
-    _genKeyPair,
     genKeyPair,
-    _dumpKeyFile,
-    dumpKeyFile
+    dumpKeyFile,
+    _createSign: createSign,
+    _genKeyPair: genKeyPair,
+    _dumpKeyFile: dumpKeyFile,
+    _createSHAHash: createSHA
 }
