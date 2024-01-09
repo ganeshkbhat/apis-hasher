@@ -17,6 +17,7 @@
 
 const crypto = require('crypto');
 
+
 /**
  * List of constants in crypto
  *
@@ -230,6 +231,7 @@ module.exports.getConstants = function getConstants(constantname) {
  *      camella, id, sm4, shake, md5, pkcs, aes
  *
  * @param {*} listname
+ * @return {*} 
  */
 module.exports.getSymbolsList = function getSymbolsList(listname) {
     let list;
@@ -305,7 +307,7 @@ module.exports.getSymbolsList = function getSymbolsList(listname) {
 
 
 /**
- *
+ * getSymbols
  *
  * @param {*} symbolname
  * @return {*} 
@@ -386,7 +388,8 @@ module.exports.getSymbols = function getSymbols(symbolname) {
 /**
  * getCiphers
  *
- * @return {*[]} 
+ * @param {*} ciphername
+ * @return {*[] | boolean} 
  */
 module.exports.getCiphers = function getCiphers(ciphername) {
     if (!!ciphername && require('crypto').getCiphers().map(v => v.toLowerCase()).includes(ciphername)) return true;
@@ -397,7 +400,8 @@ module.exports.getCiphers = function getCiphers(ciphername) {
 /**
  * getHashes
  *
- * @return {*[]} 
+ * @param {*} hashesname
+ * @return {*[] | boolean} 
  */
 module.exports.getHashes = function getHashes(hashesname) {
     if (!!hashesname && require('crypto').getHashes().map(v => v.toLowerCase()).includes(hashesname.toLowerCase())) return true;
@@ -408,19 +412,19 @@ module.exports.getHashes = function getHashes(hashesname) {
 /**
  * getDiffieHellman
  *
- * @param {*} groupName
- * @return {*[]} 
+ * @param {*} groupname
+ * @return {*[] | boolean} 
  */
-module.exports.getDiffieHellman = function getDiffieHellman(groupName) {
-    if (!!groupName && require('crypto').getHashes().map(v => v.toLowerCase()).includes(groupName.toLowerCase())) return true;
-    return require('crypto').getDiffieHellman(groupName);
+module.exports.getDiffieHellman = function getDiffieHellman(groupname) {
+    if (!!groupname && require('crypto').getHashes().map(v => v.toLowerCase()).includes(groupname.toLowerCase())) return true;
+    return require('crypto').getDiffieHellman(groupname);
 }
 
 
 /**
  * getFips
  *
- * @return {*[]} 
+ * @return {*[] | boolean} 
  */
 module.exports.getFips = function getFips(fipsname) {
     if (!!fipsname && require('crypto').getHashes().map(v => v.toLowerCase()).includes(fipsname.toLowerCase())) return true;
