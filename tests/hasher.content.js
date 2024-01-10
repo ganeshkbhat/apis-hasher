@@ -1,74 +1,55 @@
 /**
- * 
+ *
  * Package: hasher-apis
  * Author: Ganesh B
- * Description: 
+ * Description:
  * Install: npm i hasher-apis --save
  * Github: https://github.com/ganeshkbhat/apis-hasher
  * npmjs Link: https://www.npmjs.com/package/hasher-apis
  * File: hasher.content.test.js
- * File Description: 
- * 
+ * File Description:
+ *
 */
 
 /* eslint no-console: 0 */
 
-'use strict';
+'use strict'
 
-const path = require("path");
-const _filelock = require("../index.js");
-const expect = require('chai').expect;
-
-describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files - content.js', function () {
-
-  it('[Test A] Test for ', function (done) {
-
-    expect("").to.equal("");
-    done();
-  });
-
-});
-
+const path = require('path')
+const _filelock = require('../index.js')
+const expect = require('chai').expect
 
 describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files - content.js', function () {
-
   it('[Test A] Test for ', function (done) {
-
-    expect("").to.equal("");
-    done();
-  });
-
-});
-
+    expect('').to.equal('')
+    done()
+  })
+})
 
 describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files - content.js', function () {
-
   it('[Test A] Test for ', function (done) {
-
-    expect("").to.equal("");
-    done();
-  });
-
-});
-
+    expect('').to.equal('')
+    done()
+  })
+})
 
 describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files - content.js', function () {
-
   it('[Test A] Test for ', function (done) {
-
-    expect("").to.equal("");
-    done();
-  });
-
-});
-
+    expect('').to.equal('')
+    done()
+  })
+})
 
 describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files - content.js', function () {
-
   it('[Test A] Test for ', function (done) {
+    expect('').to.equal('')
+    done()
+  })
+})
 
-    expect("").to.equal("");
-    done();
-  });
-
-});
+describe('test-.mjs::hasher-apis: Test Suite for hasher-apis Files - content.js', function () {
+  it('[Test A] Test for ', function (done) {
+    expect('').to.equal('')
+    done()
+  })
+})

@@ -11,9 +11,24 @@
     "test": "tests"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint --init",
+    "eslint": "npx eslint ./ --fix",
+    "clean": "npx rimraf types",
+    "types": "npm run clean && npx -p typescript tsc",
+    "lint": "npm run eslint",
     "test": "mocha --reporter spec --recursive --timeout 60000",
     "unimported": "npx unimported --no-cache"
+  },
+  "pre-commit": {
+    "run": [
+      "unimported",
+      
+    ]
+  },
+  "pre-push": {
+    "run": [
+      "test"
+    ],
+    "silent": true
   },
   "repository": {
     "type": "git",
@@ -29,6 +44,8 @@
     "eslint": "^8.56.0",
     "hpp": "^0.2.3",
     "mocha": "^10.0.0",
+    "pre-commit": "^1.2.2",
+    "pre-push": "^0.1.4",
     "root-dirs": "0.0.2",
     "safe-regex": "^2.1.1",
     "sinon": "^14.0.0",

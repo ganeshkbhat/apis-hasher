@@ -1,5 +1,5 @@
 {
-  "exclude": ["./demos/**/*", "./tests/**/*"],
+  "exclude": ["./demos/**/*", "./tests/old.test/**/*"],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 

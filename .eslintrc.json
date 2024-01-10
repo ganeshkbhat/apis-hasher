@@ -1,0 +1,37 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    // "extends": "standard-with-typescript",
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "ignorePatterns": [
+        // "src/**/*.test.js", 
+        // "!node_modules/",           // unignore `node_modules/` directory
+        "node_modules/*",           // ignore its content
+        // "!node_modules/mylibrary/",  // unignore `node_modules/mylibrary` directory
+        "./demos/old.demos/**/*.js", 
+        "./demos/old.demos/**/*.mjs", 
+        "./old.test/**/*.js", 
+        "./old.test/**/*.mjs"
+    ],
+    // "files": ["./*.js", "./*.mjs", "./src/**/*.js", ".src/**/*.mjs", "./demos/**/*.js"],
+    // "ignores": [
+        // "!node_modules/",           // unignore `node_modules/` directory
+        // "node_modules/*",           // ignore its content
+        // "!node_modules/mylibrary/",  // unignore `node_modules/mylibrary` directory
+        // "./demos/old.demos/**/*.js", 
+        // "./demos/old.demos/**/*.mjs", 
+        // "./old.test/**/*.js", 
+        // "./old.test/**/*.mjs"
+    // ],
+    "rules": {
+        "semi": ["off"], // ["warn", "always"],
+        "quotes": ["warn", "single"]
+    }
+}
