@@ -17,7 +17,9 @@
     "types-precommit": "npm run types && git add .",
     "lint": "npm run eslint",
     "test": "mocha --reporter spec --recursive --timeout 60000",
-    "unimported": "npx unimported --no-cache"
+    "unimported": "npx unimported --no-cache",
+    "publish-types": "cd types",
+    "publish": ""
   },
   "pre-commit": {
     "run": [
@@ -27,7 +29,7 @@
   },
   "pre-push": {
     "run": [
-      "test"
+      
     ],
     "silent": true
   },

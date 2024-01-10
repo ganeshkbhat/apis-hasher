@@ -18,6 +18,8 @@
 
 'use strict'
 
+
+const crypto = require('crypto');
 const fs = require('fs')
 const path = require('path')
 const { getConstants, getSymbolsList } = require('./consts.js')
@@ -34,7 +36,7 @@ const { getConstants, getSymbolsList } = require('./consts.js')
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*}
  */
-module.exports.encrypt = function encryptContent (data, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
+module.exports.encrypt = function encryptContent(data, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
   const crypto = require('crypto')
 
   const hashesList = crypto.getHashes()
@@ -66,7 +68,7 @@ module.exports.encrypt = function encryptContent (data, salt, algorithm = 'aes-2
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*}
  */
-module.exports.decrypt = function decryptContent (encryptedData, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
+module.exports.decrypt = function decryptContent(encryptedData, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
   const crypto = require('crypto')
 
   const hashesList = crypto.getHashes()
@@ -93,7 +95,7 @@ module.exports.decrypt = function decryptContent (encryptedData, salt, algorithm
  * @param {*} [options={ logger: console.log }]
  * @return {*}
  */
-module.exports.encryptEncodeWithCipheriv = function encryptEncodeWithCipheriv (data, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
+module.exports.encryptEncodeWithCipheriv = function encryptEncodeWithCipheriv(data, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
   const encrypted = ecrypt(data, salt, algorithm, keyAlgorithm, digest, options)
   return atob(JSON.stringify(encrypted))
 }
@@ -109,7 +111,7 @@ module.exports.encryptEncodeWithCipheriv = function encryptEncodeWithCipheriv (d
  * @param {*} [options={ logger: console.log }]
  * @return {*}
  */
-module.exports.decryptDecodeWithCipheriv = function decryptDecodeWithCipheriv (encryptedData, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
+module.exports.decryptDecodeWithCipheriv = function decryptDecodeWithCipheriv(encryptedData, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
   const decrypted = JSON.parse(btoa(encryptedData))
   return decrypt(decrypted, salt, algorithm, keyAlgorithm, digest, options)
 }
@@ -120,14 +122,14 @@ module.exports.decryptDecodeWithCipheriv = function decryptDecodeWithCipheriv (e
  * @param {*} [options] < { [publicKey | publicKeyPath], padding, algorithm ) } >
  * @return {*}
  */
-module.exports.encryptWithKey = function encryptWithKey (data, options = {}) {
+module.exports.encryptWithKey = function encryptWithKey(data, options = {}) {
   const crypto = require('crypto')
   return crypto.publicEncrypt({
     key: (options.publicKey) ? options.publicKey : (options.publicKeyPath) ? fs.readFileSync(options.publicKeyPath) : null,
     padding: getConstants('RSA_PKCS1_PADDING'),
     oaepHash: options.algorithm
   },
-  Buffer.from(data)
+    Buffer.from(data)
   ).toString(options.digest || 'base64')
 }
 
@@ -138,14 +140,14 @@ module.exports.encryptWithKey = function encryptWithKey (data, options = {}) {
  * @param {*} [options] < { [privateKey | privateKeyPath], padding, algorithm ) } >
  * @return {*}
  */
-module.exports.decryptWithKey = function decryptWithKey (encryptedData, options = {}) {
+module.exports.decryptWithKey = function decryptWithKey(encryptedData, options = {}) {
   const crypto = require('crypto')
   return crypto.privateDecrypt({
     key: (options.privateKey) ? options.privateKey : (options.privateKeyPath) ? fs.readFileSync(options.privateKeyPath) : null,
     padding: options.padding || getConstants('RSA_PKCS1_PADDING'),
     oaepHash: options.algorithm
   },
-  Buffer.from(encryptedData, options.digest || 'base64')
+    Buffer.from(encryptedData, options.digest || 'base64')
   ).toString(options.encoding || 'utf-8')
 }
 
@@ -156,7 +158,7 @@ module.exports.decryptWithKey = function decryptWithKey (encryptedData, options 
  * @param {*} salt
  * @return {*}
  */
-module.exports.encryptWithCipheriv = function encryptCipheriv (data, salt) {
+module.exports.encryptWithCipheriv = function encryptCipheriv(data, salt) {
   const iv = getIV()
   const cipher = crypto.createCipheriv(
     ALGORITHM.BLOCK_CIPHER, key, iv,
@@ -174,7 +176,7 @@ module.exports.encryptWithCipheriv = function encryptCipheriv (data, salt) {
  * @param {*} iv
  * @return {*}
  */
-module.exports.decryptWithCipheriv = function decryptCipheriv (encryptedData, salt) {
+module.exports.decryptWithCipheriv = function decryptCipheriv(encryptedData, salt) {
   const authTag = ciphertext.slice(-16)
   const iv = ciphertext.slice(0, 12)
   const encryptedMessage = ciphertext.slice(12, -16)
@@ -200,7 +202,7 @@ class Encrypter {
   // const dencrypted = encrypter.dencrypt(encrypted);
   // console.log({ worked: clearText === dencrypted });
 
-  constructor (encryptionKey) {
+  constructor(encryptionKey) {
     this.algorithm = 'aes-192-cbc'
     this.key = encryptionKey ? crypto.scryptSync(encryptionKey, 'salt', 24) : null
   }
@@ -214,7 +216,7 @@ class Encrypter {
      * @return {*}
      * @memberof Encrypter
      */
-  encrypt (clearText, key, set = false) {
+  encrypt(clearText, key, set = false) {
     const iv = crypto.randomBytes(16)
     const cipher = crypto.createCipheriv(this.algorithm, key || this.key, iv)
     const encrypted = cipher.update(clearText, 'utf8', 'hex')
@@ -234,7 +236,7 @@ class Encrypter {
      * @return {*}
      * @memberof Encrypter
      */
-  decrypt (encryptedText, key, set = false) {
+  decrypt(encryptedText, key, set = false) {
     const [encrypted, iv] = encryptedText.split('|')
     if (!iv) throw new Error('IV not found')
     const decipher = crypto.createDecipheriv(
@@ -249,6 +251,134 @@ class Encrypter {
 
 module.exports.Encrypter = Encrypter
 
+module.exports.Crypto = function Crypto() {
+  // 
+  // Code for aes-256-gcm from 
+  // 
+  // https://github.com/santoshshinde2012/node-boilerplate/blob/master/src/lib/crypto.ts
+  // https://github.com/santoshshinde2012/node-boilerplate/blob/ba5013e13462423384af91d0c83f6e2abd4f055a/src/lib/crypto.ts
+  // https://github.com/santoshshinde2012/node-boilerplate/blob/ba5013e13462423384af91d0c83f6e2abd4f055a/tests/unit-tests/lib/crypto.spec.ts
+  // 
+
+  // algorithm - AES 256 GCM Mode
+  var algorithm /* : crypto.CipherGCMTypes */ = 'aes-256-gcm';
+
+  // iterations: It must be a number and should be set as high as possible.
+  // So, the more is the number of iterations, the more secure the derived key will be,
+  // but in that case it takes greater amount of time to complete.
+  // number of interation - the value of 2145 is randomly chosen
+  var iterations = 2145;
+
+  // keylen: It is the key of the required byte length and it is of type number.
+  // derive encryption key: 32 byte key length
+  var keylen = 32;
+
+  // digest: It is a digest algorithms of string type.
+  var digest = 'sha512';
+
+  // random salt
+  var salt /* : Buffer */ = crypto.randomBytes(64);
+
+  this.encrypt = function encrypt(data, secretKey) {
+    // constant to encrypt the data
+    const inputEncoding = 'utf8';
+    const outputEncoding = 'base64';
+
+    // random initialization vector
+    const iv = crypto.randomBytes(12);
+
+    // The method gives an asynchronous Password-Based Key Derivation
+    const key /*: Buffer */ = crypto.pbkdf2Sync(
+      secretKey,
+      salt,
+      iterations,
+      keylen,
+      digest,
+    );
+
+    // create a Cipher object, with the stated algorithm, key and initialization vector (iv).
+    // @algorithm - AES 256 GCM Mode
+    // @key
+    // @iv
+    // @options
+    const cipher = crypto.createCipheriv(algorithm, key, iv);
+
+    // create a Cipher object, with the stated algorithm, key and initialization vector (iv).
+    // @algorithm - AES 256 GCM Mode
+    // @key
+    // @iv
+    // @options
+    const enc1 = cipher.update(data, inputEncoding);
+
+    // Return the buffer containing the value of cipher object.
+    // @outputEncoding: Output encoding format
+    // const enc2 = cipher.final();
+    const enc2 = cipher.final();
+
+    // extract the auth tag
+    const tag = cipher.getAuthTag();
+
+    // concat the encrypted result with iv and tag
+    const encryptedData = Buffer.concat([enc1, enc2, iv, tag]).toString(
+      outputEncoding,
+    );
+
+    // return the result
+    return encryptedData;
+  }
+
+  this.decrypt = function decrypt(data, secretKey) {
+    // constant to decrypt the data
+    const inputEncoding = 'base64';
+    const outputEncoding = 'utf8';
+
+    // Creates a new Buffer containing the given JavaScript string {str}
+    // eslint-disable-next-line no-param-reassign
+    const bufferData = Buffer.from(data, inputEncoding);
+
+    // derive key using; 32 byte key length
+    const key = crypto.pbkdf2Sync(
+      secretKey,
+      salt,
+      iterations,
+      keylen,
+      digest,
+    );
+
+    // extract iv from encrypted data
+    const iv = bufferData.subarray(
+      bufferData.length - 28,
+      bufferData.length - 16,
+    );
+
+    // extract tag from encrypted data
+    const tag = bufferData.subarray(bufferData.length - 16);
+
+    // extract encrypted text from encrypted data
+    const text = bufferData.subarray(0, bufferData.length - 28);
+
+    // AES 256 GCM Mode
+    const decipher = crypto.createDecipheriv(algorithm, key, iv);
+
+    // set the auth tag
+    decipher.setAuthTag(tag);
+
+    // Used to update the cipher with data according to the given encoding format.
+    // @data: It is used to update the cipher by new content
+    // @inputEncoding: Input encoding format
+    // @outputEncoding: Output encoding format
+    let str = decipher.update(text, null, outputEncoding);
+
+    // Return the buffer containing the value of cipher object.
+    // @outputEncoding: Output encoding format
+    str += decipher.final(outputEncoding);
+
+    // parse the string decrypted data
+    return str;
+  }
+
+}
+
 module.exports.default = {
   encrypt,
   decrypt,
@@ -257,6 +387,7 @@ module.exports.default = {
   encryptWithKey,
   decryptWithKey,
   Encrypter,
+  Crypto,
   // // encryptWithCipher,
   // // decryptWithCipher,
   // encryptWithCipherivJoins,
