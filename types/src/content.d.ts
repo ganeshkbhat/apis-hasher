@@ -28,24 +28,24 @@ export class Encrypter {
     algorithm: string;
     key: any;
     /**
-     *
-     *
-     * @param {*} clearText
-     * @param {*} key
-     * @param {boolean} [set=false]
-     * @return {*}
-     * @memberof Encrypter
-     */
+       *
+       *
+       * @param {*} clearText
+       * @param {*} key
+       * @param {boolean} [set=false]
+       * @return {*}
+       * @memberof Encrypter
+       */
     encrypt(clearText: any, key: any, set?: boolean | undefined): any;
     /**
-     *
-     *
-     * @param {*} encryptedText
-     * @param {*} key
-     * @param {boolean} [set=false]
-     * @return {*}
-     * @memberof Encrypter
-     */
+       *
+       *
+       * @param {*} encryptedText
+       * @param {*} key
+       * @param {boolean} [set=false]
+       * @return {*}
+       * @memberof Encrypter
+       */
     decrypt(encryptedText: any, key: any, set?: boolean | undefined): any;
 }
 //# sourceMappingURL=content.d.ts.map

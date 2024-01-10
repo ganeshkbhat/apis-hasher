@@ -14,19 +14,20 @@
     "eslint": "npx eslint ./ --fix",
     "clean": "npx rimraf types",
     "types": "npm run clean && npx -p typescript tsc",
+    "types-precommit": "npm run types && git add .",
     "lint": "npm run eslint",
     "test": "mocha --reporter spec --recursive --timeout 60000",
     "unimported": "npx unimported --no-cache"
   },
   "pre-commit": {
     "run": [
+      "types-precommit",
       "unimported"
-      
     ]
   },
   "pre-push": {
     "run": [
-      
+      "test"
     ],
     "silent": true
   },
