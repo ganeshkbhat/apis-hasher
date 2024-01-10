@@ -17,11 +17,11 @@
 
 'use strict';
 
-const base = require("./base.js");
-const consts = require("./consts.js");
-const content = require("./content.js");
-const files = require("./files.js");
-const verify = require("./verify.js");
+const base = require("./src/base.js");
+const consts = require("./src/consts.js");
+const content = require("./src/content.js");
+const files = require("./src/files.js");
+const verify = require("./src/verify.js");
 
 
 export var file = {

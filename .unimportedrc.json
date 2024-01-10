@@ -1,0 +1,29 @@
+{
+  "entry": [
+    "index.ts",
+    "index.js",
+    "index.mjs",
+    "src/*.{js,mjs,ts}"
+  ],
+  "extensions": [
+    ".ts",
+    ".mjs",
+    ".js"
+  ],
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "private/**"
+  ],
+  "ignoreUnresolved": [
+    "some-npm-dependency"
+  ],
+  "ignoreUnimported": [],
+  "ignoreUnused": [
+    "bcrypt",
+    "create-emotion"
+  ],
+  "respectGitignore": true,
+  "scannedDirs": [
+    "./modules"
+  ]
+}

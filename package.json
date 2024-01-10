@@ -11,7 +11,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha --reporter spec --recursive --timeout 60000"
+    "test": "mocha --reporter spec --recursive --timeout 60000",
+    "unimported": "npx unimported --no-cache"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "root-dirs": "0.0.2",
     "safe-regex": "^2.1.1",
     "sinon": "^14.0.0",
+    "typescript": "^4.9.5",
     "unimported": "^1.22.0"
   },
   "keywords": [

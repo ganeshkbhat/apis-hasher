@@ -18,13 +18,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const base = require("./base.js");
-const consts = require("./consts.js");
-const content = require("./content.js");
-const files = require("./files.js");
-const verify = require("./verify.js");
+const base = require("./src/base.js");
+const consts = require("./src/consts.js");
+const content = require("./src/content.js");
+const files = require("./src/files.js");
+const verify = require("./src/verify.js");
 
-const { getConstants, getSymbolsList } = require("./consts.js");
+const { getConstants, getSymbolsList } = require("./src/consts.js");
 const htps = require("./src/hasher.js");
 
 const {

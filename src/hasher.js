@@ -23,7 +23,7 @@ const path = require('path');
 
 const base = require("./base.js");
 const consts = require("./consts.js");
-const constent = require("./constent.js");
+const constent = require("./content.js");
 const files = require("./files.js");
 const verify = require("./verify.js");
 
