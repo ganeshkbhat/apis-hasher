@@ -250,7 +250,7 @@ class Encrypter {
 
 module.exports.Encrypter = Encrypter
 
-module.exports.Crypto = function Crypto() {
+class Crypter {
   // 
   // Code for aes-256-gcm from 
   // 
@@ -260,25 +260,25 @@ module.exports.Crypto = function Crypto() {
   // 
 
   // algorithm - AES 256 GCM Mode
-  var algorithm /* : crypto.CipherGCMTypes */ = 'aes-256-gcm';
+  algorithm /* : crypto.CipherGCMTypes */ = 'aes-256-gcm';
 
   // iterations: It must be a number and should be set as high as possible.
   // So, the more is the number of iterations, the more secure the derived key will be,
   // but in that case it takes greater amount of time to complete.
   // number of interation - the value of 2145 is randomly chosen
-  var iterations = 2145;
+  iterations = 2145;
 
   // keylen: It is the key of the required byte length and it is of type number.
   // derive encryption key: 32 byte key length
-  var keylen = 32;
+  keylen = 32;
 
   // digest: It is a digest algorithms of string type.
-  var digest = 'sha512';
+  digest = 'sha512';
 
   // random salt
-  var salt /* : Buffer */ = crypto.randomBytes(64);
+  salt /* : Buffer */ = crypto.randomBytes(64);
 
-  this.encrypt = function encrypt(data, secretKey) {
+  encrypt(data, secretKey) {
     // constant to encrypt the data
     const inputEncoding = 'utf8';
     const outputEncoding = 'base64';
@@ -326,7 +326,7 @@ module.exports.Crypto = function Crypto() {
     return encryptedData;
   }
 
-  this.decrypt = function decrypt(data, secretKey) {
+  decrypt(data, secretKey) {
     // constant to decrypt the data
     const inputEncoding = 'base64';
     const outputEncoding = 'utf8';
@@ -378,6 +378,8 @@ module.exports.Crypto = function Crypto() {
 
 }
 
+module.exports.Crypter = Crypter;
+
 module.exports.default = {
   encrypt,
   decrypt,
@@ -386,7 +388,7 @@ module.exports.default = {
   encryptWithKey,
   decryptWithKey,
   Encrypter,
-  Crypto,
+  Crypter,
   // // encryptWithCipher,
   // // decryptWithCipher,
   // encryptWithCipherivJoins,
