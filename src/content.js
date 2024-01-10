@@ -16,8 +16,7 @@
 
 /* eslint no-console: 0 */
 
-'use strict'
-
+'use strict';
 
 const crypto = require('crypto');
 const fs = require('fs')
