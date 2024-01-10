@@ -8,7 +8,7 @@
     "import": "./index.mjs"
   },
   "directories": {
-    "test": "test"
+    "test": "tests"
   },
   "scripts": {
     "eslint": "npx eslint ./ --fix",
