@@ -23,7 +23,6 @@
   },
   "pre-commit": {
     "run": [
-      "types-precommit",
       "unimported"
     ]
   },
