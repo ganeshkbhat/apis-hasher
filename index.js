@@ -24,7 +24,7 @@ const content = require("./src/content.js");
 const files = require("./src/files.js");
 const verify = require("./src/verify.js");
 
-const { getConstants, getSymbolsList } = require("./src/consts.js");
+// const { getConstants, getSymbolsList } = require("./src/consts.js");
 const htps = require("./src/hasher.js");
 
 const {
