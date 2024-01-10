@@ -17,8 +17,8 @@
         // "!node_modules/mylibrary/",  // unignore `node_modules/mylibrary` directory
         "./demos/old.demos/**/*.js", 
         "./demos/old.demos/**/*.mjs", 
-        "./old.test/**/*.js", 
-        "./old.test/**/*.mjs"
+        "./test/old.test/**/*.js", 
+        "./test/old.test/**/*.mjs"
     ],
     // "files": ["./*.js", "./*.mjs", "./src/**/*.js", ".src/**/*.mjs", "./demos/**/*.js"],
     // "ignores": [
