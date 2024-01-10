@@ -378,7 +378,7 @@ class Crypter {
 
 }
 
-module.exports.Crypter = Crypter;
+module.exports.AESCrypter = Crypter;
 
 module.exports.default = {
   encrypt,
@@ -388,7 +388,7 @@ module.exports.default = {
   encryptWithKey,
   decryptWithKey,
   Encrypter,
-  Crypter,
+  AESCrypter: Crypter,
   // // encryptWithCipher,
   // // decryptWithCipher,
   // encryptWithCipherivJoins,
