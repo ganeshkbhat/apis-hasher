@@ -27,9 +27,7 @@
     ]
   },
   "pre-push": {
-    "run": [
-      
-    ],
+    "run": [],
     "silent": true
   },
   "repository": {
@@ -127,5 +125,10 @@
     "Base64url"
   ],
   "author": "Ganesh B",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "openssl-wasm": "^3.1.0",
+    "openssl.js": "^1.2.0",
+    "ssl-validator": "^3.0.0"
+  }
 }
