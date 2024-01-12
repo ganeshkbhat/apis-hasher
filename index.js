@@ -23,25 +23,30 @@ const consts = require("./src/consts.js");
 const content = require("./src/content.js");
 const files = require("./src/files.js");
 const verify = require("./src/verify.js");
+const openssl = require("./src/openssl.js");
+const sslvalidator = require("./src/sslvalidator.js");
 
 // const { getConstants, getSymbolsList } = require("./src/consts.js");
-const htps = require("./src/hasher.js");
+const oldapis = require("./src/hasher.js");
+module.exports = {
+    ...oldapis
+}
 
-const {
-    createSHA, hashContent, dehashContent, hashFile, dehashFile,
-    verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
-    encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
-    genKeyPair, getConstants, getSymbolsList,
-    encryptWithKey, decryptWithKey, dumpKeyFile,
-    getDiffieHellman, getFips, getRandomValues,
+// const {
+//     createSHA, hashContent, dehashContent, hashFile, dehashFile,
+//     verifySHA, verifyFileContent, verifyHashedFile, verifyFile,
+//     encrypt, decrypt, createSign, createSignVerify, getCiphers, getHashes,
+//     genKeyPair, getConstants, getSymbolsList,
+//     encryptWithKey, decryptWithKey, dumpKeyFile,
+//     getDiffieHellman, getFips, getRandomValues,
 
-    _createSHAHash, _fileContentHash, _fileContentDeHash,
-    _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
-    _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
-    _encryptFile, _decryptFile, _createSign, _createSignVerify,
-    _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
-    _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
-} = require("./src/hasher.js");
+//     _createSHAHash, _fileContentHash, _fileContentDeHash,
+//     _fileHash, _fileDeHash, _fileHashFromContent, _fileDeHashLoadContent, _fileDeHashContent,
+//     _verifySHAHash, _verifyFileContentHash, _verifyHashedFile, _verifyFile,
+//     _encryptFile, _decryptFile, _createSign, _createSignVerify,
+//     _getCiphers, _getHashes, _getDiffieHellman, _getFips, _getRandomValues,
+//     _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
+// } = require("./src/hasher.js");
 
 module.exports.getConstants = getConstants;
 module.exports.getSymbolsList = getSymbolsList;
@@ -121,11 +126,14 @@ module.exports._getFips = consts.getFips;
 module.exports.getRandomValues = consts.getRandomValues;
 module.exports._getRandomValues = consts.getRandomValues;
 
+module.exports.openssl = openssl;
+module.exports.sslvalidator = sslvalidator;
+
 module.exports.base = {
     ...bases
 };
 
-module.exports.file = {
+var file = {
     encrypt: files.encryptFromTo,
     decrypt: files.decryptFromTo,
     // encryptFile: files,
@@ -134,11 +142,13 @@ module.exports.file = {
     ...files
 }
 
+module.exports.file = file;
+
 module.exports.content = {
     ...content
 }
 
-module.exports.crypt = {
+var crypt = {
     SHA: verify.createSHA,
     verifySHA: verify.verifySHA,
     verifyEncrypt: verify.fileWithChecksum,
@@ -146,6 +156,18 @@ module.exports.crypt = {
     ...crypter
 }
 
+module.exports.crypt = crypt;
+
+module.exports.default = {
+    oldapis,
+    base,
+    consts,
+    file,
+    content,
+    verify,
+    openssl,
+    sslvalidator
+}
 
 
 // module.exports._createSHAHash = createSHA;

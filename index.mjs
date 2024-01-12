@@ -2,12 +2,12 @@
  * 
  * Package: hasher-apis
  * Author: Ganesh B
- * Description: Nodejs npm module to traverse folder using code or cli or use glob patterns
+ * Description: 
  * Install: npm i hasher-apis --save
  * Github: https://github.com/ganeshkbhat/apis-hasher
  * npmjs Link: https://www.npmjs.com/package/hasher-apis
  * File: index.mjs
- * File Description: Using hasher-apis instead of require to fetch files from git repositories like Github or Bitbucket like repository directly
+ * File Description: 
  * 
  * git-rest: https://www.softwaretestinghelp.com/github-rest-api-tutorial/#:~:text=Log%20in%20to%20your%20GitHub,and%20click%20on%20Create%20Token.
  * 
@@ -17,12 +17,31 @@
 
 'use strict';
 
-const base = require("./src/base.js");
-const consts = require("./src/consts.js");
-const content = require("./src/content.js");
-const files = require("./src/files.js");
-const verify = require("./src/verify.js");
 
+import base from "./src/base.js";
+import consts from "./src/consts.js";
+import content from "./src/content.js";
+import files from "./src/files.js";
+import verify from "./src/verify.js";
+import openssl  from "./src/openssl.js";
+import sslvalidator from "./src/sslvalidator.js";
+
+
+// const base = require("./src/base.js");
+// const consts = require("./src/consts.js");
+// const content = require("./src/content.js");
+// const files = require("./src/files.js");
+// const verify = require("./src/verify.js");
+// const openssl = require("./src/openssl.js");
+// const sslvalidator = require("./src/sslvalidator.js");
+
+import hasher from "./index.js";
+export default hasher.default;
+
+delete hasher.default;
+export const hasherapis = {
+    ...hasher
+};
 
 export var file = {
     encrypt: files.encryptFromTo,
@@ -74,6 +93,7 @@ export var crypt = {
     verifyContent: verify.contentWithChecksum,
     ...crypter
 }
+
 // {
 //     SHA: createSHA,
 //     verifySHA: verifySHA,
@@ -86,8 +106,5 @@ export var crypt = {
 //     getRandomValues: getRandomValues
 // }
 
-import hasher from "./index.js";
-import { default as hasherdefault } from "./index.js";
-
-export const hasher = hasher;
-export default hasherdefault;
+export var openssl = openssl;
+export var sslvalidator = sslvalidator;

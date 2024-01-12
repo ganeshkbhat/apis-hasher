@@ -3,6 +3,7 @@
   "version": "0.2.7",
   "description": "Simple and flexible implementation Crypto Module functions to hash/ encrypt/ decrypt content and get SHA or other algorithm hashes of text or any data",
   "main": "index.js",
+  "type": "module",
   "exports": {
     "require": "./index.js",
     "import": "./index.mjs"
@@ -39,11 +40,14 @@
   },
   "homepage": "https://github.com/ganeshkbhat/apis-hashers#readme",
   "devDependencies": {
+    "@cowasm/openssl": "^1.0.1",
     "@types/node": "^18.11.3",
     "chai": "^4.3.6",
     "eslint": "^8.56.0",
     "hpp": "^0.2.3",
+    "libopenssl-wasm": "^1.1.0",
     "mocha": "^10.0.0",
+    "openssl-wasm": "^3.1.0",
     "pre-commit": "^1.2.2",
     "pre-push": "^0.1.4",
     "root-dirs": "0.0.2",
@@ -127,7 +131,6 @@
   "author": "Ganesh B",
   "license": "MIT",
   "dependencies": {
-    "openssl-wasm": "^3.1.0",
     "openssl.js": "^1.2.0",
     "ssl-validator": "^3.0.0"
   }
