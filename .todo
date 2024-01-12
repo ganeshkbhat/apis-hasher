@@ -54,3 +54,5 @@ Adding specific encryption/ decryption functions
     crypto-js/pad-iso97971
     crypto-js/pad-zeropadding
     crypto-js/pad-nopadding
+
+    

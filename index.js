@@ -28,6 +28,8 @@ const sslvalidator = require("./src/sslvalidator.js");
 
 // const { getConstants, getSymbolsList } = require("./src/consts.js");
 const oldapis = require("./src/hasher.js");
+
+
 module.exports = {
     ...oldapis
 }
@@ -48,8 +50,8 @@ module.exports = {
 //     _genKeyPair, _encryptWithKey, _decryptWithKey, _dumpKeyFile
 // } = require("./src/hasher.js");
 
-module.exports.getConstants = getConstants;
-module.exports.getSymbolsList = getSymbolsList;
+module.exports.getConstants = consts.getConstants;
+module.exports.getSymbolsList = consts.getSymbolsList;
 
 module.exports._createSHAHash = base.createSHA;
 module.exports.createSHA = base.createSHA;
@@ -114,8 +116,8 @@ module.exports.createSignVerify = verify.createSignVerify;
 module.exports.getCiphers = consts.getCiphers;
 module.exports._getCiphers = consts.getCiphers;
 
-module.exports.getHashes = getHashes;
-module.exports._getHashes = getHashes;
+module.exports.getHashes = consts.getHashes;
+module.exports._getHashes = consts.getHashes;
 
 module.exports.getDiffieHellman = consts.getDiffieHellman;
 module.exports._getDiffieHellman = consts.getDiffieHellman;
