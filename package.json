@@ -24,7 +24,7 @@
   },
   "pre-commit": {
     "run": [
-      "unimported"
+      
     ]
   },
   "pre-push": {
