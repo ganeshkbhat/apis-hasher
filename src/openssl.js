@@ -25,7 +25,7 @@ import fs from "fs";
  * @param {*} dirPath
  * @return {*} 
  */
-const createDir = function (dirPath) {
+module.exports.createDir = function createDir(dirPath) {
   try {
     if (!fs.existsSync(dirPath)) {
       fs.mkdirSync(dirPath, { recursive: true });
@@ -46,14 +46,14 @@ const createDir = function (dirPath) {
  * @param {*} rootDir
  * @return {*} 
  */
-export async function run(command, rootDir) {
+module.exports.run = async function run(command, rootDir) {
   let created = createDir(rootDir);
   if (!created) { return false; }
   let openSSL = new OpenSSL({ fs, rootDir });
   return await openSSL.runCommand(command);
 }
 
-export const runCommand = OpenSSL.runCommand;
+module.exports.runCommand = OpenSSL.runCommand;
 
 export default {
   createDir,
