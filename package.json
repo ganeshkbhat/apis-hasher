@@ -23,9 +23,7 @@
     "publish": ""
   },
   "pre-commit": {
-    "run": [
-      
-    ]
+    "run": []
   },
   "pre-push": {
     "run": [],
