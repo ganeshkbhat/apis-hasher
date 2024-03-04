@@ -35,7 +35,7 @@ const { getConstants, getSymbolsList } = require('./consts.js')
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*}
  */
-module.exports.encrypt = function encryptContent(data, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
+function encryptContent(data, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
   const crypto = require('crypto')
 
   const hashesList = crypto.getHashes()
@@ -67,7 +67,7 @@ module.exports.encrypt = function encryptContent(data, salt, algorithm = 'aes-25
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*}
  */
-module.exports.decrypt = function decryptContent(encryptedData, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
+function decryptContent(encryptedData, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
   const crypto = require('crypto')
 
   const hashesList = crypto.getHashes()
@@ -94,7 +94,7 @@ module.exports.decrypt = function decryptContent(encryptedData, salt, algorithm 
  * @param {*} [options={ logger: console.log }]
  * @return {*}
  */
-module.exports.encryptEncodeWithCipheriv = function encryptEncodeWithCipheriv(data, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
+function encryptEncodeWithCipheriv(data, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
   const encrypted = ecrypt(data, salt, algorithm, keyAlgorithm, digest, options)
   return atob(JSON.stringify(encrypted))
 }
@@ -110,7 +110,7 @@ module.exports.encryptEncodeWithCipheriv = function encryptEncodeWithCipheriv(da
  * @param {*} [options={ logger: console.log }]
  * @return {*}
  */
-module.exports.decryptDecodeWithCipheriv = function decryptDecodeWithCipheriv(encryptedData, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
+function decryptDecodeWithCipheriv(encryptedData, salt, algorithm = 'aes-256-ctr', keyAlgorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
   const decrypted = JSON.parse(btoa(encryptedData))
   return decrypt(decrypted, salt, algorithm, keyAlgorithm, digest, options)
 }
@@ -121,7 +121,7 @@ module.exports.decryptDecodeWithCipheriv = function decryptDecodeWithCipheriv(en
  * @param {*} [options] < { [publicKey | publicKeyPath], padding, algorithm ) } >
  * @return {*}
  */
-module.exports.encryptWithKey = function encryptWithKey(data, options = {}) {
+function encryptWithKey(data, options = {}) {
   const crypto = require('crypto')
   return crypto.publicEncrypt({
     key: (options.publicKey) ? options.publicKey : (options.publicKeyPath) ? fs.readFileSync(options.publicKeyPath) : null,
@@ -139,7 +139,7 @@ module.exports.encryptWithKey = function encryptWithKey(data, options = {}) {
  * @param {*} [options] < { [privateKey | privateKeyPath], padding, algorithm ) } >
  * @return {*}
  */
-module.exports.decryptWithKey = function decryptWithKey(encryptedData, options = {}) {
+function decryptWithKey(encryptedData, options = {}) {
   const crypto = require('crypto')
   return crypto.privateDecrypt({
     key: (options.privateKey) ? options.privateKey : (options.privateKeyPath) ? fs.readFileSync(options.privateKeyPath) : null,
@@ -157,7 +157,7 @@ module.exports.decryptWithKey = function decryptWithKey(encryptedData, options =
  * @param {*} salt
  * @return {*}
  */
-module.exports.encryptWithCipheriv = function encryptCipheriv(data, salt) {
+function encryptCipheriv(data, salt) {
   const iv = getIV()
   const cipher = crypto.createCipheriv(
     ALGORITHM.BLOCK_CIPHER, key, iv,
@@ -175,7 +175,7 @@ module.exports.encryptWithCipheriv = function encryptCipheriv(data, salt) {
  * @param {*} iv
  * @return {*}
  */
-module.exports.decryptWithCipheriv = function decryptCipheriv(encryptedData, salt) {
+function decryptCipheriv(encryptedData, salt) {
   const authTag = ciphertext.slice(-16)
   const iv = ciphertext.slice(0, 12)
   const encryptedMessage = ciphertext.slice(12, -16)
@@ -248,8 +248,11 @@ class Encrypter {
   }
 }
 
-module.exports.Encrypter = Encrypter
-
+/**
+ *
+ *
+ * @class Crypter
+ */
 class Crypter {
   // 
   // Code for aes-256-gcm from 
@@ -379,20 +382,27 @@ class Crypter {
 }
 
 module.exports.AESCrypter = Crypter;
+module.exports.encrypt = encryptContent;
+module.exports.decrypt = decryptContent;
+module.exports.encryptEncodeWithCipheriv = encryptEncodeWithCipheriv;
+module.exports.decryptDecodeWithCipheriv = decryptDecodeWithCipheriv;
+module.exports.encryptWithKey = encryptWithKey;
+module.exports.decryptWithKey = decryptWithKey;
+module.exports.encryptWithCipheriv = encryptCipheriv;
+module.exports.decryptWithCipheriv = decryptCipheriv;
+module.exports.Encrypter = Encrypter;
 
 module.exports.default = {
-  encrypt,
-  decrypt,
+  encrypt: encryptContent,
+  decrypt: decryptContent,
   encryptEncodeWithCipheriv,
   decryptDecodeWithCipheriv,
+  // encryptWithCipherivJoins,
+  // decryptWithCipherivJoins,
+  encryptWithCipheriv: encryptCipheriv,
+  decryptWithCipheriv: decryptCipheriv,
   encryptWithKey,
   decryptWithKey,
   Encrypter,
-  AESCrypter: Crypter,
-  // // encryptWithCipher,
-  // // decryptWithCipher,
-  // encryptWithCipherivJoins,
-  // decryptWithCipherivJoins,
-  encryptWithCipheriv,
-  decryptWithCipheriv
+  AESCrypter: Crypter
 }
