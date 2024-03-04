@@ -131,6 +131,7 @@
   "dependencies": {
     "crypto-lite": "^21.8.0",
     "openssl.js": "^1.2.0",
+    "safecookie": "^1.0.0",
     "ssl-validator": "^3.0.0"
   }
 }
