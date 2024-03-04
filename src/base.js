@@ -23,6 +23,19 @@ const path = require('path')
 const { getConstants } = require('./consts.js')
 
 /**
+ * isBrowser
+ *
+ * @return {*} 
+ */
+function isBrowser() {
+  if (typeof process === "object" && typeof require === "function") {
+    return false;
+  }
+  if (typeof importScripts === "function") { return false; }
+  if (typeof window === "object") { return true; }
+}
+
+/**
  *
  *
  * @param {*} data
@@ -31,16 +44,13 @@ const { getConstants } = require('./consts.js')
  * @param {*} options [default: { logger: console.log }] [options: logger function]
  * @return {*}
  */
-function createSHA (data, algorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
+function createSHA(data, algorithm = 'sha256', digest = 'base64', options = { logger: console.log }) {
   const crypto = require('crypto')
   const hashesList = crypto.getHashes()
   if (!hashesList.includes(algorithm)) throw new Error('[createSHA] Hashes Algorithm not in list of included hashes ' + JSON.stringify(hashesList))
   const hash = crypto.createHash(algorithm).update(JSON.stringify(data)).digest(digest)
   return hash
 }
-
-module.exports._createSHAHash = createSHA
-module.exports.createSHA = createSHA
 
 /**
  *
@@ -54,7 +64,7 @@ module.exports.createSHA = createSHA
  * @param {*} encryptType [default: "createSign"] [options: createSign, publicEncrypt]
  * @return {*}
  */
-function createSign (data, algorithm, base, keyGenType, keyOptions, options, encryptType, padding) {
+function createSign(data, algorithm, base, keyGenType, keyOptions, options, encryptType, padding) {
   const crypto = require('crypto')
 
   algorithm = algorithm || 'sha256'
@@ -87,9 +97,6 @@ function createSign (data, algorithm, base, keyGenType, keyOptions, options, enc
   return { privateKey, publicKey, signature }
 }
 
-module.exports.createSign = createSign
-module.exports._createSign = createSign
-
 /**
  *
  *
@@ -97,14 +104,11 @@ module.exports._createSign = createSign
  * @param {*} [options={ modulusLength: 2048 }] [default: { modulusLength: 2048 }]
  * @return {*}
  */
-function genKeyPair (keyGenType = 'rsa', options = { modulusLength: 2048 }) {
+function genKeyPair(keyGenType = 'rsa', options = { modulusLength: 2048 }) {
   const crypto = require('crypto')
   const { privateKey, publicKey } = crypto.generateKeyPairSync(keyGenType, options)
   return { privateKey, publicKey }
 }
-
-module.exports._genKeyPair = genKeyPair
-module.exports.genKeyPair = genKeyPair
 
 /**
  * dumpKeyFile
@@ -114,7 +118,7 @@ module.exports.genKeyPair = genKeyPair
  * @param {string} [format="pem"]
  * @param {string} [base="hex"]
  */
-function dumpKeyFile (filename, key, format = 'pem', type = 'pkcs1', base = 'hex') {
+function dumpKeyFile(filename, key, format = 'pem', type = 'pkcs1', base = 'hex') {
   // const { privateKey, publicKey } = encrypt();
   // fs.writeFileSync("public.pem", publicKey.toString('hex')); // or console.log
   // fs.writeFileSync("private.pem", privateKey.export().toString('hex'));
@@ -127,6 +131,16 @@ function dumpKeyFile (filename, key, format = 'pem', type = 'pkcs1', base = 'hex
   fs.writeFileSync(filename, xKpem)
   return true
 }
+
+
+module.exports._createSHAHash = createSHA
+module.exports.createSHA = createSHA
+
+module.exports.createSign = createSign
+module.exports._createSign = createSign
+
+module.exports._genKeyPair = genKeyPair
+module.exports.genKeyPair = genKeyPair
 
 module.exports._dumpKeyFile = dumpKeyFile
 module.exports.dumpKeyFile = dumpKeyFile

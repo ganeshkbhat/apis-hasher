@@ -23,6 +23,20 @@ const fs = require('fs')
 const path = require('path')
 const { getConstants, getSymbolsList } = require('./consts.js')
 
+
+/**
+ * isBrowser
+ *
+ * @return {*} 
+ */
+function isBrowser() {
+  if (typeof process === "object" && typeof require === "function") {
+    return false;
+  }
+  if (typeof importScripts === "function") { return false; }
+  if (typeof window === "object") { return true; }
+}
+
 /**
  *
  * reference: https://attacomsian.com/blog/nodejs-encrypt-decrypt-data

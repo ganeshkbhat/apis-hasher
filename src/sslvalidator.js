@@ -34,8 +34,6 @@
  * isValid 
  * 
  */
-module.exports.sslvalidator = require('ssl-validator');
+module.exports.sslvalidator = { ...require('ssl-validator') };
+module.exports.default = { ...sslvalidator }
 
-module.exports.default = {
-  ...sslvalidator
-}

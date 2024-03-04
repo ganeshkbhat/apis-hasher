@@ -20,12 +20,25 @@ import { OpenSSL } from "openssl.js";
 import fs from "fs";
 
 /**
+ * isBrowser
+ *
+ * @return {*} 
+ */
+function isBrowser() {
+  if (typeof process === "object" && typeof require === "function") {
+    return false;
+  }
+  if (typeof importScripts === "function") { return false; }
+  if (typeof window === "object") { return true; }
+}
+
+/**
  *
  *
  * @param {*} dirPath
  * @return {*} 
  */
-module.exports.createDir = function createDir(dirPath) {
+function createDir(dirPath) {
   try {
     if (!fs.existsSync(dirPath)) {
       fs.mkdirSync(dirPath, { recursive: true });
@@ -46,17 +59,22 @@ module.exports.createDir = function createDir(dirPath) {
  * @param {*} rootDir
  * @return {*} 
  */
-module.exports.run = async function run(command, rootDir) {
+async function run(command, rootDir) {
   let created = createDir(rootDir);
   if (!created) { return false; }
   let openSSL = new OpenSSL({ fs, rootDir });
   return await openSSL.runCommand(command);
 }
 
-module.exports.runCommand = OpenSSL.runCommand;
 
-export default {
+
+module.exports.default = {
   createDir,
-  runCommand,
+  runCommand: OpenSSL.runCommand,
   run
 }
+
+module.exports.createDir = createDir;
+module.exports.runCommand = OpenSSL.runCommand;
+module.exports.run = run;
+module.exports.createDir = createDir;
