@@ -23,7 +23,7 @@ const crypto = require('crypto')
  * @param {*} constantname
  * @return {*}
  */
-module.exports.getConstants = function getConstants (constantname) {
+function getConstants (constantname) {
   let constanttype
 
   switch (constantname) {
@@ -231,7 +231,7 @@ module.exports.getConstants = function getConstants (constantname) {
  * @param {*} listname
  * @return {*}
  */
-module.exports.getSymbolsList = function getSymbolsList (listname) {
+function getSymbolsList (listname) {
   let list
   switch (listname) {
     case 'keyGen':
@@ -309,7 +309,7 @@ module.exports.getSymbolsList = function getSymbolsList (listname) {
  * @param {*} symbolname
  * @return {*}
  */
-module.exports.getSymbols = function getSymbols (symbolname) {
+function getSymbols (symbolname) {
   let symbols
   switch (symbolname) {
     case 'keyGen':
@@ -387,7 +387,7 @@ module.exports.getSymbols = function getSymbols (symbolname) {
  * @param {*} ciphername
  * @return {*[] | boolean}
  */
-module.exports.getCiphers = function getCiphers (ciphername) {
+function getCiphers (ciphername) {
   if (!!ciphername && require('crypto').getCiphers().map(v => v.toLowerCase()).includes(ciphername)) return true
   return require('crypto').getCiphers()
 }
@@ -398,7 +398,7 @@ module.exports.getCiphers = function getCiphers (ciphername) {
  * @param {*} hashesname
  * @return {*[] | boolean}
  */
-module.exports.getHashes = function getHashes (hashesname) {
+function getHashes (hashesname) {
   if (!!hashesname && require('crypto').getHashes().map(v => v.toLowerCase()).includes(hashesname.toLowerCase())) return true
   return require('crypto').getHashes()
 }
@@ -409,7 +409,7 @@ module.exports.getHashes = function getHashes (hashesname) {
  * @param {*} groupname
  * @return {*[] | boolean}
  */
-module.exports.getDiffieHellman = function getDiffieHellman (groupname) {
+function getDiffieHellman (groupname) {
   if (!!groupname && require('crypto').getHashes().map(v => v.toLowerCase()).includes(groupname.toLowerCase())) return true
   return require('crypto').getDiffieHellman(groupname)
 }
@@ -419,7 +419,7 @@ module.exports.getDiffieHellman = function getDiffieHellman (groupname) {
  *
  * @return {*[] | boolean}
  */
-module.exports.getFips = function getFips (fipsname) {
+function getFips (fipsname) {
   if (!!fipsname && require('crypto').getHashes().map(v => v.toLowerCase()).includes(fipsname.toLowerCase())) return true
   return require('crypto').getFips()
 }
@@ -430,7 +430,7 @@ module.exports.getFips = function getFips (fipsname) {
  * @param {*} typedArray
  * @return {*[]}
  */
-module.exports.getRandomValues = function getRandomValues (typedArray) {
+function getRandomValues (typedArray) {
   return require('crypto').getRandomValues(typedArray)
 }
 
@@ -445,3 +445,12 @@ module.exports.default = {
   getFips,
   getRandomValues
 }
+
+module.exports.getConstants = getConstants
+module.exports.getSymbolsList = getSymbolsList
+module.exports.getSymbols = getSymbols
+module.exports.getCiphers = getCiphers
+module.exports.getHashes = getHashes
+module.exports.getDiffieHellman = getDiffieHellman
+module.exports.getFips = getFips
+module.exports.getRandomValues = getRandomValues
