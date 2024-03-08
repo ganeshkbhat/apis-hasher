@@ -22,18 +22,6 @@ const fs = require('fs')
 const path = require('path')
 const { getConstants } = require('./consts.js')
 
-/**
- * isBrowser
- *
- * @return {*} 
- */
-function isBrowser() {
-  if (typeof process === "object" && typeof require === "function") {
-    return false;
-  }
-  if (typeof importScripts === "function") { return false; }
-  if (typeof window === "object") { return true; }
-}
 
 /**
  *
@@ -131,7 +119,6 @@ function dumpKeyFile(filename, key, format = 'pem', type = 'pkcs1', base = 'hex'
   fs.writeFileSync(filename, xKpem)
   return true
 }
-
 
 module.exports._createSHAHash = createSHA
 module.exports.createSHA = createSHA
